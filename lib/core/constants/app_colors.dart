@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
-  static const Color primaryColor = Color(0xFFE91E63);
-
-  static const MaterialColor primaryMaterialColor =
-      MaterialColor(0xFFE91E63, <int, Color>{
-        50: Color(0xFFFCE4EC),
-        100: Color(0xFFF8BBD0),
-        200: Color(0xFFF48FB1),
-        300: Color(0xFFF06292),
-        400: Color(0xFFEC407A),
-        500: Color(0xFFE91E63),
-        600: Color(0xFFD81B60),
-        700: Color(0xFFC2185B),
-        800: Color(0xFFAD1457),
-        900: Color(0xFF880E4F),
-      });
+  static const Color primaryColor = Color(0xFFD16FFF); // Vibrant pink-magenta
+  static const MaterialColor primaryMaterialColor = MaterialColor(
+    0xFFD16FFF,
+    <int, Color>{
+      50: Color(0xFFF4E6FF), // very light lavender
+      100: Color(0xFFE6CCFF), // soft pastel purple
+      200: Color(0xFFD9B3FF), // light orchid
+      300: Color(0xFFCC99FF), // medium lavender
+      400: Color(0xFFBF80FF), // vibrant lilac
+      500: Color(0xFFD16FFF), // primary pinkish-purple
+      600: Color(0xFFB85FE6), // slightly deeper tone
+      700: Color(0xFF9E4FCC), // rich purple
+      800: Color(0xFF843FB3), // deep violet
+      900: Color(0xFF6A2F99), // bold plum
+    },
+  );
 
   static const Color blackColor = Color(0xFF16161E);
   static const Color blackColor80 = Color(0xFF45454B);
@@ -38,7 +39,7 @@ class AppColors {
   static const Color lightGreyColor = Color(0xFFF8F8F9);
   static const Color darkGreyColor = Color(0xFF1C1C25);
 
-  static const Color pinkColor = Color(0xFFE91E63);
+  static const Color pinkMegentaColor = Color(0xFFD16FFF);
   static const Color successColor = Color(0xFF2ED573);
   static const Color warningColor = Color(0xFFFFBE21);
   static const Color errorColor = Color(0xFFEA5B5B);
