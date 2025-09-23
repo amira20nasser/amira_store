@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'core/utils/theme/app_theme.dart';
+
 void main() {
   runApp(const AmiraStore());
 }
@@ -10,9 +12,8 @@ class AmiraStore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme(context),
     );
   }
 }
