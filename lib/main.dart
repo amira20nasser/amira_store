@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'core/utils/app_router.dart';
 import 'core/utils/theme/app_theme.dart';
 
 void main() {
@@ -11,9 +12,10 @@ class AmiraStore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme(context),
+      routerConfig: AppRouter.router,
     );
   }
 }

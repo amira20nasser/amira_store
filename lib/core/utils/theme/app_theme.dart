@@ -1,7 +1,7 @@
-import 'package:amira_store/core/utils/app_widgets_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
+import 'app_widgets_theme.dart';
 
 class AppTheme {
   static const _kFontFamily = "Plus Jakarta";
@@ -14,9 +14,10 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.white,
       iconTheme: const IconThemeData(color: AppColors.blackColor),
       textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: AppColors.blackColor40),
+        bodyMedium: TextStyle(color: AppColors.blackColor60),
       ),
       elevatedButtonTheme: AppWidgetTheme.elevatedButtonThemeData,
+      iconButtonTheme: AppWidgetTheme.iconButtonThemeData,
       textButtonTheme: AppWidgetTheme.textButtonThemeData,
       outlinedButtonTheme: AppWidgetTheme.outlinedButtonTheme(),
       inputDecorationTheme: AppWidgetTheme.lightInputDecorationTheme,

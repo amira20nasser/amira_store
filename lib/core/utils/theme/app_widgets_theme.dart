@@ -1,7 +1,7 @@
-import 'package:amira_store/core/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/app_colors.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_sizes.dart';
 
 abstract class AppWidgetTheme {
   static const InputDecorationTheme lightInputDecorationTheme =
@@ -84,6 +84,13 @@ abstract class AppWidgetTheme {
           ),
         ),
       );
+  static final IconButtonThemeData iconButtonThemeData = IconButtonThemeData(
+    style: IconButton.styleFrom(
+      padding: const EdgeInsets.all(AppSizes.defaultPadding),
+      backgroundColor: AppColors.primaryColor,
+      foregroundColor: Colors.white,
+    ),
+  );
   static final textButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(foregroundColor: AppColors.primaryColor),
   );
