@@ -8,6 +8,9 @@ abstract class AppWidgetTheme {
       InputDecorationTheme(
         fillColor: AppColors.lightGreyColor,
         filled: true,
+        prefixIconColor: AppColors.greyColor,
+        suffixIconColor: AppColors.greyColor,
+
         hintStyle: TextStyle(color: AppColors.greyColor),
         border: outlineInputBorder,
         enabledBorder: outlineInputBorder,

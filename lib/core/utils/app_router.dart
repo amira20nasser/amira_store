@@ -1,3 +1,4 @@
+import 'package:amira_store/features/auth/presentation/views/log_in_view.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/on_boarding/domain/entities/on_boarding_entity.dart';
@@ -9,12 +10,34 @@ abstract class AppRouter {
     initialLocation: ConstantRoutes.onBordingViewRoute,
     routes: [
       GoRoute(
+        name: ConstantRoutes.onBordingViewRoute,
+
         path: ConstantRoutes.onBordingViewRoute,
         builder: (context, state) =>
             OnBordingView(onBoardingItems: OnBoardingEntity.getItems),
       ),
+      GoRoute(
+        name: ConstantRoutes.logInViewRoute,
+        path: ConstantRoutes.logInViewRoute,
+        builder: (context, state) => LogInView(),
+      ),
+
+      // GoRoute(
+      //   path: ConstantRoutes.authViewRoute,
+      //   builder: (context, state) => AuthView(),
+      //   routes: [
+      //     GoRoute(
+      //       path: ConstantRoutes.logInViewRoute,
+      //       builder: (context, state) => LogInView(),
+      //     ),
+      //     GoRoute(
+      //       path: ConstantRoutes.signUpViewRoute,
+      //       builder: (context, state) => SignUpView(),
+      //     ),
+      //   ],
+      // ),
     ],
-    errorBuilder: (context, state) =>
-        OnBordingView(onBoardingItems: OnBoardingEntity.getItems),
+    // errorBuilder: (context, state) =>
+    //     OnBordingView(onBoardingItems: OnBoardingEntity.getItems),
   );
 }

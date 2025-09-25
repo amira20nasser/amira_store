@@ -13,6 +13,7 @@ class AppTheme {
       primaryColor: AppColors.primaryColor,
       scaffoldBackgroundColor: Colors.white,
       iconTheme: const IconThemeData(color: AppColors.blackColor),
+
       textTheme: const TextTheme(
         bodyMedium: TextStyle(color: AppColors.blackColor60),
       ),

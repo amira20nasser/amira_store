@@ -94,7 +94,7 @@ class _OnBordingViewState extends State<OnBordingView> {
                       } else {
                         GoRouter.of(
                           context,
-                        ).pushNamed(ConstantRoutes.logInViewRoute);
+                        ).pushReplacementNamed(ConstantRoutes.logInViewRoute);
                       }
                     },
                     icon: Icon(Icons.arrow_forward_rounded),
