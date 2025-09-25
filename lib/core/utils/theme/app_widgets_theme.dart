@@ -6,6 +6,7 @@ import '../../constants/app_sizes.dart';
 abstract class AppWidgetTheme {
   static const InputDecorationTheme lightInputDecorationTheme =
       InputDecorationTheme(
+        errorStyle: TextStyle(color: AppColors.errorColor),
         fillColor: AppColors.lightGreyColor,
         filled: true,
         prefixIconColor: AppColors.greyColor,
