@@ -1,19 +1,21 @@
-import 'package:amira_store/features/auth/presentation/views/log_in_view.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/views/log_in_view.dart';
 import '../../features/auth/presentation/views/sign_up_view.dart';
 import '../../features/on_boarding/domain/entities/on_boarding_entity.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 import '../constants/app_routes.dart';
+import '../constants/shared_pref_keys.dart';
+import '../services/shared_preferences_service.dart';
 
 abstract class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: ConstantRoutes.onBordingViewRoute,
+    initialLocation: ConstantRoutes.onBoardingViewRoute,
     routes: [
       GoRoute(
-        name: ConstantRoutes.onBordingViewRoute,
+        name: ConstantRoutes.onBoardingViewRoute,
 
-        path: ConstantRoutes.onBordingViewRoute,
+        path: ConstantRoutes.onBoardingViewRoute,
         builder: (context, state) =>
             OnBordingView(onBoardingItems: OnBoardingEntity.getItems),
       ),
@@ -27,7 +29,18 @@ abstract class AppRouter {
         builder: (context, state) => SignUpView(),
       ),
     ],
-    // errorBuilder: (context, state) =>
-    //     OnBordingView(onBoardingItems: OnBoardingEntity.getItems),
+    redirect: (context, state) {
+      final prefs = SharedPreferencesService();
+      final seenOnboarding = prefs.getBool(SharedPrefKeys.onboardingSeen);
+      if (!seenOnboarding &&
+          !state.fullPath!.contains(ConstantRoutes.onBoardingViewRoute)) {
+        return ConstantRoutes.onBoardingViewRoute;
+      } else if (seenOnboarding &&
+          state.fullPath!.contains(ConstantRoutes.onBoardingViewRoute)) {
+        return ConstantRoutes.logInViewRoute;
+      }
+
+      return null;
+    },
   );
 }

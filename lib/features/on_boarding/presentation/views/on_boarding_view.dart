@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/constants/shared_pref_keys.dart';
+import '../../../../core/services/shared_preferences_service.dart';
 import '../../../../core/widgets/dot_indicator.dart';
 import '../../domain/entities/on_boarding_entity.dart';
 import '../widgets/on_boarding_content.dart';
@@ -85,16 +87,21 @@ class _OnBordingViewState extends State<OnBordingView> {
                   ),
                   const Spacer(),
                   IconButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_pageIndex < widget.onBoardingItems.length - 1) {
                         _pageController.nextPage(
                           curve: Curves.ease,
                           duration: AppSizes.defaultDuration,
                         );
                       } else {
-                        GoRouter.of(
-                          context,
-                        ).pushReplacementNamed(ConstantRoutes.logInViewRoute);
+                        var router = GoRouter.of(context);
+                        final prefs = SharedPreferencesService();
+                        await prefs.setBool(
+                          SharedPrefKeys.onboardingSeen,
+                          true,
+                        );
+
+                        router.pushReplacement(ConstantRoutes.logInViewRoute);
                       }
                     },
                     icon: Icon(Icons.arrow_forward_rounded),
