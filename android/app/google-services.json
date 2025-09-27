@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "44063603441",
+    "project_id": "amira-store-6bb3d",
+    "storage_bucket": "amira-store-6bb3d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44063603441:android:1e0b933b2c786cef5fc750",
+        "android_client_info": {
+          "package_name": "com.example.amira_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44063603441-bea6jn0g1r39truv8gma3e5up5bhgpgg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.amira_store",
+            "certificate_hash": "005b538ec55e8597841ff1c72edd21e68a3930db"
+          }
+        },
+        {
+          "client_id": "44063603441-b7jh8jo35e1fl2i91uojhsieuj1gaqb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLYyBo-OHfSJU3Q9FvIu1H9sni7pTkaGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44063603441-b7jh8jo35e1fl2i91uojhsieuj1gaqb3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "44063603441-vfb4tm05okoi3angdkrg3qsrscj8ugnu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.amiraStore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

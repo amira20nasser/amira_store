@@ -38,6 +38,9 @@ dependencies:
   go_router: ^16.2.4
   font_awesome_flutter: ^10.10.0
 
+  # Firebase
+  firebase_core: ^4.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -51,12 +54,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
-flutter_icons:
-  includes:
-    -ant 
-    -mco
 
 flutter_assets:
     assets_path: assets/images/
@@ -85,25 +82,25 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Plus Jakarta
-  #     fonts:
-  #       - asset: assets/fonts/plus_jakarta/PlusJakartaDisplay-Regular.otf
-  #       - asset: assets/fonts/plus_jakarta/PlusJakartaDisplay-Medium.otf
-  #         weight: 500
-  #       - asset: assets/fonts/plus_jakarta/PlusJakartaDisplay-Bold.otf
-  #         weight: 700
-  #   - family: Grandis Extended
-  #     fonts:
-  #       - asset: assets/fonts/grandis_extended/GrandisExtended-Regular.ttf
-  #       - asset: assets/fonts/grandis_extended/GrandisExtended-Thin.ttf
-  #         weight: 300
-  #       - asset: assets/fonts/grandis_extended/GrandisExtended-Medium.ttf
-  #         weight: 500
-  #       - asset: assets/fonts/grandis_extended/GrandisExtended-Bold.ttf
-  #         weight: 700
-  #       - asset: assets/fonts/grandis_extended/GrandisExtended-Black.ttf
-  #         weight: 900
+  fonts:
+    - family: Plus Jakarta
+      fonts:
+        - asset: assets/fonts/plus_jakarta/PlusJakartaDisplay-Regular.otf
+        - asset: assets/fonts/plus_jakarta/PlusJakartaDisplay-Medium.otf
+          weight: 500
+        - asset: assets/fonts/plus_jakarta/PlusJakartaDisplay-Bold.otf
+          weight: 700
+    - family: Grandis Extended
+      fonts:
+        - asset: assets/fonts/grandis_extended/GrandisExtended-Regular.ttf
+        - asset: assets/fonts/grandis_extended/GrandisExtended-Thin.ttf
+          weight: 300
+        - asset: assets/fonts/grandis_extended/GrandisExtended-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/grandis_extended/GrandisExtended-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/grandis_extended/GrandisExtended-Black.ttf
+          weight: 900
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
