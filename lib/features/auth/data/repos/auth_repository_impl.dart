@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/error/failure.dart';
+import '../../../../core/utils/logging/logger_helper.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repos/auth_repo.dart';
 import '../data_sources/firebase_auth_datasource.dart';
@@ -24,7 +25,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure("Unexpected error: Please try again later"));
     }
   }
 
@@ -47,7 +48,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure("Unexpected error: Please try again later"));
     }
   }
 
@@ -59,7 +60,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return left(ServerFailure("Unexpected error: Please try again later"));
     }
   }
 
@@ -72,7 +73,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       yield left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      yield left(ServerFailure(e.toString()));
+      yield left(ServerFailure("Unexpected error: Please try again later"));
     }
   }
 
@@ -87,7 +88,8 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      LoggerHelper.error(e.toString());
+      return left(ServerFailure("Unexpected error: Please try again later"));
     }
   }
 
@@ -102,7 +104,8 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      LoggerHelper.error(e.toString());
+      return left(ServerFailure("Unexpected error: Please try again later"));
     }
   }
 }

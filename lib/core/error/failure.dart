@@ -94,7 +94,7 @@ class FirebaseAuthFailure extends Failure {
         );
       case 'invalid-credential':
         return FirebaseAuthFailure(
-          'The supplied credential is malformed or has expired.',
+          'The supplied credential is malformed or has expired. try signing in using google',
         );
       case 'user-token-revoked':
         return FirebaseAuthFailure(

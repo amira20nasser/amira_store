@@ -1,26 +1,26 @@
 import 'package:amira_store/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/bloc_observer.dart';
 import 'core/di/service_locator.dart';
 import 'core/services/shared_preferences_service.dart';
 
 import 'core/utils/app_router.dart';
-import 'core/utils/logging/logger_helper.dart';
 import 'core/utils/theme/app_theme.dart';
 
 Future<void> main() async {
-  // DI
-  ServiceLocator.init();
   //DONE: add Widgets Binding
   WidgetsFlutterBinding.ensureInitialized();
+  // DI
+  ServiceLocator.init();
+  //
+  Bloc.observer = SimpleBlocObserver();
   //Done: Init local Storage
   await SharedPreferencesService.init();
-
   //DONE: Initialize firebase
-  var x = await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  LoggerHelper.debug(x.toString());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const AmiraStore());
 }
 

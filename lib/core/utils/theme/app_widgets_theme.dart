@@ -23,7 +23,7 @@ abstract class AppWidgetTheme {
       InputDecorationTheme(
         fillColor: AppColors.darkGreyColor,
         filled: true,
-        hintStyle: TextStyle(color: AppColors.whileColor40),
+        hintStyle: TextStyle(color: AppColors.whiteColor40),
         border: outlineInputBorder,
         enabledBorder: outlineInputBorder,
         focusedBorder: focusedOutlineInputBorder,
@@ -169,6 +169,19 @@ abstract class AppWidgetTheme {
       fontWeight: FontWeight.w500,
       color: Colors.white,
       fontSize: 12,
+    ),
+  );
+
+  static DialogThemeData lightDialogThemeData = DialogThemeData(
+    backgroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(16)),
+    ),
+  );
+  static DialogThemeData darkDialogThemeData = DialogThemeData(
+    backgroundColor: AppColors.darkGreyColor,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(16)),
     ),
   );
 }

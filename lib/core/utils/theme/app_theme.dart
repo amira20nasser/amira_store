@@ -7,6 +7,9 @@ class AppTheme {
   static const _kFontFamily = "Plus Jakarta";
   static ThemeData lightTheme(BuildContext context) {
     return ThemeData(
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: AppColors.primaryColor,
+      ),
       brightness: Brightness.light,
       fontFamily: _kFontFamily,
       primarySwatch: AppColors.primaryMaterialColor,
@@ -28,6 +31,7 @@ class AppTheme {
       appBarTheme: AppWidgetTheme.appBarDarkTheme,
       scrollbarTheme: AppWidgetTheme.scrollbarThemeData,
       dataTableTheme: AppWidgetTheme.dataTableLightThemeData,
+      dialogTheme: AppWidgetTheme.lightDialogThemeData,
     );
   }
 }

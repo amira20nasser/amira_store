@@ -3,4 +3,5 @@ abstract class ConstantRoutes {
   static const String authViewRoute = "auth";
   static const String logInViewRoute = "/login";
   static const String signUpViewRoute = "/signup";
+  static const String homeViewRoute = "/home";
 }

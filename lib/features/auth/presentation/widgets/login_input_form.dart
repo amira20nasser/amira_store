@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../domain/usecases/email_validator_usecase.dart';
+import '../manager/auth_cubit.dart';
 import 'google_facebook_in_row.dart';
 import 'row_or_divider.dart';
 import 'text_form_field_text_title.dart';
@@ -24,17 +27,6 @@ class _LogInInputFormState extends State<LogInInputForm> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-  }
-
-  void _submit() {
-    // TODO: LOGIN PRESSING BUTTON
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Logged in Successfully ✅")));
-    }
   }
 
   @override
@@ -74,7 +66,29 @@ class _LogInInputFormState extends State<LogInInputForm> {
             ),
           ),
           SizedBox(height: AppSizes.defaultPadding),
-          ElevatedButton(onPressed: _submit, child: Text("Log In")),
+          Visibility(
+            visible: context.watch<AuthCubit>().state is AuthLoading,
+            replacement: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                  context.read<AuthCubit>().signIn(
+                    _emailController.text.trim(),
+                    _passwordController.text.trim(),
+                  );
+                }
+              },
+              child: Text("Log In"),
+            ),
+            child: ElevatedButton(
+              onPressed: null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.whiteColor40,
+                foregroundColor: Colors.white,
+              ),
+              child: CircularProgressIndicator(),
+            ),
+          ),
           SizedBox(height: AppSizes.defaultPadding),
 
           RowOrDivider(),
