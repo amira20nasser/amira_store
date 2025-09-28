@@ -1,0 +1,39 @@
+import 'package:amira_store/core/services/firebase_service.dart';
+import 'package:get_it/get_it.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../features/auth/data/data_sources/firebase_auth_datasource.dart';
+import '../../features/auth/data/repos/auth_repository_impl.dart';
+import '../../features/auth/domain/repos/auth_repo.dart';
+import '../../features/auth/domain/usecases/sign_in_usecase.dart';
+import '../../features/auth/domain/usecases/sign_up_usecase.dart';
+import '../services/firestore_service.dart';
+
+class ServiceLocator {
+  static final GetIt _sl = GetIt.instance;
+
+  static Future<void> init() async {
+    //! Core Services
+    _sl.registerLazySingleton<FirebaseAuthService>(() => FirebaseAuthService());
+    _sl.registerLazySingleton<FirestoreService>(() => FirestoreService());
+
+    //! Data Sources
+    _sl.registerLazySingleton<FirebaseAuthDataSource>(
+      () => FirebaseAuthDataSource(
+        authService: _sl.get<FirebaseAuthService>(),
+        firestoreService: _sl.get<FirestoreService>(),
+      ),
+    );
+
+    //! Repositories
+    _sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(_sl<FirebaseAuthDataSource>()),
+    );
+
+    //! Use Cases
+    _sl.registerLazySingleton(() => SignInUsecase(_sl<AuthRepository>()));
+    _sl.registerLazySingleton(() => SignUpUsecase(_sl<AuthRepository>()));
+  }
+
+  static T get<T extends Object>() => _sl<T>();
+}
