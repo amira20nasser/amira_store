@@ -4,6 +4,8 @@ import '../../../../core/utils/logging/logger_helper.dart';
 import '../../domain/entities/user_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/user_model.dart';
+
 class FirebaseAuthDataSource {
   final FirebaseAuthService authService;
   final FirestoreService firestoreService;
@@ -17,20 +19,20 @@ class FirebaseAuthDataSource {
     if (user == null) return null;
 
     final doc = await _getUserProfile(user.uid);
+    UserModel? userModel;
+
     if (!doc.exists) {
       LoggerHelper.debug("User document does not exist. Creating a new one.");
-      await _createOrUpdateUser(
-        user.uid,
-        user.displayName ?? "default name",
-        user.email!,
+      userModel = UserModel(
+        uid: user.uid,
+        email: user.email!,
+        name: user.displayName ?? "default name",
       );
+      await _createOrUpdateUser(userModel);
+    } else if (doc.data() != null) {
+      userModel = UserModel.fromFirebase(doc.data()!);
     }
-
-    return UserEntity(
-      uid: user.uid,
-      email: user.email!,
-      name: user.displayName ?? "default name",
-    );
+    return userModel;
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> _getUserProfile(String uid) {
@@ -45,25 +47,22 @@ class FirebaseAuthDataSource {
     final cred = await authService.signUp(email, password);
     final user = cred.user;
     if (user == null) return null;
-    await _createOrUpdateUser(user.uid, username, email);
-    await user.updateDisplayName(username);
-    await user.reload();
-    return UserEntity(
+    final userModel = UserModel(
       uid: user.uid,
       email: user.email!,
-      name: user.displayName!,
+      name: username,
     );
+    await _createOrUpdateUser(userModel);
+    await user.updateDisplayName(username);
+    await user.reload();
+    return userModel;
   }
 
-  Future<void> _createOrUpdateUser(String uid, String username, String email) {
+  Future<void> _createOrUpdateUser(UserModel userModel) {
     return firestoreService.setDocument(
       collectionPath: "users",
-      docId: uid,
-      data: {
-        "username": username,
-        "email": email,
-        "createdAt": DateTime.now().toIso8601String(),
-      },
+      docId: userModel.uid,
+      data: userModel.toMap(),
       merge: true,
     );
   }
@@ -74,19 +73,22 @@ class FirebaseAuthDataSource {
     if (user == null) return null;
 
     final doc = await _getUserProfile(user.uid);
+    UserModel? userModel;
 
     if (!doc.exists) {
-      await _createOrUpdateUser(
-        user.uid,
-        user.displayName ?? "default name",
-        user.email!,
+      LoggerHelper.debug("User document does not exist. Creating a new one.");
+      userModel = UserModel(
+        uid: user.uid,
+        email: user.email!,
+        name: user.displayName ?? "default name",
       );
+      await _createOrUpdateUser(userModel);
+    } else if (doc.data() != null) {
+      LoggerHelper.debug("User document exists. Fetching data..");
+
+      userModel = UserModel.fromFirebase(doc.data()!);
     }
-    return UserEntity(
-      uid: user.uid,
-      email: user.email!,
-      name: user.displayName ?? "default name",
-    );
+    return userModel;
   }
 
   Future<UserEntity?> signInWithFacebookUser() async {
@@ -96,19 +98,22 @@ class FirebaseAuthDataSource {
     if (user == null) return null;
 
     final doc = await _getUserProfile(user.uid);
+    UserModel? userModel;
 
     if (!doc.exists) {
-      await _createOrUpdateUser(
-        user.uid,
-        user.displayName ?? "default name",
-        user.email!,
+      LoggerHelper.debug("User document does not exist. Creating a new one.");
+      userModel = UserModel(
+        uid: user.uid,
+        email: user.email!,
+        name: user.displayName ?? "default name",
       );
+      await _createOrUpdateUser(userModel);
+    } else if (doc.data() != null) {
+      LoggerHelper.debug("User document exists. Fetching data..");
+
+      userModel = UserModel.fromFirebase(doc.data()!);
     }
-    return UserEntity(
-      uid: user.uid,
-      email: user.email!,
-      name: user.displayName ?? "default name",
-    );
+    return userModel;
   }
 
   Future<void> signOut() async => authService.signOut();
