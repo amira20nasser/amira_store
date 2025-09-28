@@ -30,11 +30,16 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, UserEntity>> signUp(
+    String username,
     String email,
     String password,
   ) async {
     try {
-      final user = await dataSource.signUpUser(email, password);
+      final user = await dataSource.signUpUser(
+        username: username,
+        email: email,
+        password: password,
+      );
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign up failed"));
       }
@@ -68,6 +73,36 @@ class AuthRepositoryImpl implements AuthRepository {
       yield left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
       yield left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
+    try {
+      final user = await dataSource.signInWithFacebookUser();
+      if (user == null) {
+        return left(const FirebaseAuthFailure("Sign in failed"));
+      }
+      return right(user);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseAuthFailure.fromCode(e.code));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+    try {
+      final user = await dataSource.signInWithGoogleUser();
+      if (user == null) {
+        return left(const FirebaseAuthFailure("Sign in failed"));
+      }
+      return right(user);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseAuthFailure.fromCode(e.code));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
     }
   }
 }

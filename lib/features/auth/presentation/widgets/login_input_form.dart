@@ -1,10 +1,10 @@
-import 'package:amira_store/features/auth/domain/usecases/email_validator_usecase.dart';
-import 'package:amira_store/features/auth/presentation/widgets/google_facebook_in_row.dart';
-import 'package:amira_store/features/auth/presentation/widgets/row_or_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/constants/app_sizes.dart';
+import '../../domain/usecases/email_validator_usecase.dart';
+import 'google_facebook_in_row.dart';
+import 'row_or_divider.dart';
 import 'text_form_field_text_title.dart';
 
 class LogInInputForm extends StatefulWidget {
@@ -46,9 +46,9 @@ class _LogInInputFormState extends State<LogInInputForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormFieldWithTextTitle(
-            textTitle: "Email or Phone Number",
+            textTitle: "Email",
             controller: _emailController,
-            hintText: "Enter your email or phone number",
+            hintText: "Enter your email",
             icon: FontAwesomeIcons.envelope,
             keyBoardType: TextInputType.emailAddress,
             validator: _emailValidator.call,

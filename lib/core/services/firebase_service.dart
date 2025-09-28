@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class FirebaseService {
-  static final FirebaseService _instance = FirebaseService._internal();
-  factory FirebaseService() => _instance;
-  FirebaseService._internal();
+class FirebaseAuthService {
+  static final FirebaseAuthService _instance = FirebaseAuthService._internal();
+  factory FirebaseAuthService() => _instance;
+  FirebaseAuthService._internal();
 
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
