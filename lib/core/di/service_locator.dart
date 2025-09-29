@@ -1,6 +1,7 @@
 import 'package:amira_store/features/auth/domain/usecases/signin_google_usecase.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/auth/data/data_sources/firebase_auth_datasource.dart';
+import '../../features/auth/data/data_sources/firestore_datasource.dart';
 import '../../features/auth/data/repos/auth_repository_impl.dart';
 import '../../features/auth/domain/repos/auth_repo.dart';
 import '../../features/auth/domain/usecases/sign_in_usecase.dart';
@@ -19,15 +20,18 @@ class ServiceLocator {
 
     //! Data Sources
     _sl.registerLazySingleton<FirebaseAuthDataSource>(
-      () => FirebaseAuthDataSource(
-        authService: _sl.get<FirebaseAuthService>(),
-        firestoreService: _sl.get<FirestoreService>(),
-      ),
+      () => FirebaseAuthDataSource(authService: _sl.get<FirebaseAuthService>()),
+    );
+    _sl.registerLazySingleton<FirestoreDataSource>(
+      () => FirestoreDataSource(firestoreService: _sl.get<FirestoreService>()),
     );
 
     //! Repositories
     _sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(_sl<FirebaseAuthDataSource>()),
+      () => AuthRepositoryImpl(
+        _sl<FirebaseAuthDataSource>(),
+        _sl<FirestoreDataSource>(),
+      ),
     );
 
     //! Use Cases

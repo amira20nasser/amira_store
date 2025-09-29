@@ -1,15 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../../../core/di/service_locator.dart';
 import '../../../../core/error/failure.dart';
+import '../../../../core/services/firebase_service.dart';
 import '../../../../core/utils/logging/logger_helper.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repos/auth_repo.dart';
 import '../data_sources/firebase_auth_datasource.dart';
+import '../data_sources/firestore_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final FirebaseAuthDataSource dataSource;
+  final FirebaseAuthDataSource authSource;
+  final FirestoreDataSource storeSource;
 
-  AuthRepositoryImpl(this.dataSource);
+  AuthRepositoryImpl(this.authSource, this.storeSource);
 
   @override
   Future<Either<Failure, UserEntity>> signIn(
@@ -17,10 +21,14 @@ class AuthRepositoryImpl implements AuthRepository {
     String password,
   ) async {
     try {
-      final user = await dataSource.signInUser(email, password);
+      final user = await authSource.signInUser(email, password);
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
+      // create or update user in firestore
+      await storeSource.createOrUpdateUser(
+        ServiceLocator.get<FirebaseAuthService>().currentUser!,
+      );
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -36,7 +44,7 @@ class AuthRepositoryImpl implements AuthRepository {
     String password,
   ) async {
     try {
-      final user = await dataSource.signUpUser(
+      final user = await authSource.signUpUser(
         username: username,
         email: email,
         password: password,
@@ -44,6 +52,10 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign up failed"));
       }
+      // create or update user in firestore
+      await storeSource.createOrUpdateUser(
+        ServiceLocator.get<FirebaseAuthService>().currentUser!,
+      );
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -55,7 +67,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> signOut() async {
     try {
-      await dataSource.signOut();
+      await authSource.signOut();
       return right(null);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -67,7 +79,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Stream<Either<Failure, UserEntity?>> get userStream async* {
     try {
-      await for (final user in dataSource.userStream) {
+      await for (final user in authSource.userStream) {
         yield right(user);
       }
     } on FirebaseAuthException catch (e) {
@@ -80,10 +92,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, UserEntity>> signInWithFacebook() async {
     try {
-      final user = await dataSource.signInWithFacebookUser();
+      final user = await authSource.signInWithFacebookUser();
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
+      await storeSource.createOrUpdateUser(
+        ServiceLocator.get<FirebaseAuthService>().currentUser!,
+      );
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -96,10 +111,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     try {
-      final user = await dataSource.signInWithGoogleUser();
+      final user = await authSource.signInWithGoogleUser();
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
+      await storeSource.createOrUpdateUser(
+        ServiceLocator.get<FirebaseAuthService>().currentUser!,
+      );
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -108,4 +126,10 @@ class AuthRepositoryImpl implements AuthRepository {
       return left(ServerFailure("Unexpected error: Please try again later"));
     }
   }
+
+  // @override
+  // Future<Either<Failure, void>> verifyPhoneNumber(String phoneNumber) {
+  //   // TODO: implement verifyPhoneNumber
+  //   throw UnimplementedError();
+  // }
 }
