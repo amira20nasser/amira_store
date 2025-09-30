@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_sizes.dart';
 import '../manager/auth_cubit.dart';
 
 class GoogleFacebookInRow extends StatelessWidget {
@@ -14,23 +13,51 @@ class GoogleFacebookInRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Visibility(
-          visible: context.watch<AuthCubit>().state is AuthLoading,
-          replacement: IconButton(
-            onPressed: () {
-              context.read<AuthCubit>().signInWithGoogle();
-            },
-            icon: Icon(FontAwesomeIcons.google),
-          ),
-          child: IconButton(
-            onPressed: null,
-            style: IconButton.styleFrom(
-              backgroundColor: AppColors.whiteColor40,
+        Spacer(flex: 3),
+        Expanded(
+          flex: 2,
+          child: Visibility(
+            visible: context.watch<AuthCubit>().state is AuthLoading,
+            replacement: ElevatedButton(
+              onPressed: () {
+                context.read<AuthCubit>().signInWithGoogle();
+              },
+              style: ElevatedButton.styleFrom(shape: CircleBorder()),
+
+              child: Icon(FontAwesomeIcons.google),
             ),
-            icon: Icon(FontAwesomeIcons.google),
+            child: ElevatedButton(
+              onPressed: null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.whiteColor40,
+                shape: CircleBorder(),
+              ),
+              child: Icon(FontAwesomeIcons.google),
+            ),
           ),
         ),
-        SizedBox(width: AppSizes.defaultPadding),
+        // Expanded(
+        //   flex: 2,
+        //   child: Visibility(
+        //     visible: context.watch<AuthCubit>().state is AuthLoading,
+        //     replacement: ElevatedButton(
+        //       onPressed: () {
+        //         context.read<AuthCubit>().signInWithFacebook();
+        //       },
+        //       style: ElevatedButton.styleFrom(shape: CircleBorder()),
+        //       child: Icon(FontAwesomeIcons.facebookF),
+        //     ),
+        //     child: ElevatedButton(
+        //       onPressed: null,
+        //       style: ElevatedButton.styleFrom(
+        //         backgroundColor: AppColors.whiteColor40,
+        //         shape: CircleBorder(),
+        //       ),
+        //       child: Icon(FontAwesomeIcons.facebookF),
+        //     ),
+        //   ),
+        // ),
+        Spacer(flex: 3),
 
         // TODO: enable facebook sign in later
         // Visibility(

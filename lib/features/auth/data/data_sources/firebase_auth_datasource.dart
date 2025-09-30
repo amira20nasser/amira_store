@@ -61,51 +61,38 @@ class FirebaseAuthDataSource {
     );
   }
 
-  // Future<void> verifyPhoneNumber({
-  //   required String phoneNumber,
-  //   required void Function(PhoneAuthCredential) onVerificationCompleted,
-  //   required void Function(FirebaseAuthException) onVerificationFailed,
-  //   required void Function(String verificationId, int? resendToken) onCodeSent,
-  //   required void Function(String verificationId) onCodeAutoRetrievalTimeout,
-  // }) async {
-  //   await authService.signInWithPhone(
-  //     phoneNumber: phoneNumber,
-  //     onVerificationCompleted: onVerificationCompleted,
-  //     onVerificationFailed: onVerificationFailed,
-  //     onCodeSent: onCodeSent,
-  //     onCodeAutoRetrievalTimeout: (_) {},
-  //   );
-  // }
+  Future<void> verifyPhoneNumber({
+    required String phoneNumber,
+    required void Function(PhoneAuthCredential) onVerificationCompleted,
+    required void Function(FirebaseAuthException) onVerificationFailed,
+    required void Function(String verificationId, int? resendToken) onCodeSent,
+    required void Function(String verificationId) onCodeAutoRetrievalTimeout,
+  }) async {
+    await authService.signInWithPhone(
+      phoneNumber: phoneNumber,
+      onVerificationCompleted: onVerificationCompleted,
+      onVerificationFailed: onVerificationFailed,
+      onCodeSent: onCodeSent,
+      onCodeAutoRetrievalTimeout: onCodeAutoRetrievalTimeout,
+    );
+  }
 
-  // Future<UserEntity?> verifySmsCode({
-  //   required String verificationId,
-  //   required String smsCode,
-  // }) async {
-  //   final userCred = await authService.verifySmsCode(
-  //     verificationId: verificationId,
-  //     smsCode: smsCode,
-  //   );
-  //   final user = userCred.user;
-  //   if (user == null) return null;
-  //   final doc = await _getUserProfile(user.uid);
-  //   UserModel? userModel;
-
-  //   if (!doc.exists) {
-  //     LoggerHelper.debug("User document does not exist. Creating a new one.");
-  //     userModel = UserModel(
-  //       uid: user.uid,
-  //       email: user.email!,
-  //       name: user.displayName ?? "default name",
-  //       phoneNumber: user.phoneNumber,
-  //     );
-  //     await _createOrUpdateUser(userModel);
-  //   } else if (doc.data() != null) {
-  //     LoggerHelper.debug("User document exists. Fetching data..");
-
-  //     userModel = UserModel.fromFirebase(doc.data()!);
-  //   }
-  //   return userModel;
-  // }
+  Future<UserEntity?> verifySmsCode({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    final userCred = await authService.verifySmsCode(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
+    final user = userCred.user;
+    if (user == null) return null;
+    return UserEntity(
+      uid: user.uid,
+      email: user.email ?? '',
+      name: user.displayName ?? "default name",
+    );
+  }
 
   Future<void> signOut() async => authService.signOut();
 
