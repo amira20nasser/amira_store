@@ -52,15 +52,16 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign up failed"));
       }
-      // create or update user in firestore
-      await storeSource.createOrUpdateUser(
-        ServiceLocator.get<FirebaseAuthService>().currentUser!,
-      );
+      // // create or update user in firestore
+      // await storeSource.createOrUpdateUser(
+      //   ServiceLocator.get<FirebaseAuthService>().currentUser!,
+      // );
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure("Unexpected error: Please try again later"));
+      LoggerHelper.debug(e.toString());
+      return left(ServerFailure(e.toString()));
     }
   }
 
@@ -152,26 +153,27 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> verifySmsCode({
+  Future<Either<Failure, UserEntity>> verifySmsCodeAndLinkWithPhone({
     required String verificationId,
     required String smsCode,
   }) async {
     try {
-      final user = await authSource.verifySmsCode(
+      final user = await authSource.verifySmsCodeAndLinkWithPhone(
         verificationId: verificationId,
         smsCode: smsCode,
       );
       if (user == null) {
         return left(const FirebaseAuthFailure("SMS verification failed"));
       }
-      final firebaseUser =
-          ServiceLocator.get<FirebaseAuthService>().currentUser;
-      if (firebaseUser != null && firebaseUser.phoneNumber != null) {
-        LoggerHelper.debug(
-          "Phone number verified: ${firebaseUser.phoneNumber}",
-        );
-        await storeSource.createOrUpdateUser(firebaseUser);
-      }
+      LoggerHelper.debug('Amira !!!!!!');
+      // final firebaseUser =
+      //     ServiceLocator.get<FirebaseAuthService>().currentUser;
+      // if (firebaseUser != null && firebaseUser.phoneNumber != null) {
+      //   LoggerHelper.debug(
+      //     "Phone number verified: ${firebaseUser.phoneNumber}",
+      //   );
+      //   await storeSource.createOrUpdateUser(firebaseUser);
+      // }
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));

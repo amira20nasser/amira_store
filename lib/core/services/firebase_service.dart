@@ -66,7 +66,7 @@ class FirebaseAuthService {
   // ...existing code...
 
   /// Starts phone number verification and handles callbacks.
-  Future<void> signInWithPhone({
+  Future<void> verifyWithPhoneNumber({
     required String phoneNumber,
     required void Function(PhoneAuthCredential) onVerificationCompleted,
     required void Function(FirebaseAuthException) onVerificationFailed,
@@ -79,19 +79,20 @@ class FirebaseAuthService {
       verificationFailed: onVerificationFailed,
       codeSent: onCodeSent,
       codeAutoRetrievalTimeout: onCodeAutoRetrievalTimeout,
+      timeout: Duration(seconds: 60),
     );
   }
 
   /// Verifies the SMS code and signs in the user.
-  Future<UserCredential> verifySmsCode({
+  PhoneAuthCredential verifySmsCode({
     required String verificationId,
     required String smsCode,
-  }) async {
+  }) {
     final credential = PhoneAuthProvider.credential(
       verificationId: verificationId,
       smsCode: smsCode,
     );
-    return await _auth.signInWithCredential(credential);
+    return credential;
   }
 
   // ...existing code...

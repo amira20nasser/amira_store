@@ -52,7 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String username,
   }) async {
     emit(AuthLoading());
-    final result = await signUpUsecase.call(
+    final result = await signUpUsecase(
       email: email,
       password: password,
       username: username,

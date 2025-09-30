@@ -18,7 +18,9 @@ class SignUpBodyBlocConsumber extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Welcome ${state.user.email}")),
           );
-          GoRouter.of(context).pushReplacement(ConstantRoutes.homeViewRoute);
+          GoRouter.of(
+            context,
+          ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
         } else if (state is AuthFailure) {
           showDialog(
             context: context,

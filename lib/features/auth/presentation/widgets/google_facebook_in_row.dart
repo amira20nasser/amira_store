@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../manager/auth_cubit.dart';
 
 class GoogleFacebookInRow extends StatelessWidget {
@@ -20,7 +22,10 @@ class GoogleFacebookInRow extends StatelessWidget {
             visible: context.watch<AuthCubit>().state is AuthLoading,
             replacement: ElevatedButton(
               onPressed: () {
-                context.read<AuthCubit>().signInWithGoogle();
+                // context.read<AuthCubit>().signInWithGoogle();
+                GoRouter.of(
+                  context,
+                ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
               },
               style: ElevatedButton.styleFrom(shape: CircleBorder()),
 

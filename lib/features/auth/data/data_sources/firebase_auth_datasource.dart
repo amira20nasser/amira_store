@@ -16,6 +16,7 @@ class FirebaseAuthDataSource {
       uid: user.uid,
       email: email,
       name: user.displayName ?? "Defualt Name",
+      phone: user.phoneNumber,
     );
   }
 
@@ -28,7 +29,12 @@ class FirebaseAuthDataSource {
     final user = cred.user;
     if (user == null) return null;
     await _updateDisplayName(user, username);
-    return UserEntity(uid: user.uid, email: email, name: username);
+    return UserEntity(
+      uid: user.uid,
+      email: email,
+      name: username,
+      phone: user.phoneNumber,
+    );
   }
 
   Future<void> _updateDisplayName(User user, String displayName) async {
@@ -45,6 +51,7 @@ class FirebaseAuthDataSource {
       uid: user.uid,
       email: user.email!,
       name: user.displayName ?? "Defualt Name",
+      phone: user.phoneNumber,
     );
   }
 
@@ -58,6 +65,7 @@ class FirebaseAuthDataSource {
       uid: user.uid,
       email: user.email!,
       name: user.displayName ?? "Defualt Name",
+      phone: user.phoneNumber,
     );
   }
 
@@ -68,7 +76,7 @@ class FirebaseAuthDataSource {
     required void Function(String verificationId, int? resendToken) onCodeSent,
     required void Function(String verificationId) onCodeAutoRetrievalTimeout,
   }) async {
-    await authService.signInWithPhone(
+    await authService.verifyWithPhoneNumber(
       phoneNumber: phoneNumber,
       onVerificationCompleted: onVerificationCompleted,
       onVerificationFailed: onVerificationFailed,
@@ -77,20 +85,24 @@ class FirebaseAuthDataSource {
     );
   }
 
-  Future<UserEntity?> verifySmsCode({
+  Future<UserEntity?> verifySmsCodeAndLinkWithPhone({
     required String verificationId,
     required String smsCode,
   }) async {
-    final userCred = await authService.verifySmsCode(
+    final phoneCred = authService.verifySmsCode(
       verificationId: verificationId,
       smsCode: smsCode,
     );
-    final user = userCred.user;
+    User? user = authService.currentUser;
+    if (user == null) return null;
+    final userCred = await user.linkWithCredential(phoneCred);
+    user = userCred.user;
     if (user == null) return null;
     return UserEntity(
       uid: user.uid,
       email: user.email ?? '',
       name: user.displayName ?? "default name",
+      phone: user.phoneNumber,
     );
   }
 
@@ -103,6 +115,7 @@ class FirebaseAuthDataSource {
           uid: user.uid,
           email: user.email!,
           name: user.displayName ?? "default name",
+          phone: user.phoneNumber,
         );
       });
 }

@@ -2,5 +2,11 @@ class UserEntity {
   final String uid;
   final String email;
   final String name;
-  UserEntity({required this.uid, required this.email, required this.name});
+  final String? phone;
+  UserEntity({
+    required this.uid,
+    required this.email,
+    required this.name,
+    required this.phone,
+  });
 }

@@ -17,7 +17,7 @@ class FirestoreDataSource {
         uid: user.uid,
         email: user.email!,
         name: user.displayName ?? "default name",
-        phoneNumber: user.phoneNumber,
+        phone: user.phoneNumber,
       );
     } else {
       // exists, then update

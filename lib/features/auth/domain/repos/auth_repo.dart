@@ -20,7 +20,7 @@ abstract class AuthRepository {
     required void Function(String verificationId) onCodeAutoRetrievalTimeout,
   });
 
-  Future<Either<Failure, UserEntity>> verifySmsCode({
+  Future<Either<Failure, UserEntity>> verifySmsCodeAndLinkWithPhone({
     required String verificationId,
     required String smsCode,
   });

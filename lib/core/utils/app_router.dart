@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/views/log_in_view.dart';
 import '../../features/auth/presentation/views/sign_up_view.dart';
-import '../../features/auth/presentation/views/verify_your_account.dart';
+import '../../features/auth/presentation/views/account_verification_view.dart';
 import '../../features/home/home_view.dart';
 import '../../features/on_boarding/domain/entities/on_boarding_entity.dart';
 import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
@@ -16,7 +16,6 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         name: ConstantRoutes.onBoardingViewRoute,
-
         path: ConstantRoutes.onBoardingViewRoute,
         builder: (context, state) =>
             OnBordingView(onBoardingItems: OnBoardingEntity.getItems),
@@ -31,10 +30,12 @@ abstract class AppRouter {
         builder: (context, state) => SignUpView(),
       ),
       GoRoute(
+        name: ConstantRoutes.verifyYourAccountViewRoute,
         path: ConstantRoutes.verifyYourAccountViewRoute,
-        builder: (context, state) => VerifyYourAccountView(),
+        builder: (context, state) => AccountVerificationView(),
       ),
       GoRoute(
+        name: ConstantRoutes.homeViewRoute,
         path: ConstantRoutes.homeViewRoute,
         builder: (context, state) => HomeView(),
       ),
