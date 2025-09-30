@@ -1,19 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../../core/di/service_locator.dart';
 import '../../../../core/error/failure.dart';
-import '../../../../core/services/firebase_service.dart';
 import '../../../../core/utils/logging/logger_helper.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repos/auth_repo.dart';
 import '../data_sources/firebase_auth_datasource.dart';
-import '../data_sources/firestore_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuthDataSource authSource;
-  final FirestoreDataSource storeSource;
 
-  AuthRepositoryImpl(this.authSource, this.storeSource);
+  AuthRepositoryImpl(this.authSource);
 
   @override
   Future<Either<Failure, UserEntity>> signIn(
@@ -25,10 +21,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
-      // create or update user in firestore
-      await storeSource.createOrUpdateUser(
-        ServiceLocator.get<FirebaseAuthService>().currentUser!,
-      );
+
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -52,10 +45,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign up failed"));
       }
-      // // create or update user in firestore
-      // await storeSource.createOrUpdateUser(
-      //   ServiceLocator.get<FirebaseAuthService>().currentUser!,
-      // );
+
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -97,9 +87,7 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
-      await storeSource.createOrUpdateUser(
-        ServiceLocator.get<FirebaseAuthService>().currentUser!,
-      );
+
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -116,9 +104,6 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
-      await storeSource.createOrUpdateUser(
-        ServiceLocator.get<FirebaseAuthService>().currentUser!,
-      );
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -165,7 +150,6 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("SMS verification failed"));
       }
-      LoggerHelper.debug('Amira !!!!!!');
       // final firebaseUser =
       //     ServiceLocator.get<FirebaseAuthService>().currentUser;
       // if (firebaseUser != null && firebaseUser.phoneNumber != null) {

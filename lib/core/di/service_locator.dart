@@ -30,10 +30,7 @@ class ServiceLocator {
 
     //! Repositories
     _sl.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(
-        _sl<FirebaseAuthDataSource>(),
-        _sl<FirestoreDataSource>(),
-      ),
+      () => AuthRepositoryImpl(_sl<FirebaseAuthDataSource>()),
     );
 
     //! Use Cases
