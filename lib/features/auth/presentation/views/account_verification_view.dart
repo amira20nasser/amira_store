@@ -16,7 +16,7 @@ class AccountVerificationView extends StatelessWidget {
       body: BlocProvider<VerifyingWithPhoneCubit>(
         create: (context) => VerifyingWithPhoneCubit(
           verifyPhoneUsecase: ServiceLocator.get<VerifyPhoneUsecase>(),
-          verifySmsCodeUsecase: ServiceLocator.get<VerifySmscodeUsecaase>(),
+          smsCodeUsecase: ServiceLocator.get<SmsCodeUsecaase>(),
         ),
         child: AccountVerificationBlocConsumer(),
       ),

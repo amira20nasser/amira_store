@@ -1,18 +1,25 @@
 part of 'verifying_phone_cubit.dart';
 
-sealed class VerifyingWithPhoneState {}
+sealed class AccountVerificationWithPhoneState {}
 
-class VerifyingWithPhoneInit extends VerifyingWithPhoneState {}
+class InitState extends AccountVerificationWithPhoneState {}
 
-class VerifyingWithPhoneLoading extends VerifyingWithPhoneState {}
+class VerifyPhoneLoading extends AccountVerificationWithPhoneState {}
 
-class VerifyingWithPhoneCodeSent extends VerifyingWithPhoneState {}
+class VerifyPhoneCodeSent extends AccountVerificationWithPhoneState {}
 
-class VerifyingWithPhoneSuccess extends VerifyingWithPhoneState {}
-
-class VerifyingWithPhoneTimeOut extends VerifyingWithPhoneState {}
-
-class VerifyingWithPhoneFailure extends VerifyingWithPhoneState {
+class VerifyPhoneFailure extends AccountVerificationWithPhoneState {
   final String message;
-  VerifyingWithPhoneFailure(this.message);
+  VerifyPhoneFailure(this.message);
+}
+
+class VerifyPhoneSuccess extends AccountVerificationWithPhoneState {}
+
+class SmsCodeLoading extends AccountVerificationWithPhoneState {}
+
+class SmsCodeSuccess extends AccountVerificationWithPhoneState {}
+
+class SmsCodeFailure extends AccountVerificationWithPhoneState {
+  final String message;
+  SmsCodeFailure(this.message);
 }

@@ -1,3 +1,4 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/services/firebase_service.dart';
@@ -46,7 +47,6 @@ class FirebaseAuthDataSource {
     final userCredential = await authService.signInWithGoogle();
     final user = userCredential.user;
     if (user == null) return null;
-
     return UserEntity(
       uid: user.uid,
       email: user.email!,
@@ -71,38 +71,45 @@ class FirebaseAuthDataSource {
 
   Future<void> verifyPhoneNumber({
     required String phoneNumber,
-    required void Function(PhoneAuthCredential) onVerificationCompleted,
-    required void Function(FirebaseAuthException) onVerificationFailed,
     required void Function(String verificationId, int? resendToken) onCodeSent,
-    required void Function(String verificationId) onCodeAutoRetrievalTimeout,
   }) async {
-    await authService.verifyWithPhoneNumber(
+    await authService.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      onVerificationCompleted: onVerificationCompleted,
-      onVerificationFailed: onVerificationFailed,
-      onCodeSent: onCodeSent,
-      onCodeAutoRetrievalTimeout: onCodeAutoRetrievalTimeout,
+      codeSent: onCodeSent,
+      verificationFailed: (FirebaseAuthException e) {
+        LoggerHelper.error('Verification failed: ${e.message}');
+        throw e;
+      },
+      verificationCompleted: (PhoneAuthCredential credential) {
+        LoggerHelper.debug(
+          'Verification completed and You can sign in now/link with credential.',
+        );
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        LoggerHelper.debug(
+          'Auto retrieval timeout. Verification ID: $verificationId',
+        );
+      },
     );
   }
 
-  Future<UserEntity?> verifySmsCodeAndLinkWithPhone({
+  Future<void> verifyAndLinkSmsCode({
     required String verificationId,
     required String smsCode,
   }) async {
-    final phoneCred = authService.verifySmsCode(
+    await authService.verifyAndLinkSmsCode(
       verificationId: verificationId,
       smsCode: smsCode,
     );
-    User? user = authService.currentUser;
-    if (user == null) return null;
-    final userCred = await user.linkWithCredential(phoneCred);
-    user = userCred.user;
-    if (user == null) return null;
-    return UserEntity(
-      uid: user.uid,
-      email: user.email ?? '',
-      name: user.displayName ?? "default name",
-      phone: user.phoneNumber,
+  }
+
+  Future<void> signInWithPhoneCredential({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    await authService.signInWithPhoneCredential(
+      verificationId: verificationId,
+      smsCode: smsCode,
     );
   }
 

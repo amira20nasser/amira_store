@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/error/failure.dart';
 import '../entities/user_entity.dart';
 
@@ -14,17 +13,18 @@ abstract class AuthRepository {
   Future<Either<Failure, UserEntity>> signInWithFacebook();
   Future<Either<Failure, void>> verifyPhoneNumber({
     required String phoneNumber,
-    required void Function(PhoneAuthCredential) onVerificationCompleted,
-    required void Function(FirebaseAuthException) onVerificationFailed,
     required void Function(String verificationId, int? resendToken) onCodeSent,
-    required void Function(String verificationId) onCodeAutoRetrievalTimeout,
   });
 
-  Future<Either<Failure, UserEntity>> verifySmsCodeAndLinkWithPhone({
+  Future<Either<Failure, void>> verifyAndLinkSmsCode({
     required String verificationId,
     required String smsCode,
   });
 
+  Future<Either<Failure, void>> signInWithPhoneCredential({
+    required String verificationId,
+    required String smsCode,
+  });
   Future<Either<Failure, void>> signOut();
   Stream<Either<Failure, UserEntity?>> get userStream;
 }

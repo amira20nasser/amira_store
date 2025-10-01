@@ -1,61 +1,70 @@
+import 'package:amira_store/core/di/service_locator.dart';
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
+import '../../../../../core/services/firebase_service.dart';
 import '../../../domain/usecases/verify_phone_usecase.dart';
 import '../../../domain/usecases/verify_smscode_usecaase.dart';
 part 'verifying_phone_state.dart';
 
-class VerifyingWithPhoneCubit extends Cubit<VerifyingWithPhoneState> {
+class VerifyingWithPhoneCubit extends Cubit<AccountVerificationWithPhoneState> {
   final VerifyPhoneUsecase verifyPhoneUsecase;
-  final VerifySmscodeUsecaase verifySmsCodeUsecase;
+  final SmsCodeUsecaase smsCodeUsecase;
 
   String? _verificationId;
 
   VerifyingWithPhoneCubit({
     required this.verifyPhoneUsecase,
-    required this.verifySmsCodeUsecase,
-  }) : super(VerifyingWithPhoneInit());
+    required this.smsCodeUsecase,
+  }) : super(InitState());
 
-  Future<void> verifyPhoneNumber(String phoneNumber) async {
-    emit(VerifyingWithPhoneLoading());
+  void sendCode(String phoneNumber) async {
+    emit(VerifyPhoneLoading());
     final result = await verifyPhoneUsecase(
       phoneNumber: phoneNumber,
-      onVerificationCompleted: (PhoneAuthCredential credential) {
-        emit(VerifyingWithPhoneSuccess());
-      },
-      onVerificationFailed: (FirebaseAuthException e) {
-        emit(VerifyingWithPhoneFailure(e.message ?? 'Verification failed'));
-      },
       onCodeSent: (String verificationId, int? resendToken) {
         _verificationId = verificationId;
-        emit(VerifyingWithPhoneCodeSent());
-      },
-      onCodeAutoRetrievalTimeout: (String verificationId) {
-        _verificationId = verificationId;
-        emit(VerifyingWithPhoneTimeOut());
+        final user = ServiceLocator.get<FirebaseAuthService>().currentUser;
+        LoggerHelper.debug('User verified: $user ');
+        LoggerHelper.debug(
+          'User verified:  \t \n${user?.uid}\n${user?.email}\n${user?.displayName}\n${user?.phoneNumber ?? "No phone"}',
+        );
+        emit(VerifyPhoneCodeSent());
       },
     );
 
-    result.fold((failure) => emit(VerifyingWithPhoneFailure(failure.message)), (
-      _,
-    ) {
-      emit(VerifyingWithPhoneInit());
-    });
+    result.fold(
+      (failure) => emit(VerifyPhoneFailure(failure.message)),
+      (_) => emit(VerifyPhoneSuccess()),
+    );
   }
 
-  Future<void> verifySmsCode(String smsCode) async {
+  Future<void> verifySmsCodeLink(String smsCode) async {
     if (_verificationId == null) {
-      emit(VerifyingWithPhoneFailure('No verification ID found.'));
+      emit(SmsCodeFailure('No verification ID found.'));
       return;
     }
-    emit(VerifyingWithPhoneLoading());
-    final result = await verifySmsCodeUsecase(
+    emit(SmsCodeLoading());
+    final result = await smsCodeUsecase.linkAccount(
       verificationId: _verificationId!,
       smsCode: smsCode,
     );
-    result.fold(
-      (failure) => emit(VerifyingWithPhoneFailure(failure.message)),
-      (user) => emit(VerifyingWithPhoneSuccess()),
+    result.fold((failure) => emit(SmsCodeFailure(failure.message)), (_) {
+      emit(SmsCodeSuccess());
+    });
+  }
+
+  Future<void> verifySmsCodeSign(String smsCode) async {
+    if (_verificationId == null) {
+      emit(SmsCodeFailure('No verification ID found.'));
+      return;
+    }
+    emit(SmsCodeLoading());
+    final result = await smsCodeUsecase.signIn(
+      verificationId: _verificationId!,
+      smsCode: smsCode,
     );
+    result.fold((failure) => emit(SmsCodeFailure(failure.message)), (_) {
+      emit(SmsCodeSuccess());
+    });
   }
 }

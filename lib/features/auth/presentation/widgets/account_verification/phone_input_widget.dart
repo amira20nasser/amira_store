@@ -9,9 +9,7 @@ import '../../../../../core/utils/logging/logger_helper.dart';
 import '../../manager/verifying_with_phone/verifying_phone_cubit.dart';
 
 class PhoneInputWidget extends StatefulWidget {
-  const PhoneInputWidget({super.key, required this.isSendPhone});
-  final ValueNotifier<bool> isSendPhone;
-
+  const PhoneInputWidget({super.key});
   @override
   State<PhoneInputWidget> createState() => _PhoneInputWidgetState();
 }
@@ -25,14 +23,9 @@ class _PhoneInputWidgetState extends State<PhoneInputWidget> {
       );
       return;
     }
-    widget.isSendPhone.value = true;
-    LoggerHelper.debug(
-      'Sending code to $_phoneNumber ${widget.isSendPhone.value}',
-    );
+    LoggerHelper.debug('Sending code to $_phoneNumber');
 
-    BlocProvider.of<VerifyingWithPhoneCubit>(
-      context,
-    ).verifyPhoneNumber(_phoneNumber!);
+    BlocProvider.of<VerifyingWithPhoneCubit>(context).sendCode(_phoneNumber!);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Sending your phone $_phoneNumber.....')),
     );
@@ -97,7 +90,7 @@ class _PhoneInputWidgetState extends State<PhoneInputWidget> {
               child: Visibility(
                 visible:
                     context.watch<VerifyingWithPhoneCubit>().state
-                        is VerifyingWithPhoneLoading,
+                        is VerifyPhoneLoading,
                 replacement: ElevatedButton(
                   onPressed: _onSend,
                   child: const Text('Send'),

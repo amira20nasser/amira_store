@@ -3,7 +3,6 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../config.dart';
-import '../utils/logging/logger_helper.dart';
 
 class FirebaseAuthService {
   static final FirebaseAuthService _instance = FirebaseAuthService._internal();
@@ -26,20 +25,17 @@ class FirebaseAuthService {
     );
   }
 
+  Future<void> sendPasswordResetEmail(String email) {
+    return _auth.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> signOut() => _auth.signOut();
+
   Future<UserCredential> signInWithGoogle() async {
     final googleObject = GoogleSignIn.instance;
-    LoggerHelper.debug("Google Instance: $googleObject");
 
     googleObject.initialize(serverClientId: kServerClientId);
-    LoggerHelper.debug("Google Initialized: $googleObject");
 
-    if (!googleObject.supportsAuthenticate()) {
-      LoggerHelper.debug("Google Sign-In is not supported on this platform.");
-      throw FirebaseAuthException(
-        code: 'ERROR_MISSING_GOOGLE_AUTH',
-        message: 'Missing Google Auth in this platform',
-      );
-    }
     final googleUser = await googleObject.authenticate();
 
     final GoogleSignInAuthentication googleAuth = googleUser.authentication;
@@ -51,11 +47,7 @@ class FirebaseAuthService {
 
   Future<UserCredential?> signInWithFacebook() async {
     final facebookObject = FacebookAuth.instance;
-    LoggerHelper.debug("Facebook Initialized: ${facebookObject.runtimeType}");
-
     final loginResult = await facebookObject.login();
-    LoggerHelper.debug("Facebook Login Result: $loginResult");
-
     if (loginResult.status != LoginStatus.success) return null;
     final credential = FacebookAuthProvider.credential(
       loginResult.accessToken!.tokenString,
@@ -63,38 +55,43 @@ class FirebaseAuthService {
 
     return await _auth.signInWithCredential(credential);
   }
-  // ...existing code...
 
-  /// Starts phone number verification and handles callbacks.
-  Future<void> verifyWithPhoneNumber({
+  Future<void> verifyPhoneNumber({
     required String phoneNumber,
-    required void Function(PhoneAuthCredential) onVerificationCompleted,
-    required void Function(FirebaseAuthException) onVerificationFailed,
-    required void Function(String verificationId, int? resendToken) onCodeSent,
-    required void Function(String verificationId) onCodeAutoRetrievalTimeout,
+    required Function(String verificationId, int? resendToken) codeSent,
+    required Function(FirebaseAuthException e) verificationFailed,
+    required Function(PhoneAuthCredential credential) verificationCompleted,
+    required Function(String verificationId) codeAutoRetrievalTimeout,
   }) async {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      verificationCompleted: onVerificationCompleted,
-      verificationFailed: onVerificationFailed,
-      codeSent: onCodeSent,
-      codeAutoRetrievalTimeout: onCodeAutoRetrievalTimeout,
-      timeout: Duration(seconds: 60),
+      timeout: const Duration(seconds: 60),
+      verificationCompleted: verificationCompleted,
+      verificationFailed: verificationFailed,
+      codeSent: codeSent,
+      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
   }
 
-  /// Verifies the SMS code and signs in the user.
-  PhoneAuthCredential verifySmsCode({
+  Future<void> verifyAndLinkSmsCode({
     required String verificationId,
     required String smsCode,
-  }) {
+  }) async {
     final credential = PhoneAuthProvider.credential(
       verificationId: verificationId,
       smsCode: smsCode,
     );
-    return credential;
+    await _auth.currentUser?.linkWithCredential(credential);
   }
 
-  // ...existing code...
-  Future<void> signOut() => _auth.signOut();
+  Future<UserCredential> signInWithPhoneCredential({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    final credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
+    return await _auth.signInWithCredential(credential);
+  }
 }

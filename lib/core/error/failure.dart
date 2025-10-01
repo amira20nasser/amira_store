@@ -12,10 +12,29 @@ class FirebaseAuthFailure extends Failure {
 
   factory FirebaseAuthFailure.fromCode(String code) {
     switch (code) {
+      // Common errors
       case 'too-many-requests':
         return FirebaseAuthFailure(
-          'Temporarily unavailable. We have blocked all requests from this device due to unusual activity.',
+          'Too many requests. Please try again later.',
         );
+      case 'network-request-failed':
+        return FirebaseAuthFailure(
+          'No internet connection. Please check your network and try again.',
+        );
+      case 'internal-error':
+        return FirebaseAuthFailure(
+          'An internal authentication error occurred. Please try again later.',
+        );
+      case 'operation-not-allowed':
+        return FirebaseAuthFailure(
+          'This operation is not allowed. Contact support for assistance.',
+        );
+      case 'user-disabled':
+        return FirebaseAuthFailure(
+          'This user account has been disabled. Please contact support for assistance.',
+        );
+
+      // Email & Password
       case 'email-already-in-use':
         return FirebaseAuthFailure(
           'The email address is already registered. Please use a different email.',
@@ -28,15 +47,29 @@ class FirebaseAuthFailure extends Failure {
         return FirebaseAuthFailure(
           'The password is too weak. Please choose a stronger password.',
         );
-      case 'user-disabled':
-        return FirebaseAuthFailure(
-          'This user account has been disabled. Please contact support for assistance.',
-        );
       case 'user-not-found':
         return FirebaseAuthFailure('Invalid login details. User not found.');
       case 'wrong-password':
         return FirebaseAuthFailure(
           'Incorrect password. Please check your password and try again.',
+        );
+      case 'requires-recent-login':
+        return FirebaseAuthFailure(
+          'This operation requires recent authentication. Please log in again.',
+        );
+
+      // Phone Verification
+      case 'invalid-phone-number':
+        return FirebaseAuthFailure(
+          'The phone number provided is invalid. Please enter a valid phone number.',
+        );
+      case 'missing-phone-number':
+        return FirebaseAuthFailure('Please provide a phone number.');
+      case 'quota-exceeded':
+        return FirebaseAuthFailure('Quota exceeded. Please try again later.');
+      case 'session-expired':
+        return FirebaseAuthFailure(
+          'Session expired. Please request a new verification code.',
         );
       case 'invalid-verification-code':
         return FirebaseAuthFailure(
@@ -46,36 +79,52 @@ class FirebaseAuthFailure extends Failure {
         return FirebaseAuthFailure(
           'Invalid verification ID. Please request a new verification code.',
         );
-      case 'quota-exceeded':
-        return FirebaseAuthFailure('Quota exceeded. Please try again later.');
-      case 'email-already-exists':
+      case 'code-expired':
         return FirebaseAuthFailure(
-          'The email address already exists. Please use a different email.',
+          'The verification code has expired. Please request a new code.',
         );
-      case 'provider-already-linked':
-        return FirebaseAuthFailure(
-          'The account is already linked with another provider.',
-        );
-      case 'requires-recent-login':
-        return FirebaseAuthFailure(
-          'This operation is sensitive and requires recent authentication. Please log in again.',
-        );
+
+      // Credential/Provider
       case 'credential-already-in-use':
         return FirebaseAuthFailure(
           'This credential is already associated with a different user account.',
-        );
-      case 'user-mismatch':
-        return FirebaseAuthFailure(
-          'The supplied credentials do not correspond to the previously signed in user.',
         );
       case 'account-exists-with-different-credential':
         return FirebaseAuthFailure(
           'An account already exists with the same email but different sign-in credentials.',
         );
-      case 'operation-not-allowed':
+      case 'invalid-credential':
         return FirebaseAuthFailure(
-          'This operation is not allowed. Contact support for assistance.',
+          'The supplied credential is malformed or has expired. Try signing in using Google.',
         );
+      case 'provider-already-linked':
+        return FirebaseAuthFailure(
+          'The account is already linked with another provider.',
+        );
+      case 'user-mismatch':
+        return FirebaseAuthFailure(
+          'The supplied credentials do not correspond to the previously signed in user.',
+        );
+
+      // Google/Facebook/Web
+      case 'popup-closed-by-user':
+        return FirebaseAuthFailure(
+          'Sign-in popup was closed before completing the sign-in.',
+        );
+      case 'popup-blocked':
+        return FirebaseAuthFailure('Sign-in popup was blocked by the browser.');
+      case 'cancelled-popup-request':
+        return FirebaseAuthFailure('Sign-in popup request was cancelled.');
+      case 'web-storage-unsupported':
+        return FirebaseAuthFailure(
+          'Web storage is not supported or is disabled.',
+        );
+      case 'app-not-authorized':
+        return FirebaseAuthFailure(
+          'The app is not authorized to use Firebase Authentication with the provided API key.',
+        );
+
+      // Action Codes
       case 'expired-action-code':
         return FirebaseAuthFailure(
           'The action code has expired. Please request a new action code.',
@@ -88,13 +137,11 @@ class FirebaseAuthFailure extends Failure {
         return FirebaseAuthFailure(
           'The action code is missing. Please provide a valid action code.',
         );
+
+      // Miscellaneous
       case 'user-token-expired':
         return FirebaseAuthFailure(
-          'The user\'s token has expired, and authentication is required. Please sign in again.',
-        );
-      case 'invalid-credential':
-        return FirebaseAuthFailure(
-          'The supplied credential is malformed or has expired. try signing in using google',
+          'The user\'s token has expired. Please sign in again.',
         );
       case 'user-token-revoked':
         return FirebaseAuthFailure(
@@ -156,24 +203,13 @@ class FirebaseAuthFailure extends Failure {
         return FirebaseAuthFailure(
           'The provided user\'s token has a mismatch with the authenticated user\'s user ID.',
         );
-      case 'web-storage-unsupported':
-        return FirebaseAuthFailure(
-          'Web storage is not supported or is disabled.',
-        );
-      case 'app-not-authorized':
-        return FirebaseAuthFailure(
-          'The app is not authorized to use Firebase Authentication with the provided API key.',
-        );
       case 'keychain-error':
         return FirebaseAuthFailure(
           'A keychain error occurred. Please check the keychain and try again.',
         );
-      case 'internal-error':
-        return FirebaseAuthFailure(
-          'An internal authentication error occurred. Please try again later.',
-        );
       case 'INVALID_LOGIN_CREDENTIALS':
         return FirebaseAuthFailure('Invalid login credentials.');
+
       default:
         return FirebaseAuthFailure(
           'An unexpected authentication error occurred. Please try again.',

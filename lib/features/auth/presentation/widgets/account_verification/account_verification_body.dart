@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/constants/app_sizes.dart';
-import '../../../../../core/utils/logging/logger_helper.dart';
+import '../../manager/verifying_with_phone/verifying_phone_cubit.dart';
 import 'otp_input_widget.dart';
 import 'phone_input_widget.dart';
 
 class AccountVerificationBody extends StatelessWidget {
-  const AccountVerificationBody({super.key, required this.isSentPhone});
-
-  final ValueNotifier<bool> isSentPhone;
+  const AccountVerificationBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +20,12 @@ class AccountVerificationBody extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
-          child: ValueListenableBuilder<bool>(
-            valueListenable: isSentPhone,
-            builder: (context, value, child) {
-              LoggerHelper.debug("The value of sending $value");
-              if (value) {
-                return OTPInputWidget(isSendPhone: isSentPhone);
-              }
-              return PhoneInputWidget(isSendPhone: isSentPhone);
-            },
+          child: Visibility(
+            visible:
+                context.watch<VerifyingWithPhoneCubit>().state
+                    is VerifyPhoneCodeSent,
+            replacement: PhoneInputWidget(),
+            child: OTPInputWidget(),
           ),
         ),
       ),

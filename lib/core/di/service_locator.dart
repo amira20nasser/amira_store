@@ -34,18 +34,18 @@ class ServiceLocator {
     );
 
     //! Use Cases
-    _sl.registerLazySingleton(() => SignInUsecase(_sl<AuthRepository>()));
-    _sl.registerLazySingleton(() => SignUpUsecase(_sl<AuthRepository>()));
+    _sl.registerLazySingleton(() => SignInUsecase(_sl.get<AuthRepository>()));
+    _sl.registerLazySingleton(() => SignUpUsecase(_sl.get<AuthRepository>()));
     _sl.registerLazySingleton(
-      () => SignInWithGoogleUsecase(_sl<AuthRepository>()),
+      () => SignInWithGoogleUsecase(_sl.get<AuthRepository>()),
     );
     _sl.registerLazySingleton(
-      () => SignInWithFacebookUsecase(_sl<AuthRepository>()),
+      () => SignInWithFacebookUsecase(_sl.get<AuthRepository>()),
     );
-    _sl.registerLazySingleton(() => VerifyPhoneUsecase(_sl<AuthRepository>()));
     _sl.registerLazySingleton(
-      () => VerifySmscodeUsecaase(_sl<AuthRepository>()),
+      () => VerifyPhoneUsecase(_sl.get<AuthRepository>()),
     );
+    _sl.registerLazySingleton(() => SmsCodeUsecaase(_sl.get<AuthRepository>()));
   }
 
   static T get<T extends Object>() => _sl<T>();

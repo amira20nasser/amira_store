@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/error/failure.dart';
-import '../../../../core/utils/logging/logger_helper.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repos/auth_repo.dart';
 import '../data_sources/firebase_auth_datasource.dart';
@@ -21,7 +20,6 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
-
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
@@ -45,12 +43,10 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign up failed"));
       }
-
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      LoggerHelper.debug(e.toString());
       return left(ServerFailure(e.toString()));
     }
   }
@@ -87,13 +83,11 @@ class AuthRepositoryImpl implements AuthRepository {
       if (user == null) {
         return left(const FirebaseAuthFailure("Sign in failed"));
       }
-
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      LoggerHelper.error(e.toString());
-      return left(ServerFailure("Unexpected error: Please try again later"));
+      return left(ServerFailure(e.toString()));
     }
   }
 
@@ -108,61 +102,61 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      LoggerHelper.error(e.toString());
-      return left(ServerFailure("Unexpected error: Please try again later"));
+      return left(ServerFailure(e.toString()));
     }
   }
 
   @override
   Future<Either<Failure, void>> verifyPhoneNumber({
+    required void Function(String, int?) onCodeSent,
     required String phoneNumber,
-    required void Function(PhoneAuthCredential) onVerificationCompleted,
-    required void Function(FirebaseAuthException) onVerificationFailed,
-    required void Function(String verificationId, int? resendToken) onCodeSent,
-    required void Function(String verificationId) onCodeAutoRetrievalTimeout,
   }) async {
     try {
       await authSource.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        onVerificationCompleted: onVerificationCompleted,
-        onVerificationFailed: onVerificationFailed,
         onCodeSent: onCodeSent,
-        onCodeAutoRetrievalTimeout: onCodeAutoRetrievalTimeout,
       );
       return right(null);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure("Unexpected error: Please try again later"));
+      return left(ServerFailure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, UserEntity>> verifySmsCodeAndLinkWithPhone({
+  Future<Either<Failure, void>> verifyAndLinkSmsCode({
     required String verificationId,
     required String smsCode,
   }) async {
     try {
-      final user = await authSource.verifySmsCodeAndLinkWithPhone(
+      await authSource.verifyAndLinkSmsCode(
         verificationId: verificationId,
         smsCode: smsCode,
       );
-      if (user == null) {
-        return left(const FirebaseAuthFailure("SMS verification failed"));
-      }
-      // final firebaseUser =
-      //     ServiceLocator.get<FirebaseAuthService>().currentUser;
-      // if (firebaseUser != null && firebaseUser.phoneNumber != null) {
-      //   LoggerHelper.debug(
-      //     "Phone number verified: ${firebaseUser.phoneNumber}",
-      //   );
-      //   await storeSource.createOrUpdateUser(firebaseUser);
-      // }
-      return right(user);
+      return right(null);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure("Unexpected error: Please try again later"));
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> signInWithPhoneCredential({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    try {
+      await authSource.signInWithPhoneCredential(
+        verificationId: verificationId,
+        smsCode: smsCode,
+      );
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseAuthFailure.fromCode(e.code));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
     }
   }
 }

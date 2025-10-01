@@ -6,8 +6,7 @@ import '../../../../../core/utils/logging/logger_helper.dart';
 import '../../manager/verifying_with_phone/verifying_phone_cubit.dart';
 
 class OTPInputWidget extends StatefulWidget {
-  const OTPInputWidget({super.key, required this.isSendPhone});
-  final ValueNotifier<bool> isSendPhone;
+  const OTPInputWidget({super.key});
 
   @override
   State<OTPInputWidget> createState() => _OTPInputWidgetState();
@@ -20,7 +19,9 @@ class _OTPInputWidgetState extends State<OTPInputWidget> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text('Verifying')));
-    BlocProvider.of<VerifyingWithPhoneCubit>(context).verifySmsCode(_otpCode);
+    BlocProvider.of<VerifyingWithPhoneCubit>(
+      context,
+    ).verifySmsCodeLink(_otpCode);
   }
 
   @override
@@ -64,14 +65,10 @@ class _OTPInputWidgetState extends State<OTPInputWidget> {
           enableActiveFill: true,
         ),
         const SizedBox(height: 32),
-        ElevatedButton(
-          onPressed: _otpCode.length == 6 ? _onVerify : null,
-          child: const Text('Verify'),
-        ),
+        ElevatedButton(onPressed: _onVerify, child: const Text('Verify')),
         const SizedBox(height: 16),
         TextButton(
           onPressed: () {
-            widget.isSendPhone.value = false;
             _otpCode = '';
           },
           child: const Text('Change phone number?'),

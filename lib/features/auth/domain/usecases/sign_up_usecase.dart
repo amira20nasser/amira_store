@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/di/service_locator.dart';
 import '../../../../core/error/failure.dart';
+import '../../../../core/services/firebase_service.dart';
+import '../../../../core/utils/logging/logger_helper.dart';
 import '../entities/user_entity.dart';
 import '../repos/auth_repo.dart';
 
@@ -12,7 +15,12 @@ class SignUpUsecase {
     required String email,
     required String password,
     required String username,
-  }) {
-    return repository.signUp(username, email, password);
+  }) async {
+    final result = await repository.signUp(username, email, password);
+    final user = ServiceLocator.get<FirebaseAuthService>().currentUser;
+    LoggerHelper.debug(
+      "signUp User: ${user?.email} ${user?.uid} ${user?.displayName} ${user?.phoneNumber}",
+    );
+    return result;
   }
 }
