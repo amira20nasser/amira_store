@@ -7,12 +7,12 @@ import '../../../../core/widgets/custom_error_dialog.dart';
 import '../manager/auth_cubit.dart';
 import 'log_in_view_body.dart';
 
-class LoginBodyBlocConsumber extends StatelessWidget {
-  const LoginBodyBlocConsumber({super.key});
+class LoginBodyBlocListener extends StatelessWidget {
+  const LoginBodyBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -29,12 +29,10 @@ class LoginBodyBlocConsumber extends StatelessWidget {
           );
         }
       },
-      builder: (context, state) {
-        return AbsorbPointer(
-          absorbing: state is AuthLoading,
-          child: LogInViewBody(),
-        );
-      },
+      child: AbsorbPointer(
+        absorbing: context.watch<AuthCubit>().state is AuthLoading,
+        child: LogInViewBody(),
+      ),
     );
   }
 }

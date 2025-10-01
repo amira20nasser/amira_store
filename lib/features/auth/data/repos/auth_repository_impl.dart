@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../../core/error/failure.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repos/auth_repo.dart';
@@ -101,6 +104,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return right(user);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
+    } on GoogleSignInException catch (e) {
+      return left(FirebaseAuthFailure.fromCode(e.code.name));
     } catch (e) {
       return left(ServerFailure(e.toString()));
     }
@@ -112,10 +117,15 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phoneNumber,
   }) async {
     try {
+      final completer = Completer<void>();
       await authSource.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         onCodeSent: onCodeSent,
+        verificationFailed: (FirebaseAuthException e) {
+          completer.completeError(e);
+        },
       );
+      await completer.future;
       return right(null);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));

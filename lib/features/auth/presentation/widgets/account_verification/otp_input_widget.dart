@@ -18,8 +18,8 @@ class _OTPInputWidgetState extends State<OTPInputWidget> {
     LoggerHelper.debug('Verifying.....');
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text('Verifying')));
-    BlocProvider.of<VerifyingWithPhoneCubit>(
+    ).showSnackBar(SnackBar(content: Text('Verifying code...')));
+    BlocProvider.of<PhoneVerificationCubit>(
       context,
     ).verifySmsCodeLink(_otpCode);
   }
@@ -66,13 +66,6 @@ class _OTPInputWidgetState extends State<OTPInputWidget> {
         ),
         const SizedBox(height: 32),
         ElevatedButton(onPressed: _onVerify, child: const Text('Verify')),
-        const SizedBox(height: 16),
-        TextButton(
-          onPressed: () {
-            _otpCode = '';
-          },
-          child: const Text('Change phone number?'),
-        ),
       ],
     );
   }

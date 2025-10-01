@@ -5,6 +5,7 @@ import '../../features/auth/data/data_sources/firestore_datasource.dart';
 import '../../features/auth/data/repos/auth_repository_impl.dart';
 import '../../features/auth/domain/repos/auth_repo.dart';
 import '../../features/auth/domain/usecases/sign_in_usecase.dart';
+import '../../features/auth/domain/usecases/sign_out_usecase.dart';
 import '../../features/auth/domain/usecases/sign_up_usecase.dart';
 import '../../features/auth/domain/usecases/signin_facebook_usecase.dart';
 import '../../features/auth/domain/usecases/verify_phone_usecase.dart';
@@ -42,6 +43,7 @@ class ServiceLocator {
     _sl.registerLazySingleton(
       () => SignInWithFacebookUsecase(_sl.get<AuthRepository>()),
     );
+    _sl.registerLazySingleton(() => SignOutUsecase(_sl.get<AuthRepository>()));
     _sl.registerLazySingleton(
       () => VerifyPhoneUsecase(_sl.get<AuthRepository>()),
     );

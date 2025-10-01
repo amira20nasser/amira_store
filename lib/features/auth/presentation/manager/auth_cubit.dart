@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/user_entity.dart';
 import '../../domain/usecases/sign_in_usecase.dart';
+import '../../domain/usecases/sign_out_usecase.dart';
 import '../../domain/usecases/sign_up_usecase.dart';
 import '../../domain/usecases/signin_google_usecase.dart';
 part 'auth_state.dart';
@@ -13,11 +14,13 @@ class AuthCubit extends Cubit<AuthState> {
     required this.signUpUsecase,
     required this.signInWithGoogleUsecase,
     required this.signInWithFacebookUsecase,
+    required this.signOutUsecase,
   }) : super(AuthInitial());
   final SignInUsecase signInUsecase;
   final SignUpUsecase signUpUsecase;
   final SignInWithGoogleUsecase signInWithGoogleUsecase;
   final SignInWithFacebookUsecase signInWithFacebookUsecase;
+  final SignOutUsecase signOutUsecase;
 
   Future<void> signInWithGoogle() async {
     emit(AuthLoading());
@@ -60,6 +63,14 @@ class AuthCubit extends Cubit<AuthState> {
     result.fold(
       (failure) => emit(AuthFailure(failure.message)),
       (user) => emit(AuthSuccess(user)),
+    );
+  }
+
+  Future<void> signOut() async {
+    final result = await signOutUsecase.call();
+    result.fold(
+      (failure) => emit(AuthFailure(failure.message)),
+      (_) => emit(AuthInitial()),
     );
   }
 }

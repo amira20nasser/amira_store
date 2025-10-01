@@ -8,29 +8,39 @@ import '../../../../../core/widgets/custom_error_dialog.dart';
 import '../../manager/verifying_with_phone/verifying_phone_cubit.dart';
 import 'account_verification_body.dart';
 
-class AccountVerificationBlocConsumer extends StatelessWidget {
-  const AccountVerificationBlocConsumer({super.key});
+class AccountVerificationBlocListener extends StatelessWidget {
+  const AccountVerificationBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<
-      VerifyingWithPhoneCubit,
-      AccountVerificationWithPhoneState
-    >(
+    return BlocListener<PhoneVerificationCubit, PhoneAccountVerificationState>(
       listener: (context, state) {
         if (state is VerifyPhoneLoading) {
           LoggerHelper.debug('Loading state...');
-          // showDialog(
-          //   context: context,
-          //   barrierDismissible: false,
-          //   builder: (_) => const Center(child: CircularProgressIndicator()),
-          // );
         }
         if (state is VerifyPhoneCodeSent) {
           LoggerHelper.debug('Code sent state...');
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(const SnackBar(content: Text('Code sent!')));
+          ).showSnackBar(const SnackBar(content: Text('SMS Code is sent')));
+        }
+        if (state is VerifyPhoneFailure) {
+          showDialog(
+            context: context,
+            builder: (_) => CustomErrorDialog(
+              title: "Verified Phone Failed",
+              message: state.message,
+            ),
+          );
+        }
+        if (state is VerifyPhoneSuccess) {
+          LoggerHelper.debug('Phone verification success state...');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Phone number verified!')),
+          );
+        }
+        if (state is SmsCodeLoading) {
+          LoggerHelper.debug('SMS Code Loading state...');
         }
         if (state is SmsCodeSuccess) {
           LoggerHelper.debug('Success state...');
@@ -38,11 +48,10 @@ class AccountVerificationBlocConsumer extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Verification successful!')),
           );
-          // Navigate to next screen if needed
           GoRouter.of(context).pushReplacement(ConstantRoutes.homeViewRoute);
         }
-        if (state is VerifyPhoneFailure) {
-          LoggerHelper.debug('Failure state... ${state.message}');
+        if (state is SmsCodeFailure) {
+          LoggerHelper.debug('SMS CODE Failure state... ${state.message}');
           showDialog(
             context: context,
             builder: (_) => CustomErrorDialog(

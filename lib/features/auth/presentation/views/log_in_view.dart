@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/di/service_locator.dart';
 import '../../domain/usecases/sign_in_usecase.dart';
+import '../../domain/usecases/sign_out_usecase.dart';
 import '../../domain/usecases/sign_up_usecase.dart';
 import '../../domain/usecases/signin_facebook_usecase.dart';
 import '../../domain/usecases/signin_google_usecase.dart';
 import '../manager/auth_cubit.dart';
-import '../widgets/login_body_bloc_consumer.dart';
+import '../widgets/login_body_bloc_listener.dart';
 
 class LogInView extends StatelessWidget {
   const LogInView({super.key});
@@ -16,6 +17,7 @@ class LogInView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(
+        signOutUsecase: ServiceLocator.get<SignOutUsecase>(),
         signInUsecase: ServiceLocator.get<SignInUsecase>(),
         signUpUsecase: ServiceLocator.get<SignUpUsecase>(),
         signInWithGoogleUsecase: ServiceLocator.get<SignInWithGoogleUsecase>(),
@@ -33,7 +35,7 @@ class LogInView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSizes.defaultPadding,
                 ),
-                child: LoginBodyBlocConsumber(),
+                child: LoginBodyBlocListener(),
               ),
             ),
           ),

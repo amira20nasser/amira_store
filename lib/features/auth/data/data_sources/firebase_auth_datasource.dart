@@ -71,15 +71,13 @@ class FirebaseAuthDataSource {
 
   Future<void> verifyPhoneNumber({
     required String phoneNumber,
+    required Function(FirebaseAuthException) verificationFailed,
     required void Function(String verificationId, int? resendToken) onCodeSent,
   }) async {
     await authService.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       codeSent: onCodeSent,
-      verificationFailed: (FirebaseAuthException e) {
-        LoggerHelper.error('Verification failed: ${e.message}');
-        throw e;
-      },
+      verificationFailed: verificationFailed,
       verificationCompleted: (PhoneAuthCredential credential) {
         LoggerHelper.debug(
           'Verification completed and You can sign in now/link with credential.',

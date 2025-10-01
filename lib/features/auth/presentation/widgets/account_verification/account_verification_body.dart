@@ -12,23 +12,38 @@ class AccountVerificationBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSizes.defaultBorderRadius),
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        child: Padding(
-          padding: const EdgeInsets.all(AppSizes.defaultPadding),
-          child: Visibility(
-            visible:
-                context.watch<VerifyingWithPhoneCubit>().state
-                    is VerifyPhoneCodeSent,
-            replacement: PhoneInputWidget(),
-            child: OTPInputWidget(),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20, left: 16, right: 16),
+        child: Card(
+          elevation: 8,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSizes.defaultBorderRadius),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: BlocBuilderAccountVerification(),
           ),
         ),
       ),
+    );
+  }
+}
+
+class BlocBuilderAccountVerification extends StatelessWidget {
+  const BlocBuilderAccountVerification({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<PhoneVerificationCubit, PhoneAccountVerificationState>(
+      builder: (context, state) {
+        if (state is SmsCodeLoading ||
+            state is SmsCodeSuccess ||
+            state is VerifyPhoneSuccess ||
+            state is VerifyPhoneCodeSent) {
+          return OTPInputWidget();
+        }
+        return PhoneInputWidget();
+      },
     );
   }
 }

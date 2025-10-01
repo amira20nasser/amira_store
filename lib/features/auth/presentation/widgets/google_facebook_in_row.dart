@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/constants/app_routes.dart';
 import '../manager/auth_cubit.dart';
 
 class GoogleFacebookInRow extends StatelessWidget {
@@ -21,11 +19,11 @@ class GoogleFacebookInRow extends StatelessWidget {
           child: Visibility(
             visible: context.watch<AuthCubit>().state is AuthLoading,
             replacement: ElevatedButton(
-              onPressed: () {
-                // context.read<AuthCubit>().signInWithGoogle();
-                GoRouter.of(
-                  context,
-                ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
+              onPressed: () async {
+                await context.read<AuthCubit>().signInWithGoogle();
+                // GoRouter.of(
+                //   context,
+                // ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
               },
               style: ElevatedButton.styleFrom(shape: CircleBorder()),
 
@@ -41,27 +39,7 @@ class GoogleFacebookInRow extends StatelessWidget {
             ),
           ),
         ),
-        // Expanded(
-        //   flex: 2,
-        //   child: Visibility(
-        //     visible: context.watch<AuthCubit>().state is AuthLoading,
-        //     replacement: ElevatedButton(
-        //       onPressed: () {
-        //         context.read<AuthCubit>().signInWithFacebook();
-        //       },
-        //       style: ElevatedButton.styleFrom(shape: CircleBorder()),
-        //       child: Icon(FontAwesomeIcons.facebookF),
-        //     ),
-        //     child: ElevatedButton(
-        //       onPressed: null,
-        //       style: ElevatedButton.styleFrom(
-        //         backgroundColor: AppColors.whiteColor40,
-        //         shape: CircleBorder(),
-        //       ),
-        //       child: Icon(FontAwesomeIcons.facebookF),
-        //     ),
-        //   ),
-        // ),
+
         Spacer(flex: 3),
 
         // TODO: enable facebook sign in later

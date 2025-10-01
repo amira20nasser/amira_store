@@ -6,13 +6,13 @@ import '../../../domain/usecases/verify_phone_usecase.dart';
 import '../../../domain/usecases/verify_smscode_usecaase.dart';
 part 'verifying_phone_state.dart';
 
-class VerifyingWithPhoneCubit extends Cubit<AccountVerificationWithPhoneState> {
+class PhoneVerificationCubit extends Cubit<PhoneAccountVerificationState> {
   final VerifyPhoneUsecase verifyPhoneUsecase;
   final SmsCodeUsecaase smsCodeUsecase;
 
   String? _verificationId;
 
-  VerifyingWithPhoneCubit({
+  PhoneVerificationCubit({
     required this.verifyPhoneUsecase,
     required this.smsCodeUsecase,
   }) : super(InitState());

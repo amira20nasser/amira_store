@@ -25,7 +25,7 @@ class _PhoneInputWidgetState extends State<PhoneInputWidget> {
     }
     LoggerHelper.debug('Sending code to $_phoneNumber');
 
-    BlocProvider.of<VerifyingWithPhoneCubit>(context).sendCode(_phoneNumber!);
+    BlocProvider.of<PhoneVerificationCubit>(context).sendCode(_phoneNumber!);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Sending your phone $_phoneNumber.....')),
     );
@@ -70,26 +70,10 @@ class _PhoneInputWidgetState extends State<PhoneInputWidget> {
         const SizedBox(height: 32),
         Row(
           children: [
-            // Expanded(
-            //   child: ElevatedButton(
-            //     onPressed: _onSend,
-            //     style: ElevatedButton.styleFrom(
-            //       padding: const EdgeInsets.symmetric(vertical: 16),
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(12),
-            //       ),
-            //       textStyle: const TextStyle(
-            //         fontSize: 16,
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            //     ),
-            //     child: const Text('Send'),
-            //   ),
-            // ),
             Expanded(
               child: Visibility(
                 visible:
-                    context.watch<VerifyingWithPhoneCubit>().state
+                    context.watch<PhoneVerificationCubit>().state
                         is VerifyPhoneLoading,
                 replacement: ElevatedButton(
                   onPressed: _onSend,
