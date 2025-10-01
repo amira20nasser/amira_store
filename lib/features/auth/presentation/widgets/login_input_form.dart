@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../domain/usecases/email_validator_usecase.dart';
 import '../manager/auth/auth_cubit.dart';
@@ -60,7 +62,9 @@ class _LogInInputFormState extends State<LogInInputForm> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                // TODO: Navigate to ForgotPassword
+                GoRouter.of(
+                  context,
+                ).push(ConstantRoutes.forgetPasswordViewRoute);
               },
               child: const Text("Forgot Password?", textAlign: TextAlign.right),
             ),

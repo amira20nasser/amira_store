@@ -28,7 +28,7 @@ class AppTheme {
       checkboxTheme: AppWidgetTheme.checkboxThemeData.copyWith(
         side: const BorderSide(color: AppColors.blackColor40),
       ),
-      appBarTheme: AppWidgetTheme.appBarDarkTheme,
+      appBarTheme: AppWidgetTheme.appBarLightTheme,
       scrollbarTheme: AppWidgetTheme.scrollbarThemeData,
       dataTableTheme: AppWidgetTheme.dataTableLightThemeData,
       dialogTheme: AppWidgetTheme.lightDialogThemeData,

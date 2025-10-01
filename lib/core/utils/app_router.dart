@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../../features/auth/presentation/views/forget_password_view.dart';
 import '../../features/auth/presentation/views/log_in_view.dart';
 import '../../features/auth/presentation/views/sign_up_view.dart';
 import '../../features/auth/presentation/views/account_verification_view.dart';
@@ -33,6 +34,10 @@ abstract class AppRouter {
         name: ConstantRoutes.verifyYourAccountViewRoute,
         path: ConstantRoutes.verifyYourAccountViewRoute,
         builder: (context, state) => AccountVerificationView(),
+      ),
+      GoRoute(
+        path: ConstantRoutes.forgetPasswordViewRoute,
+        builder: (context, state) => ForgetPasswordView(),
       ),
       GoRoute(
         name: ConstantRoutes.homeViewRoute,
