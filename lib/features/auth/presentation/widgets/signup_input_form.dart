@@ -5,7 +5,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../domain/usecases/email_validator_usecase.dart';
 import '../../domain/usecases/password_validator_usecase.dart';
-import '../manager/auth_cubit.dart';
+import '../manager/auth/auth_cubit.dart';
 import 'google_facebook_in_row.dart';
 import 'password_checks_widget.dart';
 import 'row_or_divider.dart';

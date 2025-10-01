@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../domain/usecases/email_validator_usecase.dart';
-import '../manager/auth_cubit.dart';
+import '../manager/auth/auth_cubit.dart';
 import 'google_facebook_in_row.dart';
 import 'row_or_divider.dart';
 import 'text_form_field_text_title.dart';

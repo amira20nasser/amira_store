@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../manager/auth_cubit.dart';
+import '../manager/auth/auth_cubit.dart';
 
 class GoogleFacebookInRow extends StatelessWidget {
   const GoogleFacebookInRow({super.key});

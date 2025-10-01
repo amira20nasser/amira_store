@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/widgets/custom_error_dialog.dart';
-import '../manager/auth_cubit.dart';
+import '../manager/auth/auth_cubit.dart';
 import 'sign_up_view_body.dart';
 
 class SignUpBodyBlocConsumber extends StatelessWidget {

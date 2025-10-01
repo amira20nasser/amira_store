@@ -7,7 +7,7 @@ import '../../domain/usecases/sign_out_usecase.dart';
 import '../../domain/usecases/sign_up_usecase.dart';
 import '../../domain/usecases/signin_facebook_usecase.dart';
 import '../../domain/usecases/signin_google_usecase.dart';
-import '../manager/auth_cubit.dart';
+import '../manager/auth/auth_cubit.dart';
 import '../widgets/signup_body_bloc_consumer.dart';
 
 class SignUpView extends StatelessWidget {
