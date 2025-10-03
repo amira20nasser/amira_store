@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../../../core/constants/app_colors.dart';
-import '../../../../../core/constants/app_routes.dart';
 import '../../../../../core/utils/logging/logger_helper.dart';
 import '../../manager/verifying_with_phone/verifying_phone_cubit.dart';
 
@@ -35,7 +34,7 @@ class _PhoneInputWidgetState extends State<PhoneInputWidget> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('Skipped!')));
-    GoRouter.of(context).pushReplacement(ConstantRoutes.homeViewRoute);
+    GoRouter.of(context).pop();
   }
 
   @override

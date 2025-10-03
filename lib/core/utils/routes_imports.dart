@@ -1,0 +1,12 @@
+export '../../features/auth/presentation/views/forget_password_view.dart';
+export '../../features/auth/presentation/views/log_in_view.dart';
+export '../../features/auth/presentation/views/email_verification_view.dart';
+export '../../features/auth/presentation/views/sign_up_view.dart';
+export '../../features/auth/presentation/views/phone_verification_view.dart';
+export '../../features/home/home_view.dart';
+export '../../features/on_boarding/domain/entities/on_boarding_entity.dart';
+export '../../features/on_boarding/presentation/views/on_boarding_view.dart';
+export '../constants/app_routes.dart';
+export '../screen_redirection.dart';
+export '../widgets/success_view.dart';
+export '../../features/profile/views/user_profile_view.dart';

@@ -4,18 +4,17 @@ import '../../../../core/di/service_locator.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/services/firebase_service.dart';
 import '../../../../core/utils/logging/logger_helper.dart';
-import '../entities/user_entity.dart';
 import '../repos/auth_repo.dart';
 
-class SignInWithGoogleUsecase {
+class SendEmailVerificationUsecase {
   final AuthRepository repository;
-  SignInWithGoogleUsecase(this.repository);
+  SendEmailVerificationUsecase(this.repository);
 
-  Future<Either<Failure, UserEntity>> call() async {
-    final result = await repository.signInWithGoogle();
+  Future<Either<Failure, void>> call() async {
+    final result = await repository.sendEmailVerification();
     final user = ServiceLocator.get<FirebaseAuthService>().currentUser;
     LoggerHelper.debug(
-      "signIn google User: Verified ${user?.emailVerified} ${user?.email} ${user?.uid} ${user?.displayName} ${user?.phoneNumber}",
+      "Verified Email User: ${user?.email} ${user?.uid} ${user?.displayName} ${user?.phoneNumber} ${user?.emailVerified}",
     );
     return result;
   }

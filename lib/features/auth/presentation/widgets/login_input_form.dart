@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/widgets/custom_button_with_loader.dart';
 import '../../domain/usecases/email_validator_usecase.dart';
 import '../manager/auth/auth_cubit.dart';
 import 'google_facebook_in_row.dart';
@@ -57,7 +56,6 @@ class _LogInInputFormState extends State<LogInInputForm> {
             keyBoardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
           ),
-
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
@@ -70,34 +68,24 @@ class _LogInInputFormState extends State<LogInInputForm> {
             ),
           ),
           SizedBox(height: AppSizes.defaultPadding),
-          Visibility(
-            visible: context.watch<AuthCubit>().state is AuthLoading,
-            replacement: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  context.read<AuthCubit>().signIn(
-                    _emailController.text.trim(),
-                    _passwordController.text.trim(),
-                  );
-                }
-              },
-              child: Text("Log In"),
+          CustomButtonWithLoader(
+            isLoading: context.select<AuthCubit, bool>(
+              (cubit) => cubit.state is AuthLoading,
             ),
-            child: ElevatedButton(
-              onPressed: null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.whiteColor40,
-                foregroundColor: Colors.white,
-              ),
-              child: CircularProgressIndicator(),
-            ),
+            widget: Text("Log In"),
+            onPressed: () async {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                await context.read<AuthCubit>().signIn(
+                  _emailController.text.trim(),
+                  _passwordController.text.trim(),
+                );
+              }
+            },
           ),
           SizedBox(height: AppSizes.defaultPadding),
-
           RowOrDivider(),
           SizedBox(height: AppSizes.defaultPadding),
-
           GoogleFacebookInRow(),
           SizedBox(height: AppSizes.defaultPadding),
         ],

@@ -1,4 +1,5 @@
 import 'package:amira_store/features/auth/domain/usecases/signin_facebook_usecase.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/user_entity.dart';
@@ -34,19 +35,21 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signInWithFacebook() async {
     emit(AuthLoading());
     final result = await signInWithFacebookUsecase.call();
-    result.fold(
-      (failure) => emit(AuthFailure(failure.message)),
-      (user) => emit(AuthSuccess(user)),
-    );
+    result.fold((failure) => emit(AuthFailure(failure.message)), (user) async {
+      await FirebaseAuth.instance.currentUser?.reload();
+
+      emit(AuthSuccess(user));
+    });
   }
 
   Future<void> signIn(String email, String password) async {
     emit(AuthLoading());
     final result = await signInUsecase.call(email, password);
-    result.fold(
-      (failure) => emit(AuthFailure(failure.message)),
-      (user) => emit(AuthSuccess(user)),
-    );
+    result.fold((failure) => emit(AuthFailure(failure.message)), (user) async {
+      await FirebaseAuth.instance.currentUser?.reload();
+
+      emit(AuthSuccess(user));
+    });
   }
 
   Future<void> signUp({
@@ -60,10 +63,11 @@ class AuthCubit extends Cubit<AuthState> {
       password: password,
       username: username,
     );
-    result.fold(
-      (failure) => emit(AuthFailure(failure.message)),
-      (user) => emit(AuthSuccess(user)),
-    );
+    result.fold((failure) => emit(AuthFailure(failure.message)), (user) async {
+      await FirebaseAuth.instance.currentUser?.reload();
+
+      emit(AuthSuccess(user));
+    });
   }
 
   Future<void> signOut() async {

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../../core/utils/logging/logger_helper.dart';
+import '../../../../../core/widgets/snack_bar.dart';
 import '../../manager/verifying_with_phone/verifying_phone_cubit.dart';
 
 class OTPInputWidget extends StatefulWidget {
@@ -18,7 +19,7 @@ class _OTPInputWidgetState extends State<OTPInputWidget> {
     LoggerHelper.debug('Verifying.....');
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text('Verifying code...')));
+    ).showSnackBar(SnackBarTypes.warningSnackBar(message: 'Verifying code...'));
     BlocProvider.of<PhoneVerificationCubit>(
       context,
     ).verifySmsCodeLink(_otpCode);

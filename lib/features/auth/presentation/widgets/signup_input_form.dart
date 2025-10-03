@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/widgets/custom_button_with_loader.dart';
 import '../../domain/usecases/email_validator_usecase.dart';
 import '../../domain/usecases/password_validator_usecase.dart';
 import '../manager/auth/auth_cubit.dart';
@@ -13,7 +13,6 @@ import 'text_form_field_text_title.dart';
 
 class SignUpInputForm extends StatefulWidget {
   const SignUpInputForm({super.key});
-
   @override
   State<SignUpInputForm> createState() => _SignUpInputFormState();
 }
@@ -86,39 +85,27 @@ class _SignUpInputFormState extends State<SignUpInputForm> {
             validator: _validatePassword.call,
           ),
           SizedBox(height: 10),
-
           PasswordChecksWidget(passwordChecks: _passwordChecks),
-
           SizedBox(height: AppSizes.defaultPadding),
-          Visibility(
-            visible: context.watch<AuthCubit>().state is AuthLoading,
-            replacement: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  context.read<AuthCubit>().signUp(
-                    email: _emailController.text.trim(),
-                    password: _passwordController.text.trim(),
-                    username: _usernameController.text.trim(),
-                  );
-                }
-              },
-              child: Text("Create Account"),
+          CustomButtonWithLoader(
+            isLoading: context.select<AuthCubit, bool>(
+              (cubit) => cubit.state is AuthLoading,
             ),
-            child: ElevatedButton(
-              onPressed: null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.whiteColor40,
-                foregroundColor: Colors.white,
-              ),
-              child: CircularProgressIndicator(),
-            ),
+            widget: Text("Create Account"),
+            onPressed: () async {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                await context.read<AuthCubit>().signUp(
+                  email: _emailController.text.trim(),
+                  password: _passwordController.text.trim(),
+                  username: _usernameController.text.trim(),
+                );
+              }
+            },
           ),
-
           SizedBox(height: AppSizes.defaultPadding),
           RowOrDivider(),
           SizedBox(height: AppSizes.defaultPadding),
-
           GoogleFacebookInRow(),
           SizedBox(height: AppSizes.defaultPadding),
         ],

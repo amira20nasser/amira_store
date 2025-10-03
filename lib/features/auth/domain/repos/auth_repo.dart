@@ -25,6 +25,8 @@ abstract class AuthRepository {
     required String verificationId,
     required String smsCode,
   });
+  Future<Either<Failure, void>> sendEmailVerification();
+
   Future<Either<Failure, void>> signOut();
   Stream<Either<Failure, UserEntity?>> get userStream;
 }

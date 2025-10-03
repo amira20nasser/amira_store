@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../../../core/constants/app_colors.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_routes.dart';
+import '../../../../core/widgets/custom_button_with_loader.dart';
 import '../manager/auth/auth_cubit.dart';
 
 class GoogleFacebookInRow extends StatelessWidget {
@@ -14,34 +15,22 @@ class GoogleFacebookInRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Spacer(flex: 3),
+
         Expanded(
           flex: 2,
-          child: Visibility(
-            visible: context.watch<AuthCubit>().state is AuthLoading,
-            replacement: ElevatedButton(
-              onPressed: () async {
-                await context.read<AuthCubit>().signInWithGoogle();
-                // GoRouter.of(
-                //   context,
-                // ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
-              },
-              style: ElevatedButton.styleFrom(shape: CircleBorder()),
-
-              child: Icon(FontAwesomeIcons.google),
+          child: CustomButtonWithLoader(
+            isLoading: context.select<AuthCubit, bool>(
+              (cubit) => cubit.state is AuthLoading,
             ),
-            child: ElevatedButton(
-              onPressed: null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.whiteColor40,
-                shape: CircleBorder(),
-              ),
-              child: Icon(FontAwesomeIcons.google),
-            ),
+            widget: Icon(FontAwesomeIcons.google),
+            onPressed: () async {
+              final router = GoRouter.of(context);
+              await context.read<AuthCubit>().signInWithGoogle();
+              router.pushReplacement(ConstantRoutes.profileView);
+            },
           ),
         ),
-
         Spacer(flex: 3),
-
         // TODO: enable facebook sign in later
         // Visibility(
         //   visible: context.watch<AuthCubit>().state is AuthLoading,

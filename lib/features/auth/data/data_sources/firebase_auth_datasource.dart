@@ -43,6 +43,20 @@ class FirebaseAuthDataSource {
     await user.reload();
   }
 
+  Future<void> sendEmailVerification() async {
+    final user = authService.currentUser;
+    if (user != null) {
+      if (!user.emailVerified) {
+        await user.sendEmailVerification();
+      } else {
+        LoggerHelper.debug("The Email is already Verified");
+      }
+    } else {
+      LoggerHelper.error("The User is null");
+      throw Exception("The user doesn't logged in");
+    }
+  }
+
   Future<UserEntity?> signInWithGoogleUser() async {
     final userCredential = await authService.signInWithGoogle();
     final user = userCredential.user;

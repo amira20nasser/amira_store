@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,6 +13,17 @@ class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuthDataSource authSource;
 
   AuthRepositoryImpl(this.authSource);
+  @override
+  Future<Either<Failure, void>> sendEmailVerification() async {
+    try {
+      await authSource.sendEmailVerification();
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseAuthFailure.fromCode(e.code));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
 
   @override
   Future<Either<Failure, UserEntity>> signIn(
@@ -27,7 +39,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       return left(FirebaseAuthFailure.fromCode(e.code));
     } catch (e) {
-      return left(ServerFailure("Unexpected error: Please try again later"));
+      return left(ServerFailure(e.toString()));
     }
   }
 
@@ -103,8 +115,10 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return right(user);
     } on FirebaseAuthException catch (e) {
+      LoggerHelper.debug(e.code);
       return left(FirebaseAuthFailure.fromCode(e.code));
     } on GoogleSignInException catch (e) {
+      LoggerHelper.debug(e.code.name);
       return left(FirebaseAuthFailure.fromCode(e.code.name));
     } catch (e) {
       return left(ServerFailure(e.toString()));

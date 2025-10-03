@@ -35,15 +35,13 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 20),
 
             ElevatedButton(
-              onPressed: () {
-                ServiceLocator.get<FirebaseAuthService>().signOut();
+              onPressed: () async {
+                final router = GoRouter.of(context);
+                await ServiceLocator.get<FirebaseAuthService>().signOut();
                 log(user?.uid ?? 'no user id');
                 log(user?.email ?? 'no email');
                 log(user?.phoneNumber ?? 'no phone number');
-
-                GoRouter.of(
-                  context,
-                ).pushReplacement(ConstantRoutes.logInViewRoute);
+                router.pushReplacement(ConstantRoutes.logInViewRoute);
               },
               child: Text("Sign Out"),
             ),

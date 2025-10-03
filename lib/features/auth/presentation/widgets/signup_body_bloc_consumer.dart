@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/widgets/custom_error_dialog.dart';
 import '../manager/auth/auth_cubit.dart';
@@ -13,6 +12,8 @@ class SignUpBodyBlocConsumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
+      buildWhen: (previous, current) =>
+          current is AuthLoading || current is AuthFailure,
       listener: (context, state) {
         if (state is AuthSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -20,7 +21,7 @@ class SignUpBodyBlocConsumber extends StatelessWidget {
           );
           GoRouter.of(
             context,
-          ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
+          ).pushReplacement(ConstantRoutes.mailVerificationViewRoute);
         } else if (state is AuthFailure) {
           showDialog(
             context: context,

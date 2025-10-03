@@ -113,7 +113,6 @@ class FirebaseAuthFailure extends Failure {
         );
       case 'popup-blocked':
         return FirebaseAuthFailure('Sign-in popup was blocked by the browser.');
-      case 'canceled':
       case 'cancelled-popup-request':
         return FirebaseAuthFailure('Sign-in popup request was cancelled.');
       case 'web-storage-unsupported':

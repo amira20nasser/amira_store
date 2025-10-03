@@ -23,7 +23,6 @@ class LogInViewBody extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 32),
-
         LogInInputForm(),
         Row(
           children: [

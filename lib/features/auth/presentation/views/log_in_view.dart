@@ -8,7 +8,7 @@ import '../../domain/usecases/sign_up_usecase.dart';
 import '../../domain/usecases/signin_facebook_usecase.dart';
 import '../../domain/usecases/signin_google_usecase.dart';
 import '../manager/auth/auth_cubit.dart';
-import '../widgets/login_body_bloc_listener.dart';
+import '../widgets/login_body_bloc_consumer.dart';
 
 class LogInView extends StatelessWidget {
   const LogInView({super.key});
@@ -35,7 +35,7 @@ class LogInView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSizes.defaultPadding,
                 ),
-                child: LoginBodyBlocListener(),
+                child: LoginBodyBlocConsumer(),
               ),
             ),
           ),

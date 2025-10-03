@@ -5,11 +5,12 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/constants/app_routes.dart';
 import '../../../../../core/utils/logging/logger_helper.dart';
 import '../../../../../core/widgets/custom_error_dialog.dart';
+import '../../../../../core/widgets/snack_bar.dart';
 import '../../manager/verifying_with_phone/verifying_phone_cubit.dart';
-import 'account_verification_body.dart';
+import 'phone_verification_body.dart';
 
-class AccountVerificationBlocListener extends StatelessWidget {
-  const AccountVerificationBlocListener({super.key});
+class PhoneVerificationBlocListener extends StatelessWidget {
+  const PhoneVerificationBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class AccountVerificationBlocListener extends StatelessWidget {
         if (state is VerifyPhoneSuccess) {
           LoggerHelper.debug('Phone verification success state...');
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Phone number verified!')),
+            SnackBarTypes.successSnackBar(message: 'Phone number is verified'),
           );
         }
         if (state is SmsCodeLoading) {
@@ -46,7 +47,7 @@ class AccountVerificationBlocListener extends StatelessWidget {
           LoggerHelper.debug('Success state...');
 
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Verification successful!')),
+            SnackBarTypes.successSnackBar(message: 'Verification successful!'),
           );
           GoRouter.of(context).pushReplacement(ConstantRoutes.homeViewRoute);
         }
@@ -64,7 +65,7 @@ class AccountVerificationBlocListener extends StatelessWidget {
           ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
         }
       },
-      child: AccountVerificationBody(),
+      child: PhoneVerificationBody(),
     );
   }
 }

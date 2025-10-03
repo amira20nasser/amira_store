@@ -1,18 +1,9 @@
 import 'package:go_router/go_router.dart';
-
-import '../../features/auth/presentation/views/forget_password_view.dart';
-import '../../features/auth/presentation/views/log_in_view.dart';
-import '../../features/auth/presentation/views/sign_up_view.dart';
-import '../../features/auth/presentation/views/account_verification_view.dart';
-import '../../features/home/home_view.dart';
-import '../../features/on_boarding/domain/entities/on_boarding_entity.dart';
-import '../../features/on_boarding/presentation/views/on_boarding_view.dart';
-import '../constants/app_routes.dart';
-import '../constants/shared_pref_keys.dart';
-import '../services/shared_preferences_service.dart';
+import 'routes_imports.dart';
 
 abstract class AppRouter {
   static final GoRouter router = GoRouter(
+    redirect: (context, state) => redirectScreen(context, state),
     initialLocation: ConstantRoutes.onBoardingViewRoute,
     routes: [
       GoRoute(
@@ -33,7 +24,7 @@ abstract class AppRouter {
       GoRoute(
         name: ConstantRoutes.verifyYourAccountViewRoute,
         path: ConstantRoutes.verifyYourAccountViewRoute,
-        builder: (context, state) => AccountVerificationView(),
+        builder: (context, state) => PhoneVerificationView(),
       ),
       GoRoute(
         path: ConstantRoutes.forgetPasswordViewRoute,
@@ -44,19 +35,23 @@ abstract class AppRouter {
         path: ConstantRoutes.homeViewRoute,
         builder: (context, state) => HomeView(),
       ),
+      GoRoute(
+        name: ConstantRoutes.mailVerificationViewRoute,
+        path: ConstantRoutes.mailVerificationViewRoute,
+        builder: (context, state) => EmailVerificationView(),
+      ),
+      GoRoute(
+        name: ConstantRoutes.successView,
+        path: ConstantRoutes.successView,
+        builder: (context, state) {
+          return SuccessView();
+        },
+      ),
+      GoRoute(
+        path: ConstantRoutes.profileView,
+        name: ConstantRoutes.profileView,
+        builder: (context, state) => UserProfileView(),
+      ),
     ],
-    redirect: (context, state) {
-      final prefs = SharedPreferencesService();
-      final seenOnboarding = prefs.getBool(SharedPrefKeys.onboardingSeen);
-      if (!seenOnboarding &&
-          !state.fullPath!.contains(ConstantRoutes.onBoardingViewRoute)) {
-        return ConstantRoutes.onBoardingViewRoute;
-      } else if (seenOnboarding &&
-          state.fullPath!.contains(ConstantRoutes.onBoardingViewRoute)) {
-        return ConstantRoutes.logInViewRoute;
-      }
-
-      return null;
-    },
   );
 }
