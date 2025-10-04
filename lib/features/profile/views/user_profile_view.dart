@@ -1,23 +1,20 @@
-import 'package:amira_store/core/services/firebase_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/di/service_locator.dart';
-import '../widgets/user_profile_body.dart'; // only if you use GoRouter
+import '../../auth/domain/entities/user_entity.dart';
+import '../../auth/domain/repos/auth_repo.dart';
+import '../widgets/user_profile_body.dart';
 
 class UserProfileView extends StatelessWidget {
   const UserProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authRepository = ServiceLocator.get<AuthRepository>();
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: StreamBuilder<User?>(
-        stream: ServiceLocator.get<FirebaseAuthService>().authStateChanges,
+      appBar: AppBar(title: const Text("Profile"), centerTitle: true),
+      body: StreamBuilder<UserEntity?>(
+        stream: authRepository.userStream,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -28,7 +25,7 @@ class UserProfileView extends StatelessWidget {
             return Center(
               child: Text(
                 "No user logged in",
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             );
           }

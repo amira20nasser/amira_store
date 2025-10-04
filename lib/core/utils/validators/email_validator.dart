@@ -1,4 +1,4 @@
-class EmailValidatorUsecase {
+class EmailValidator {
   String? call(String? value) {
     if (value == null || value.isEmpty) {
       return "E-mail is required";

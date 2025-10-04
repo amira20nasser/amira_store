@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/custom_button_with_loader.dart';
-import '../../domain/usecases/email_validator_usecase.dart';
-import '../../domain/usecases/password_validator_usecase.dart';
+import '../../../../core/utils/validators/email_validator.dart';
+import '../../../../core/utils/validators/password_validator.dart';
 import '../manager/auth/auth_cubit.dart';
 import 'google_facebook_in_row.dart';
 import 'password_checks_widget.dart';
@@ -22,7 +22,7 @@ class _SignUpInputFormState extends State<SignUpInputForm> {
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final _validatePassword = PasswordValidatorUsecase();
+  final _validatePassword = PasswordValidator();
 
   late final ValueNotifier<Map<String, bool>> _passwordChecks;
   @override
@@ -71,7 +71,7 @@ class _SignUpInputFormState extends State<SignUpInputForm> {
             hintText: "Enter your email",
             icon: FontAwesomeIcons.envelope,
             keyBoardType: TextInputType.emailAddress,
-            validator: EmailValidatorUsecase().call,
+            validator: EmailValidator().call,
           ),
           SizedBox(height: AppSizes.defaultPadding),
           TextFormFieldWithTextTitle(

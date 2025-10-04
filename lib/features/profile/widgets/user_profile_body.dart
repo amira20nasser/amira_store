@@ -1,17 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:amira_store/features/auth/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_routes.dart';
+import '../../../core/di/service_locator.dart';
+import '../../auth/domain/repos/auth_repo.dart';
 
 class UserProfileBody extends StatelessWidget {
   const UserProfileBody({super.key, required this.user});
 
-  final User user;
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
+    final authRepository = ServiceLocator.get<AuthRepository>();
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -23,10 +27,10 @@ class UserProfileBody extends StatelessWidget {
                 Center(
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundImage: user.photoURL != null
-                        ? NetworkImage(user.photoURL!)
+                    backgroundImage: user.photoUrl != null
+                        ? NetworkImage(user.photoUrl!)
                         : null,
-                    child: user.photoURL == null
+                    child: user.photoUrl == null
                         ? const Icon(Icons.person, size: 50)
                         : null,
                   ),
@@ -36,7 +40,7 @@ class UserProfileBody extends StatelessWidget {
                 // Name
                 Center(
                   child: Text(
-                    user.displayName ?? "No Name",
+                    user.name,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -47,7 +51,7 @@ class UserProfileBody extends StatelessWidget {
                 // Email
                 Center(
                   child: Text(
-                    user.email ?? "No Email",
+                    user.email,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -81,8 +85,8 @@ class UserProfileBody extends StatelessWidget {
 
                 ListTile(
                   leading: const Icon(Icons.phone),
-                  title: user.phoneNumber != null
-                      ? Text(user.phoneNumber!)
+                  title: user.phone != null
+                      ? Text(user.phone!)
                       : TextButton(
                           onPressed: () {
                             GoRouter.of(context).pushReplacement(
@@ -109,8 +113,7 @@ class UserProfileBody extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: () async {
                 final router = GoRouter.of(context);
-                await FirebaseAuth.instance.signOut();
-
+                await authRepository.signOut();
                 router.pushReplacement(ConstantRoutes.logInViewRoute);
               },
               icon: const Icon(Icons.logout),

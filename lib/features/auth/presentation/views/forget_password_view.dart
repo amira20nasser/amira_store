@@ -16,7 +16,7 @@ class ForgotPasswordView extends StatefulWidget {
 
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
+  // final _phoneController = TextEditingController();
   bool _isLoading = false;
 
   Future<void> _resetPasswordByEmail() async {
@@ -37,41 +37,41 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
     }
   }
 
-  Future<void> _signInWithPhoneIfLinked() async {
-    final phone = _phoneController.text.trim();
-    if (phone.isEmpty) {
-      _showSnack("Please enter your phone number");
-      return;
-    }
+  // Future<void> _signInWithPhoneIfLinked() async {
+  //   final phone = _phoneController.text.trim();
+  //   if (phone.isEmpty) {
+  //     _showSnack("Please enter your phone number");
+  //     return;
+  //   }
 
-    setState(() => _isLoading = true);
-    try {
-      // You can also check via email if needed using fetchSignInMethodsForEmail
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: phone,
-        verificationCompleted: (cred) async {
-          await FirebaseAuth.instance.signInWithCredential(cred);
-          _showSnack("Signed in successfully!");
-        },
-        verificationFailed: (e) {
-          _showSnack(
-            e.code == "user-not-found"
-                ? "No phone number linked with this account"
-                : e.message ?? "Verification failed",
-          );
-        },
-        codeSent: (id, token) {
-          _showSnack("OTP sent to your phone number");
-          // Navigate to OTP screen if you have one
-        },
-        codeAutoRetrievalTimeout: (_) {},
-      );
-    } catch (e) {
-      _showSnack("Error: $e");
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
+  //   setState(() => _isLoading = true);
+  //   try {
+  //     // You can also check via email if needed using fetchSignInMethodsForEmail
+  //     await FirebaseAuth.instance.verifyPhoneNumber(
+  //       phoneNumber: phone,
+  //       verificationCompleted: (cred) async {
+  //         await FirebaseAuth.instance.signInWithCredential(cred);
+  //         _showSnack("Signed in successfully!");
+  //       },
+  //       verificationFailed: (e) {
+  //         _showSnack(
+  //           e.code == "user-not-found"
+  //               ? "No phone number linked with this account"
+  //               : e.message ?? "Verification failed",
+  //         );
+  //       },
+  //       codeSent: (id, token) {
+  //         _showSnack("OTP sent to your phone number");
+  //         // Navigate to OTP screen if you have one
+  //       },
+  //       codeAutoRetrievalTimeout: (_) {},
+  //     );
+  //   } catch (e) {
+  //     _showSnack("Error: $e");
+  //   } finally {
+  //     setState(() => _isLoading = false);
+  //   }
+  // }
 
   void _showSnack(String message) {
     ScaffoldMessenger.of(
@@ -173,28 +173,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             child,
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _modernButton({
-    required String text,
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
-    return SizedBox(
-      width: double.infinity,
-      height: 48,
-      child: FilledButton.icon(
-        onPressed: _isLoading ? null : onTap,
-        icon: _isLoading
-            ? const SizedBox(
-                height: 18,
-                width: 18,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              )
-            : Icon(icon),
-        label: Text(text),
       ),
     );
   }

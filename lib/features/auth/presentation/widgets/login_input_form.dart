@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_routes.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/custom_button_with_loader.dart';
-import '../../domain/usecases/email_validator_usecase.dart';
+import '../../../../core/utils/validators/email_validator.dart';
 import '../manager/auth/auth_cubit.dart';
 import 'google_facebook_in_row.dart';
 import 'row_or_divider.dart';
@@ -22,7 +22,7 @@ class _LogInInputFormState extends State<LogInInputForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final EmailValidatorUsecase _emailValidator = EmailValidatorUsecase();
+  final EmailValidator _emailValidator = EmailValidator();
   @override
   void dispose() {
     super.dispose();

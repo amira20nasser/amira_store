@@ -125,7 +125,7 @@ class FirebaseAuthDataSource {
     );
   }
 
-  Future<void> signOut() async => authService.signOut();
+  Future<void> signOut() async => await authService.signOut();
 
   Stream<UserEntity?> get userStream =>
       authService.authStateChanges.map((user) {
@@ -135,6 +135,8 @@ class FirebaseAuthDataSource {
           email: user.email!,
           name: user.displayName ?? "default name",
           phone: user.phoneNumber,
+          photoUrl: user.photoURL,
+          emailVerified: user.emailVerified,
         );
       });
 }

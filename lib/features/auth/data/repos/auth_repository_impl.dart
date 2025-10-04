@@ -79,16 +79,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Stream<Either<Failure, UserEntity?>> get userStream async* {
-    try {
-      await for (final user in authSource.userStream) {
-        yield right(user);
-      }
-    } on FirebaseAuthException catch (e) {
-      yield left(FirebaseAuthFailure.fromCode(e.code));
-    } catch (e) {
-      yield left(ServerFailure("Unexpected error: Please try again later"));
-    }
+  Stream<UserEntity?> get userStream {
+    return authSource.userStream;
   }
 
   @override

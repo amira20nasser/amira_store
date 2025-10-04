@@ -1,4 +1,4 @@
-class PasswordValidatorUsecase {
+class PasswordValidator {
   String? call(String? value) {
     if (value == null) {
       return "Password is required";
