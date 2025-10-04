@@ -18,6 +18,8 @@ class FirebaseAuthDataSource {
       email: email,
       name: user.displayName ?? "Defualt Name",
       phone: user.phoneNumber,
+      emailVerified: user.emailVerified,
+      photoUrl: user.photoURL,
     );
   }
 
@@ -35,6 +37,8 @@ class FirebaseAuthDataSource {
       email: email,
       name: username,
       phone: user.phoneNumber,
+      emailVerified: user.emailVerified,
+      photoUrl: user.photoURL,
     );
   }
 
@@ -66,6 +70,8 @@ class FirebaseAuthDataSource {
       email: user.email!,
       name: user.displayName ?? "Defualt Name",
       phone: user.phoneNumber,
+      emailVerified: user.emailVerified,
+      photoUrl: user.photoURL,
     );
   }
 
@@ -80,6 +86,9 @@ class FirebaseAuthDataSource {
       email: user.email!,
       name: user.displayName ?? "Defualt Name",
       phone: user.phoneNumber,
+
+      emailVerified: user.emailVerified,
+      photoUrl: user.photoURL,
     );
   }
 
