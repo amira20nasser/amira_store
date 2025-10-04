@@ -89,11 +89,7 @@ abstract class AppWidgetTheme {
         ),
       );
   static final IconButtonThemeData iconButtonThemeData = IconButtonThemeData(
-    style: IconButton.styleFrom(
-      padding: const EdgeInsets.all(AppSizes.defaultPadding),
-      backgroundColor: AppColors.primaryColor,
-      foregroundColor: Colors.white,
-    ),
+    style: IconButton.styleFrom(foregroundColor: AppColors.primaryColor),
   );
   static final textButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(foregroundColor: AppColors.primaryColor),

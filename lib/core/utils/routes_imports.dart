@@ -7,6 +7,6 @@ export '../../features/home/home_view.dart';
 export '../../features/on_boarding/domain/entities/on_boarding_entity.dart';
 export '../../features/on_boarding/presentation/views/on_boarding_view.dart';
 export '../constants/app_routes.dart';
-export '../screen_redirection.dart';
-export '../widgets/success_view.dart';
+export '../redirection.dart';
+export '../../features/auth/presentation/views/success_email_view.dart';
 export '../../features/profile/views/user_profile_view.dart';

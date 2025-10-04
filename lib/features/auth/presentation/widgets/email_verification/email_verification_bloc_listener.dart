@@ -44,14 +44,7 @@ class EmailVerificationBlocListener extends StatelessWidget {
           );
           final prefs = SharedPreferencesService();
           prefs.setBool(SharedPrefKeys.sucessViewSeen, true);
-          GoRouter.of(context).pushReplacement(
-            ConstantRoutes.successView,
-            extra: {
-              "onPressed": () {
-                context.pushReplacement(ConstantRoutes.profileView);
-              },
-            },
-          );
+          GoRouter.of(context).pushReplacement(ConstantRoutes.successView);
         }
       },
       child: EmailVerificationBody(),
