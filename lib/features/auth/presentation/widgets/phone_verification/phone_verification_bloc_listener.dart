@@ -49,7 +49,7 @@ class PhoneVerificationBlocListener extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBarTypes.successSnackBar(message: 'Verification successful!'),
           );
-          GoRouter.of(context).pushReplacement(ConstantRoutes.homeViewRoute);
+          GoRouter.of(context).pushReplacement(ConstantRoutes.home);
         }
         if (state is SmsCodeFailure) {
           LoggerHelper.debug('SMS CODE Failure state... ${state.message}');
@@ -60,9 +60,7 @@ class PhoneVerificationBlocListener extends StatelessWidget {
               message: state.message,
             ),
           );
-          GoRouter.of(
-            context,
-          ).pushReplacement(ConstantRoutes.verifyYourAccountViewRoute);
+          GoRouter.of(context).pushReplacement(ConstantRoutes.verifyAccount);
         }
       },
       child: PhoneVerificationBody(),

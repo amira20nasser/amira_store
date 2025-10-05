@@ -1,11 +1,16 @@
 abstract class ConstantRoutes {
-  static const String onBoardingViewRoute = "/onBoarding";
-  static const String logInViewRoute = "/login";
-  static const String signUpViewRoute = "/signup";
-  static const String homeViewRoute = "/home";
-  static const String verifyYourAccountViewRoute = "/verifyYourAccount";
-  static const String forgetPasswordViewRoute = "/forgetPassword";
-  static const String mailVerificationViewRoute = "/mailVerification";
-  static const String successView = "/success";
-  static const String profileView = '/profile';
+  static const String onboarding = '/onboarding';
+  static const String login = '/login';
+  static const String signup = '/signup';
+  static const String verifyAccount = '/verify-account';
+  static const String forgotPassword = "/forgot-password";
+  static const String emailVerification = "/email-verification";
+  static const String success = "/success";
+  static const String navigationScreen = '/navigation-screen';
+  static const String home = "/home";
+  static const String productDetails = '/product-details';
+  static const String categoryList = '/categories';
+  static const String cart = '/cart';
+  static const String wishlist = '/wishlist';
+  static const String profile = '/profile';
 }

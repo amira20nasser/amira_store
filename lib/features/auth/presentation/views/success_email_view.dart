@@ -13,7 +13,7 @@ class SuccessEmailView extends StatelessWidget {
         child: SingleChildScrollView(
           child: SuccessBody(
             onPressed: () {
-              context.pushReplacement(ConstantRoutes.profileView);
+              context.pushReplacement(ConstantRoutes.profile);
             },
             imageLottie:
                 "assets/images/emailVerification/72462-check-register.json",

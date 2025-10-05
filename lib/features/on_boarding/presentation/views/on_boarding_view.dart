@@ -101,7 +101,7 @@ class _OnBordingViewState extends State<OnBordingView> {
                           true,
                         );
 
-                        router.pushReplacement(ConstantRoutes.logInViewRoute);
+                        router.pushReplacement(ConstantRoutes.login);
                       }
                     },
                     icon: Icon(Icons.arrow_forward_rounded),

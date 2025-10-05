@@ -23,8 +23,8 @@ class LoginBodyBlocConsumer extends StatelessWidget {
               message: "Welcome ${state.user.email}",
             ),
           );
-          LoggerHelper.debug("GO TO PROFILE ");
-          GoRouter.of(context).pushReplacement(ConstantRoutes.profileView);
+          LoggerHelper.debug("GO TO HOME ");
+          context.go(ConstantRoutes.home);
         } else if (state is AuthFailure) {
           showDialog(
             context: context,

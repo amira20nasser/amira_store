@@ -134,9 +134,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                  GoRouter.of(
-                    context,
-                  ).push(ConstantRoutes.verifyYourAccountViewRoute);
+                  GoRouter.of(context).push(ConstantRoutes.verifyAccount);
                 },
                 child: const Text(
                   "Sign in with Phone Number",

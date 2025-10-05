@@ -31,9 +31,7 @@ class SignUpViewBody extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                GoRouter.of(
-                  context,
-                ).pushReplacement(ConstantRoutes.logInViewRoute);
+                GoRouter.of(context).pushReplacement(ConstantRoutes.login);
               },
               child: Text(
                 "Log In",

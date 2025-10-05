@@ -21,7 +21,7 @@ class SignUpBodyBlocConsumber extends StatelessWidget {
           );
           GoRouter.of(
             context,
-          ).pushReplacement(ConstantRoutes.mailVerificationViewRoute);
+          ).pushReplacement(ConstantRoutes.emailVerification);
         } else if (state is AuthFailure) {
           showDialog(
             context: context,

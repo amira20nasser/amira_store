@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
-import 'constants/app_routes.dart';
-import 'constants/shared_pref_keys.dart';
-import 'di/service_locator.dart';
-import 'services/firebase_service.dart';
-import 'services/shared_preferences_service.dart';
-import 'utils/logging/logger_helper.dart';
+import '../constants/app_routes.dart';
+import '../constants/shared_pref_keys.dart';
+import '../di/service_locator.dart';
+import '../services/firebase_service.dart';
+import '../services/shared_preferences_service.dart';
+import '../utils/logging/logger_helper.dart';
 
 abstract class Redirection {
   static final _authService = ServiceLocator.get<FirebaseAuthService>();
@@ -15,9 +15,9 @@ abstract class Redirection {
     final location = state.fullPath ?? '';
     LoggerHelper.debug("Redirect check --> OnBoarding seen: $seenOnboarding");
     // If seen and currently on onboarding
-    if (seenOnboarding && location == ConstantRoutes.onBoardingViewRoute) {
+    if (seenOnboarding && location == ConstantRoutes.onboarding) {
       LoggerHelper.debug("Onboarding done → Go to login");
-      return ConstantRoutes.logInViewRoute;
+      return ConstantRoutes.login;
     }
     // No redirect needed
     return null;
@@ -28,33 +28,33 @@ abstract class Redirection {
     final location = state.fullPath ?? '';
     LoggerHelper.debug("User: ${user?.email ?? "NO USER"} | at $location");
     final allowedAnonRoutes = {
-      ConstantRoutes.logInViewRoute,
-      ConstantRoutes.signUpViewRoute,
-      ConstantRoutes.forgetPasswordViewRoute,
+      ConstantRoutes.login,
+      ConstantRoutes.signup,
+      ConstantRoutes.forgotPassword,
     };
     if (user == null) {
       if (!allowedAnonRoutes.contains(location)) {
-        return ConstantRoutes.logInViewRoute;
+        return ConstantRoutes.login;
       }
       return null;
     }
     if (!user.emailVerified) {
-      if (location != ConstantRoutes.mailVerificationViewRoute &&
-          location != ConstantRoutes.profileView) {
-        return ConstantRoutes.mailVerificationViewRoute;
+      if (location != ConstantRoutes.emailVerification &&
+          location != ConstantRoutes.profile) {
+        return ConstantRoutes.emailVerification;
       }
       return null;
     }
 
     final allowedVerifiedRoutes = {
-      ConstantRoutes.profileView,
-      ConstantRoutes.successView,
-      ConstantRoutes.verifyYourAccountViewRoute,
-      ConstantRoutes.homeViewRoute,
+      ConstantRoutes.profile,
+      ConstantRoutes.success,
+      ConstantRoutes.verifyAccount,
+      ConstantRoutes.home,
     };
 
     if (!allowedVerifiedRoutes.contains(location)) {
-      return ConstantRoutes.profileView;
+      return ConstantRoutes.home;
     }
 
     return null;

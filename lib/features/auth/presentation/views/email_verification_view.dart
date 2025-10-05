@@ -26,9 +26,7 @@ class EmailVerificationView extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () {
-                GoRouter.of(
-                  context,
-                ).pushReplacement(ConstantRoutes.profileView);
+                GoRouter.of(context).pushReplacement(ConstantRoutes.profile);
               },
               child: Icon(FontAwesomeIcons.xmark),
             ),

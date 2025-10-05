@@ -4,19 +4,17 @@ import 'routes_imports.dart';
 
 abstract class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: ConstantRoutes.onBoardingViewRoute,
+    initialLocation: ConstantRoutes.onboarding,
     routes: [
       GoRoute(
-        name: ConstantRoutes.onBoardingViewRoute,
-        path: ConstantRoutes.onBoardingViewRoute,
+        path: ConstantRoutes.onboarding,
         builder: (context, state) =>
             OnBordingView(onBoardingItems: OnBoardingEntity.getItems),
         redirect: (context, state) =>
             Redirection.handleOnboardingRedirect(state),
       ),
       GoRoute(
-        name: ConstantRoutes.logInViewRoute,
-        path: ConstantRoutes.logInViewRoute,
+        path: ConstantRoutes.login,
         builder: (context, state) => LogInView(),
         redirect: (context, state) => Redirection.handleAuthRedirect(state),
         pageBuilder: (context, state) => CustomTransitionPage(
@@ -34,48 +32,23 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
-        path: ConstantRoutes.signUpViewRoute,
+        path: ConstantRoutes.signup,
         builder: (context, state) => SignUpView(),
       ),
       GoRoute(
-        path: ConstantRoutes.forgetPasswordViewRoute,
+        path: ConstantRoutes.forgotPassword,
         builder: (context, state) => ForgotPasswordView(),
       ),
       GoRoute(
-        name: ConstantRoutes.verifyYourAccountViewRoute,
-        path: ConstantRoutes.verifyYourAccountViewRoute,
+        path: ConstantRoutes.verifyAccount,
         builder: (context, state) => PhoneVerificationView(),
       ),
       GoRoute(
-        name: ConstantRoutes.mailVerificationViewRoute,
-        path: ConstantRoutes.mailVerificationViewRoute,
+        path: ConstantRoutes.emailVerification,
         builder: (context, state) => EmailVerificationView(),
       ),
       GoRoute(
-        name: ConstantRoutes.profileView,
-        path: ConstantRoutes.profileView,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          key: state.pageKey,
-          child: const UserProfileView(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          },
-        ),
-      ),
-      GoRoute(
-        name: ConstantRoutes.homeViewRoute,
-        path: ConstantRoutes.homeViewRoute,
-        builder: (context, state) => HomeView(),
-      ),
-      GoRoute(
-        name: ConstantRoutes.successView,
-        path: ConstantRoutes.successView,
+        path: ConstantRoutes.success,
         pageBuilder: (context, state) => CustomTransitionPage(
           key: state.pageKey,
           child: const SuccessEmailView(),
@@ -92,6 +65,53 @@ abstract class AppRouter {
             );
           },
         ),
+      ),
+
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            NavigationShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: ConstantRoutes.home,
+                builder: (context, state) => const HomeView(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: ConstantRoutes.categoryList,
+                builder: (context, state) => const CategoriesView(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: ConstantRoutes.cart,
+                builder: (context, state) => const CartView(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: ConstantRoutes.wishlist,
+                builder: (context, state) => const WishlistView(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: ConstantRoutes.profile,
+                builder: (context, state) => const UserProfileView(),
+              ),
+            ],
+          ),
+        ],
       ),
     ],
   );

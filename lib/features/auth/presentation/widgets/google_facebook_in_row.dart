@@ -26,7 +26,7 @@ class GoogleFacebookInRow extends StatelessWidget {
             onPressed: () async {
               final router = GoRouter.of(context);
               await context.read<AuthCubit>().signInWithGoogle();
-              router.pushReplacement(ConstantRoutes.profileView);
+              router.pushReplacement(ConstantRoutes.profile);
             },
           ),
         ),

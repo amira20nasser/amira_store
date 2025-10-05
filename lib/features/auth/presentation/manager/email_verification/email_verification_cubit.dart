@@ -33,7 +33,7 @@ class EmailVerificationCubit extends Cubit<EmailVerificationState> {
       final user = FirebaseAuth.instance.currentUser;
       if (user!.emailVerified) {
         timer.cancel();
-        GoRouter.of(context).pushReplacement(ConstantRoutes.successView);
+        GoRouter.of(context).pushReplacement(ConstantRoutes.success);
       }
     });
   }

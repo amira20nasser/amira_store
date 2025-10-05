@@ -35,7 +35,7 @@ class EmailVerificationBlocListener extends StatelessWidget {
             ),
           );
           LoggerHelper.debug("message -> not verified ");
-          GoRouter.of(context).pushReplacement(ConstantRoutes.profileView);
+          GoRouter.of(context).pushReplacement(ConstantRoutes.profile);
           LoggerHelper.debug("After go router");
         }
         if (state is Verified) {
@@ -44,7 +44,7 @@ class EmailVerificationBlocListener extends StatelessWidget {
           );
           final prefs = SharedPreferencesService();
           prefs.setBool(SharedPrefKeys.sucessViewSeen, true);
-          GoRouter.of(context).pushReplacement(ConstantRoutes.successView);
+          GoRouter.of(context).pushReplacement(ConstantRoutes.success);
         }
       },
       child: EmailVerificationBody(),

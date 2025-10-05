@@ -60,9 +60,7 @@ class _LogInInputFormState extends State<LogInInputForm> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                GoRouter.of(
-                  context,
-                ).push(ConstantRoutes.forgetPasswordViewRoute);
+                GoRouter.of(context).push(ConstantRoutes.forgotPassword);
               },
               child: const Text("Forgot Password?", textAlign: TextAlign.right),
             ),

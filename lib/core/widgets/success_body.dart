@@ -53,7 +53,7 @@ class SuccessBody extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                context.pushReplacement(ConstantRoutes.profileView);
+                context.pushReplacement(ConstantRoutes.profile);
               },
               child: const Text("Continue"),
             ),

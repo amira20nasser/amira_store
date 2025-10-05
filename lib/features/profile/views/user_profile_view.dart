@@ -11,28 +11,25 @@ class UserProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     final authRepository = ServiceLocator.get<AuthRepository>();
 
-    return Scaffold(
-      appBar: AppBar(title: const Text("Profile"), centerTitle: true),
-      body: StreamBuilder<UserEntity?>(
-        stream: authRepository.userStream,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return StreamBuilder<UserEntity?>(
+      stream: authRepository.userStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          final user = snapshot.data;
-          if (user == null) {
-            return Center(
-              child: Text(
-                "No user logged in",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            );
-          }
+        final user = snapshot.data;
+        if (user == null) {
+          return Center(
+            child: Text(
+              "No user logged in",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          );
+        }
 
-          return UserProfileBody(user: user);
-        },
-      ),
+        return UserProfileBody(user: user);
+      },
     );
   }
 }

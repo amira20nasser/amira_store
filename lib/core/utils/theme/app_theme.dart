@@ -7,16 +7,34 @@ class AppTheme {
   static const _kFontFamily = "Plus Jakarta";
   static ThemeData lightTheme(BuildContext context) {
     return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: AppColors.primaryColor,
       ),
-      brightness: Brightness.light,
       fontFamily: _kFontFamily,
       primarySwatch: AppColors.primaryMaterialColor,
       primaryColor: AppColors.primaryColor,
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: AppColors.whiteColor,
       iconTheme: const IconThemeData(color: AppColors.blackColor),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: AppColors.whiteColor,
+        elevation: 10,
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primaryColor,
+        foregroundColor: Colors.white,
+      ),
 
+      // for Dark Theme
+      // bottomAppBarTheme: const BottomAppBarThemeData(
+      //   color: AppColors.blackColor,
+      //   elevation: 8,
+      // ),
+      // floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      //   backgroundColor: AppColors.primaryColor,
+      //   foregroundColor: Colors.white,
+      // ),
       textTheme: const TextTheme(
         bodyMedium: TextStyle(color: AppColors.blackColor60),
       ),

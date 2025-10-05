@@ -16,7 +16,7 @@ class TextButtonSkip extends StatelessWidget {
         final prefs = SharedPreferencesService();
         await prefs.setBool(SharedPrefKeys.onboardingSeen, true);
 
-        router.pushReplacement(ConstantRoutes.logInViewRoute);
+        router.pushReplacement(ConstantRoutes.login);
       },
       child: Text("Skip", style: Theme.of(context).textTheme.bodyLarge),
     );
