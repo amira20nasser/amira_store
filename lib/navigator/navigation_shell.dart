@@ -24,6 +24,7 @@ class NavigationShell extends StatelessWidget {
     double dragDistance = 0;
 
     return Scaffold(
+      // body: navigationShell,
       body: GestureDetector(
         onHorizontalDragUpdate: (details) {
           dragDistance += details.delta.dx;
