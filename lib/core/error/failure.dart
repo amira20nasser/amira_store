@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 abstract class Failure {
   final String message;
   const Failure(this.message);
@@ -5,6 +7,80 @@ abstract class Failure {
 
 class ServerFailure extends Failure {
   const ServerFailure(super.message);
+}
+
+class DioFailure extends Failure {
+  const DioFailure(super.message);
+
+  factory DioFailure.fromDioException(DioException dioException) {
+    switch (dioException.type) {
+      case DioExceptionType.cancel:
+        return const DioFailure("Request was cancelled. Please try again.");
+
+      case DioExceptionType.connectionTimeout:
+        return const DioFailure(
+          "Connection timed out. Check your internet connection.",
+        );
+
+      case DioExceptionType.sendTimeout:
+        return const DioFailure(
+          "Send timeout. The request took too long to send.",
+        );
+
+      case DioExceptionType.receiveTimeout:
+        return const DioFailure(
+          "Receive timeout. The server took too long to respond.",
+        );
+
+      case DioExceptionType.badResponse:
+        final statusCode = dioException.response?.statusCode;
+        final data = dioException.response?.data;
+        return DioFailure._handleBadResponse(statusCode, data);
+
+      case DioExceptionType.connectionError:
+        return const DioFailure(
+          "No internet connection. Please check your network.",
+        );
+
+      case DioExceptionType.unknown:
+      default:
+        if (dioException.message != null &&
+            dioException.message!.contains("SocketException")) {
+          return const DioFailure("No Internet connection. Please try again.");
+        }
+        return DioFailure(
+          "Unexpected error: ${dioException.message ?? 'Unknown error'}",
+        );
+    }
+  }
+  factory DioFailure._handleBadResponse(int? statusCode, dynamic data) {
+    switch (statusCode) {
+      case 400:
+        return const DioFailure("Bad request. Please check your input.");
+      case 401:
+        return const DioFailure("Unauthorized. Please log in again.");
+      case 403:
+        return const DioFailure("Access forbidden. You don’t have permission.");
+      case 404:
+        return const DioFailure("Resource not found. Please try again later.");
+      case 409:
+        return const DioFailure(
+          "Conflict error. The request could not be processed.",
+        );
+      case 500:
+        return const DioFailure(
+          "Internal server error. Please try again later.",
+        );
+      case 502:
+        return const DioFailure("Bad gateway. Please try again later.");
+      case 503:
+        return const DioFailure("Service unavailable. Please try again later.");
+      default:
+        return DioFailure(
+          "Received invalid status code: $statusCode\nData: $data",
+        );
+    }
+  }
 }
 
 class FirebaseAuthFailure extends Failure {

@@ -14,6 +14,10 @@ abstract class AppRouter {
             Redirection.handleOnboardingRedirect(state),
       ),
       GoRoute(
+        path: ConstantRoutes.search,
+        builder: (context, state) => SearchView(),
+      ),
+      GoRoute(
         path: ConstantRoutes.login,
         builder: (context, state) => LogInView(),
         redirect: (context, state) => Redirection.handleAuthRedirect(state),

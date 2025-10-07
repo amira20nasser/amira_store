@@ -9,6 +9,9 @@ class CustomTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final Widget? suffixIcon;
+  final Color? fillColor;
   const CustomTextField({
     super.key,
     required this.controller,
@@ -18,6 +21,9 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     this.validator,
+    this.onChanged,
+    this.suffixIcon,
+    this.fillColor,
   });
 
   @override
@@ -53,6 +59,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: widget.isPassword ? obscure : false,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
+      onChanged: widget.onChanged,
       validator:
           widget.validator ??
           (value) {
@@ -63,10 +70,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
           },
 
       decoration: InputDecoration(
+        filled: true,
+        fillColor: widget.fillColor,
         hintText: widget.hintText,
         prefixIcon: Icon(widget.icon),
         prefixIconColor: hasText ? Theme.of(context).primaryColor : null,
-
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(FontAwesomeIcons.solidEye),
@@ -79,7 +87,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ),
                 onPressed: () => setState(() => obscure = !obscure),
               )
-            : null,
+            : widget.suffixIcon,
       ),
     );
   }
