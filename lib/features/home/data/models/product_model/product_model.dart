@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
 import 'product.dart';
 
-class ProductModel extends Equatable {
+class ProductModel {
   final List<Product>? products;
   final int? total;
   final int? skip;

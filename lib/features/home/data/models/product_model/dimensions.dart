@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
-class Dimensions extends Equatable {
+class Dimensions {
   final double? width;
   final double? height;
   final double? depth;
@@ -32,7 +30,4 @@ class Dimensions extends Equatable {
   ///
   /// Converts [Dimensions] to a JSON string.
   String toJson() => json.encode(toMap());
-
-  @override
-  List<Object?> get props => [width, height, depth];
 }

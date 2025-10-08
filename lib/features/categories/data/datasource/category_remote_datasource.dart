@@ -18,7 +18,9 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
   Future<List<CategoryEntity>> fetchCategories() async {
     LoggerHelper.debug("in CategoryRemoteDataSource");
 
-    final response = await api.get(ApiConstants.categoryEndPoint);
+    final response = await api.get(
+      ApiConstants.productEndPoint + ApiConstants.categoriesEndPoint,
+    );
     LoggerHelper.debug("the raw response \n $response");
     final categories = response.data as List;
 

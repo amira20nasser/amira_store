@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
-class Meta extends Equatable {
+class Meta {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String? barcode;

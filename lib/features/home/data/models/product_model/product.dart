@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:equatable/equatable.dart';
 
+import '../../../domain/entities/product_entity.dart';
 import 'dimensions.dart';
 import 'meta.dart';
 import 'review.dart';
 
-class Product extends Equatable {
-  final int? id;
+class Product extends ProductEntity {
+  final int id;
   final String? title;
   final String? description;
   final String? category;
@@ -29,8 +29,8 @@ class Product extends Equatable {
   final List<String>? images;
   final String? thumbnail;
 
-  const Product({
-    this.id,
+  Product({
+    required this.id,
     this.title,
     this.description,
     this.category,
@@ -52,11 +52,18 @@ class Product extends Equatable {
     this.meta,
     this.images,
     this.thumbnail,
-  });
+  }) : super(
+         productId: id,
+         name: title ?? "The Title isn't available",
+         cost: price ?? -1,
+         reductionPercentage: discountPercentage ?? -1,
+         stars: rating ?? 1,
+         thumbnailUrl: thumbnail ?? "No image",
+       );
 
   factory Product.fromMap(Map<String, dynamic> data) => Product(
-    id: data['id'] as int?,
-    title: data['title'] as String?,
+    id: data['id'] as int,
+    title: data['title'] as String? ?? "",
     description: data['description'] as String?,
     category: data['category'] as String?,
     price: (data['price'] as num?)?.toDouble(),
@@ -121,32 +128,4 @@ class Product extends Equatable {
   ///
   /// Converts [Product] to a JSON string.
   String toJson() => json.encode(toMap());
-
-  @override
-  List<Object?> get props {
-    return [
-      id,
-      title,
-      description,
-      category,
-      price,
-      discountPercentage,
-      rating,
-      stock,
-      tags,
-      brand,
-      sku,
-      weight,
-      dimensions,
-      warrantyInformation,
-      shippingInformation,
-      availabilityStatus,
-      reviews,
-      returnPolicy,
-      minimumOrderQuantity,
-      meta,
-      images,
-      thumbnail,
-    ];
-  }
 }

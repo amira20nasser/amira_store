@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
-class Review extends Equatable {
+class Review {
   final int? rating;
   final String? comment;
   final DateTime? date;
@@ -44,9 +42,4 @@ class Review extends Equatable {
   ///
   /// Converts [Review] to a JSON string.
   String toJson() => json.encode(toMap());
-
-  @override
-  List<Object?> get props {
-    return [rating, comment, date, reviewerName, reviewerEmail];
-  }
 }
