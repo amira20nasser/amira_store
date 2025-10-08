@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_routes.dart';
@@ -86,25 +87,30 @@ class _OnBordingViewState extends State<OnBordingView> {
                     ),
                   ),
                   const Spacer(),
-                  IconButton(
-                    onPressed: () async {
-                      if (_pageIndex < widget.onBoardingItems.length - 1) {
-                        _pageController.nextPage(
-                          curve: Curves.ease,
-                          duration: AppSizes.defaultDuration,
-                        );
-                      } else {
-                        var router = GoRouter.of(context);
-                        final prefs = SharedPreferencesService();
-                        await prefs.setBool(
-                          SharedPrefKeys.onboardingSeen,
-                          true,
-                        );
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (_pageIndex < widget.onBoardingItems.length - 1) {
+                          _pageController.nextPage(
+                            curve: Curves.ease,
+                            duration: AppSizes.defaultDuration,
+                          );
+                        } else {
+                          var router = GoRouter.of(context);
+                          final prefs = SharedPreferencesService();
+                          await prefs.setBool(
+                            SharedPrefKeys.onboardingSeen,
+                            true,
+                          );
 
-                        router.pushReplacement(ConstantRoutes.login);
-                      }
-                    },
-                    icon: Icon(Icons.arrow_forward_rounded),
+                          router.pushReplacement(ConstantRoutes.login);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(shape: CircleBorder()),
+                      child: Icon(FontAwesomeIcons.chevronRight),
+                    ),
                   ),
                 ],
               ),
