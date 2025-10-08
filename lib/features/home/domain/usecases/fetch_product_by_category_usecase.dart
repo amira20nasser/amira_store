@@ -13,6 +13,7 @@ class FetchSelectedCategoriesUsecase {
     'womens-jewellery',
     'smartphones',
     'sports-accessories',
+    'furniture',
   };
   Future<Either<Failure, Map<String, List<ProductEntity>>>> call() async {
     final res = await repo.fetchProductsByCategory();
