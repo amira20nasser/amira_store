@@ -60,8 +60,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '44063603441',
     projectId: 'amira-store-6bb3d',
     storageBucket: 'amira-store-6bb3d.firebasestorage.app',
-    androidClientId: '44063603441-bea6jn0g1r39truv8gma3e5up5bhgpgg.apps.googleusercontent.com',
-    iosClientId: '44063603441-vfb4tm05okoi3angdkrg3qsrscj8ugnu.apps.googleusercontent.com',
+    androidClientId:
+        '44063603441-bea6jn0g1r39truv8gma3e5up5bhgpgg.apps.googleusercontent.com',
+    iosClientId:
+        '44063603441-vfb4tm05okoi3angdkrg3qsrscj8ugnu.apps.googleusercontent.com',
     iosBundleId: 'com.example.amiraStore',
   );
 
@@ -73,5 +75,4 @@ class DefaultFirebaseOptions {
     authDomain: 'amira-store-6bb3d.firebaseapp.com',
     storageBucket: 'amira-store-6bb3d.firebasestorage.app',
   );
-
 }
