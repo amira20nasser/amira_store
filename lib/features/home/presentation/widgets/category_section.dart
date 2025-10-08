@@ -15,22 +15,26 @@ class CategorySection extends StatelessWidget {
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         if (state is CategoryLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return SliverToBoxAdapter(
+            child: const Center(child: CircularProgressIndicator()),
+          );
         }
 
         if (state is CategoryFailure) {
-          return ErrorView(message: state.msg);
+          return SliverToBoxAdapter(child: ErrorView(message: state.msg));
         }
 
         List<CategoryEntity> categories = [];
         if (state is CategorySuccess) categories = state.categories;
         if (categories.isEmpty) {
-          return const EmptyView();
+          return SliverToBoxAdapter(
+            child: const EmptyView(msg: 'No categories available.'),
+          );
         }
 
-        return Padding(
+        return SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          child: CategoryGridView(categories: categories),
+          sliver: CategoryGridView(categories: categories),
         );
       },
     );

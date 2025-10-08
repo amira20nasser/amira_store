@@ -20,7 +20,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDatasource {
         '${ApiConstants.productEndPoint}${ApiConstants.categoryEndPoint}/$category',
       );
       final data = response.data;
-      final products = ProductModel.fromJson(data).products;
+      final products = ProductModel.fromMap(data).products;
       categorizedProducts[category] = products ?? [];
     });
 

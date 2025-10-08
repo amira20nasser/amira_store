@@ -37,7 +37,4 @@ class Meta {
   ///
   /// Converts [Meta] to a JSON string.
   String toJson() => json.encode(toMap());
-
-  @override
-  List<Object?> get props => [createdAt, updatedAt, barcode, qrCode];
 }

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
 class EmptyView extends StatelessWidget {
-  const EmptyView({super.key});
-
+  const EmptyView({super.key, required this.msg});
+  final String msg;
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        "No categories available.",
-        style: TextStyle(fontSize: 16, color: Colors.grey),
-      ),
+    return Center(
+      child: Text(msg, style: TextStyle(fontSize: 16, color: Colors.grey)),
     );
   }
 }

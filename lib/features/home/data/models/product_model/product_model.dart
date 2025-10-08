@@ -25,19 +25,4 @@ class ProductModel {
     'skip': skip,
     'limit': limit,
   };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [ProductModel].
-  factory ProductModel.fromJson(String data) {
-    return ProductModel.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-
-  /// `dart:convert`
-  ///
-  /// Converts [ProductModel] to a JSON string.
-  String toJson() => json.encode(toMap());
-
-  @override
-  List<Object?> get props => [products, total, skip, limit];
 }

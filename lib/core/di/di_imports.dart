@@ -15,6 +15,10 @@ import '../../features/categories/data/datasource/category_remote_datasource.dar
 import '../../features/categories/data/repos/category_repo_impl.dart';
 import '../../features/categories/domain/repos/category_repo.dart';
 import '../../features/categories/domain/usecases/fetch_category.dart';
+import '../../features/home/data/datasources/home_remote_datasource.dart';
+import '../../features/home/data/repos/home_repo_impl.dart';
+import '../../features/home/domain/repos/home_repo.dart';
+import '../../features/home/domain/usecases/fetch_product_by_category_usecase.dart';
 import '../services/api_service.dart';
 import '../services/dio_service.dart';
 import '../services/firebase_service.dart';
