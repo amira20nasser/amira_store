@@ -13,5 +13,5 @@ export '../../features/profile/views/user_profile_view.dart';
 export '../../features/cart/cart_view.dart';
 export '../../features/categories/presentation/views/categories_view.dart';
 export '../../features/wishlist/wishlist_view.dart';
-export '../../navigator/navigation_shell.dart';
+export '../../features/navigator/navigation_shell.dart';
 export '../../features/search/search_view.dart';
