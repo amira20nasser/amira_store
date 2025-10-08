@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_routes.dart';
-import '../../../core/di/service_locator.dart';
+import '../../../core/di/di_imports.dart';
 import '../../auth/domain/repos/auth_repo.dart';
 
 class UserProfileBody extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/di/service_locator.dart';
+import '../../../../core/di/di_imports.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/services/firebase_service.dart';
 import '../../../../core/utils/logging/logger_helper.dart';

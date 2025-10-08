@@ -1,11 +1,10 @@
 import 'dart:async';
-
-import 'package:amira_store/core/constants/app_routes.dart';
-import 'package:amira_store/core/di/service_locator.dart';
-import 'package:amira_store/core/services/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart' show GoRouter;
+import 'package:go_router/go_router.dart';
+import '../../../../../core/constants/app_routes.dart';
+import '../../../../../core/di/di_imports.dart';
+import '../../../../../core/services/firebase_service.dart';
 import '../../../domain/usecases/send_email_verification_usecase.dart';
 
 part 'email_verification_state.dart';

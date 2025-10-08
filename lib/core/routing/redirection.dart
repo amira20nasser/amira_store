@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import '../constants/app_routes.dart';
 import '../constants/shared_pref_keys.dart';
-import '../di/service_locator.dart';
+import '../di/di_imports.dart';
 import '../services/firebase_service.dart';
 import '../services/shared_preferences_service.dart';
 import '../utils/logging/logger_helper.dart';

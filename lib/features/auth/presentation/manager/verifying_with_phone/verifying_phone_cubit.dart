@@ -1,7 +1,7 @@
-import 'package:amira_store/core/di/service_locator.dart';
-import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/di/di_imports.dart';
 import '../../../../../core/services/firebase_service.dart';
+import '../../../../../core/utils/logging/logger_helper.dart';
 import '../../../domain/usecases/verify_phone_usecase.dart';
 import '../../../domain/usecases/verify_smscode_usecaase.dart';
 part 'verifying_phone_state.dart';

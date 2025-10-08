@@ -1,6 +1,6 @@
-import 'package:amira_store/core/di/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/di/di_imports.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../categories/domain/usecases/fetch_category.dart';
 import '../../../categories/presentation/manager/category_cubit.dart';

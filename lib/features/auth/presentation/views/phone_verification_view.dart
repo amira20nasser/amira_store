@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/di/service_locator.dart';
+import '../../../../core/di/di_imports.dart';
 import '../../domain/usecases/verify_phone_usecase.dart';
 import '../../domain/usecases/verify_smscode_usecaase.dart';
 import '../manager/verifying_with_phone/verifying_phone_cubit.dart';

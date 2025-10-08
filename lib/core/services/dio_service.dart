@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import '../constants/api_constants.dart';
 import 'api_service.dart';
 
 class DioService extends ApiService {
@@ -8,7 +9,7 @@ class DioService extends ApiService {
   DioService({String? baseUrl, String? token})
     : _dio = Dio(
         BaseOptions(
-          baseUrl: baseUrl ?? 'https://api.example.com',
+          baseUrl: baseUrl ?? ApiConstants.dummyJsonBaseUrl,
           headers: {
             if (token != null) 'Authorization': 'Bearer $token',
             'Content-Type': 'application/json',

@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/bloc_observer.dart';
-import 'core/di/service_locator.dart';
+import 'core/di/di_imports.dart';
 import 'core/services/shared_preferences_service.dart';
 import 'core/routing/app_router.dart';
 import 'core/utils/theme/app_theme.dart';

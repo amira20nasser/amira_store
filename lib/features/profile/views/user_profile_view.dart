@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/di/service_locator.dart';
+import '../../../core/di/di_imports.dart';
 import '../../auth/domain/entities/user_entity.dart';
 import '../../auth/domain/repos/auth_repo.dart';
 import '../widgets/user_profile_body.dart';

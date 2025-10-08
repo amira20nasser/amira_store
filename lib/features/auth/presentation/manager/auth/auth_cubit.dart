@@ -1,4 +1,3 @@
-import 'package:amira_store/features/auth/domain/usecases/signin_facebook_usecase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,6 +5,7 @@ import '../../../domain/entities/user_entity.dart';
 import '../../../domain/usecases/sign_in_usecase.dart';
 import '../../../domain/usecases/sign_out_usecase.dart';
 import '../../../domain/usecases/sign_up_usecase.dart';
+import '../../../domain/usecases/signin_facebook_usecase.dart';
 import '../../../domain/usecases/signin_google_usecase.dart';
 part 'auth_state.dart';
 

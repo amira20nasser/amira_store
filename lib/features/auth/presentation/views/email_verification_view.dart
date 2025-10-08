@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_routes.dart';
-import '../../../../core/di/service_locator.dart';
+import '../../../../core/di/di_imports.dart';
 import '../../domain/usecases/send_email_verification_usecase.dart';
 import '../manager/email_verification/email_verification_cubit.dart';
 import '../widgets/email_verification/email_verification_bloc_listener.dart';
