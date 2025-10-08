@@ -1,3 +1,4 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/product_entity.dart';
@@ -9,13 +10,14 @@ class ListViewProductHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: 240,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         itemBuilder: (context, index) {
-          return SizedBox(
-            width: 230,
+          LoggerHelper.debug("Heeloo Build Widget");
+          return AspectRatio(
+            aspectRatio: 200 / 240,
             child: ProductItem(product: products[index]),
           );
         },

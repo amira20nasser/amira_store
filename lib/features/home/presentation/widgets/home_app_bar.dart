@@ -26,7 +26,7 @@ class HomeAppBar extends StatelessWidget {
                 border: Border.all(color: AppColors.blackColor.withAlpha(130)),
                 color: Theme.of(context).brightness == Brightness.dark
                     ? AppColors.greyColor
-                    : AppColors.primaryMaterialColor.shade200,
+                    : AppColors.primaryMaterialColor.shade100,
               ),
               child: Row(
                 children: [

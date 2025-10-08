@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
+import 'main_multiblocprovider.dart';
+import 'main_view.dart';
 
 class NavigationShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -21,27 +23,11 @@ class NavigationShell extends StatelessWidget {
     final Color inactiveColor = Theme.of(context).brightness == Brightness.dark
         ? AppColors.whiteColor60
         : AppColors.primaryMaterialColor.shade500;
-    double dragDistance = 0;
 
     return Scaffold(
       // body: navigationShell,
-      body: GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          dragDistance += details.delta.dx;
-        },
-        onHorizontalDragEnd: (details) {
-          final currentIndex = navigationShell.currentIndex;
-          final totalBranches = navigationShell.route.branches.length;
-
-          if (dragDistance < -50 && currentIndex < totalBranches - 1) {
-            navigationShell.goBranch(currentIndex + 1);
-          } else if (dragDistance > 50 && currentIndex > 0) {
-            navigationShell.goBranch(currentIndex - 1);
-          }
-
-          dragDistance = 0; // reset
-        },
-        child: navigationShell,
+      body: MainViewMultiBloc(
+        child: MainView(navigationShell: navigationShell),
       ),
       bottomNavigationBar: SizedBox(
         height: 80,
