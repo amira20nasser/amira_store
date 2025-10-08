@@ -26,6 +26,8 @@ class CategoryItem extends StatelessWidget {
               image: DecorationImage(
                 image: NetworkImage(category.imageUrl),
                 fit: BoxFit.fill,
+                onError: (exception, stackTrace) =>
+                    Icon(Icons.broken_image_outlined),
               ),
             ),
           ),
