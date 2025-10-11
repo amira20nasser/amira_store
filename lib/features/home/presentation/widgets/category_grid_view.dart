@@ -1,4 +1,6 @@
+import 'package:amira_store/core/constants/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../categories/domain/entities/category_entity.dart';
 import 'category_item.dart';
@@ -15,7 +17,13 @@ class CategoryGridView extends StatelessWidget {
       // shrinkWrap: true,
       // padding: EdgeInsets.zero,
       delegate: SliverChildBuilderDelegate(childCount: 8, (context, index) {
-        return CategoryItem(category: categories[index]);
+        var category = categories[index];
+        return InkWell(
+          onTap: () => GoRouter.of(
+            context,
+          ).push(ConstantRoutes.productsByCategory, extra: category.name),
+          child: CategoryItem(category: category),
+        );
       }),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: 95,
