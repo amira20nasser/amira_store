@@ -34,7 +34,7 @@ class NavigationShell extends StatelessWidget {
         child: BottomNavigationBar(
           currentIndex: navigationShell.currentIndex,
           onTap: _onItemTapped,
-          type: BottomNavigationBarType.fixed,
+          type: BottomNavigationBarType.shifting,
           selectedItemColor: activeColor,
           unselectedItemColor: inactiveColor,
           showSelectedLabels: true,
@@ -66,13 +66,29 @@ class NavigationShell extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: activeColor,
-        onPressed: () => _onItemTapped(2),
-        child: Icon(
-          2 == navigationShell.currentIndex
-              ? Icons.shopping_cart
-              : Icons.shopping_cart_outlined,
+
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: activeColor,
+      //   onPressed: () => _onItemTapped(2),
+      //   child: Icon(
+      //     2 == navigationShell.currentIndex
+      //         ? Icons.shopping_cart
+      //         : Icons.shopping_cart_outlined,
+      //   ),
+      // ),
+      floatingActionButton: GestureDetector(
+        onTap: () => _onItemTapped(2),
+        child: Container(
+          height: 65,
+          width: 65,
+          decoration: BoxDecoration(shape: BoxShape.circle, color: activeColor),
+          child: Icon(
+            navigationShell.currentIndex == 2
+                ? Icons.shopping_cart
+                : Icons.shopping_cart_outlined,
+            color: Colors.white,
+            size: 30,
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
