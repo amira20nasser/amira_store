@@ -46,20 +46,16 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
   }
 
   Future<String> _fetchCategoryImage(String categoryName) async {
-    try {
-      final response = await Dio().get(
-        ApiConstants.pexelsBaseUrl,
-        queryParameters: {'query': categoryName, 'per_page': 1},
-        options: Options(headers: {'Authorization': ApiConstants.pexelsApiKey}),
-      );
+    final response = await Dio().get(
+      ApiConstants.pexelsBaseUrl,
+      queryParameters: {'query': categoryName, 'per_page': 1},
+      options: Options(headers: {'Authorization': ApiConstants.pexelsApiKey}),
+    );
 
-      final photos = response.data['photos'] as List?;
-      if (photos != null && photos.isNotEmpty) {
-        return photos[0]['src']['medium'];
-      } else {
-        return 'https://via.placeholder.com/150';
-      }
-    } catch (e) {
+    final photos = response.data['photos'] as List?;
+    if (photos != null && photos.isNotEmpty) {
+      return photos[0]['src']['medium'];
+    } else {
       return 'https://via.placeholder.com/150';
     }
   }
