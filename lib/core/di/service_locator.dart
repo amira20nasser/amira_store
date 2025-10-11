@@ -21,6 +21,11 @@ class ServiceLocator {
     _sl.registerLazySingleton<HomeRemoteDatasource>(
       () => HomeRemoteDataSourceImpl(_sl.get<ApiService>()),
     );
+    _sl.registerLazySingleton<ProductsByCategoryRemoteDatasource>(
+      () => ProductsByCategoryRemoteDataSourceImpl(
+        apiService: _sl.get<ApiService>(),
+      ),
+    );
     //! Repositories
     _sl.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(_sl<FirebaseAuthDataSource>()),
@@ -30,6 +35,12 @@ class ServiceLocator {
     );
     _sl.registerLazySingleton<HomeRepo>(
       () => HomeRepoImpl(_sl<HomeRemoteDatasource>()),
+    );
+
+    _sl.registerLazySingleton<ProductsByCategoryRepository>(
+      () => ProductsByCategoryRepositoryImpl(
+        remoteDataSource: _sl<ProductsByCategoryRemoteDatasource>(),
+      ),
     );
 
     //! Use Cases
@@ -54,6 +65,9 @@ class ServiceLocator {
     );
     _sl.registerLazySingleton(
       () => FetchSelectedCategoriesUsecase(_sl.get<HomeRepo>()),
+    );
+    _sl.registerLazySingleton(
+      () => GetProductsByCategory(_sl.get<ProductsByCategoryRepository>()),
     );
   }
 
