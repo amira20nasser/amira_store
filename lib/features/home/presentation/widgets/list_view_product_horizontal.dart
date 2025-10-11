@@ -14,7 +14,7 @@ class ListViewProductHorizontal extends StatelessWidget {
         itemCount: products.length,
         itemBuilder: (context, index) {
           return AspectRatio(
-            aspectRatio: 200 / 240,
+            aspectRatio: 0.75,
             child: ProductItem(product: products[index]),
           );
         },

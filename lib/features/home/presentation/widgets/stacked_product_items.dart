@@ -37,7 +37,7 @@ class StackedProductItems extends StatelessWidget {
         Center(
           child: Image.network(
             product.thumbnailUrl,
-            height: 140,
+            height: 110,
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) =>
                 const Icon(Icons.image_not_supported),

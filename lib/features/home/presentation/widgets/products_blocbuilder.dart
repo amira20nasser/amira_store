@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/utils/logging/logger_helper.dart';
 import '../../domain/entities/product_entity.dart';
 import '../manager/home_cubit.dart';
 import 'all_products.dart';
@@ -22,7 +20,6 @@ class ProductsBlocBuilder extends StatelessWidget {
         }
 
         if (state is HomeError) {
-          LoggerHelper.debug(state.message);
           return SliverToBoxAdapter(child: ErrorView(message: state.message));
         }
 
@@ -30,9 +27,7 @@ class ProductsBlocBuilder extends StatelessWidget {
         if (state is HomeSuccess) {
           products = state.categorizedProducts;
         }
-        if (products['furniture']?.isEmpty ?? true) {
-          LoggerHelper.debug("Empty");
-
+        if (products.isEmpty) {
           return SliverToBoxAdapter(
             child: EmptyView(msg: 'No Products Available'),
           );
