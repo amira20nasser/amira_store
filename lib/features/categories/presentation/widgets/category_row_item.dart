@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../domain/entities/category_entity.dart';
 
 class CategoryRowItem extends StatelessWidget {
@@ -10,7 +12,9 @@ class CategoryRowItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        context.push(ConstantRoutes.productsByCategory, extra: category.name);
+      },
       child: Row(
         children: [
           Container(

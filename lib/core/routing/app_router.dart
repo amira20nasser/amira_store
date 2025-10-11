@@ -18,6 +18,14 @@ abstract class AppRouter {
         builder: (context, state) => SearchView(),
       ),
       GoRoute(
+        path: ConstantRoutes.productsByCategory,
+        builder: (context, state) {
+          final categorySlug = state.extra as String;
+          return ProductsByCategoryView(categorySlug: categorySlug);
+        },
+      ),
+
+      GoRoute(
         path: ConstantRoutes.login,
         builder: (context, state) => LogInView(),
         redirect: (context, state) => Redirection.handleAuthRedirect(state),
