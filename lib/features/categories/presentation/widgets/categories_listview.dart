@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_routes.dart';
 import '../../domain/entities/category_entity.dart';
-import 'category_Row_item.dart';
+import 'category_modern_item.dart';
 
 class CategoriesListView extends StatelessWidget {
   const CategoriesListView({super.key, required this.categories});
@@ -17,8 +18,15 @@ class CategoriesListView extends StatelessWidget {
       ),
       physics: BouncingScrollPhysics(),
       itemCount: categories.length,
-      itemBuilder: (context, index) =>
-          CategoryRowItem(category: categories[index]),
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () {
+          GoRouter.of(context).push(
+            ConstantRoutes.productsByCategory,
+            extra: categories[index].name,
+          );
+        },
+        child: CategoryModernItem(category: categories[index]),
+      ),
     );
   }
 }
