@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/home/domain/entities/product_entity.dart';
 import 'routes_imports.dart';
 
 abstract class AppRouter {
@@ -82,8 +83,14 @@ abstract class AppRouter {
                 path: ConstantRoutes.home,
                 builder: (context, state) => const HomeView(),
                 routes: [
-    
-                ]
+                  GoRoute(
+                    path: ConstantRoutes.productDetails,
+                    builder: (context, state) {
+                      final product = state.extra as ProductEntity;
+                      return ProductDetailsView(product: product);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

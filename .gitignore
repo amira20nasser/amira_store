@@ -1,5 +1,4 @@
 config.dart
-lib/features/home/presentation/views/product_details.dart
 # Miscellaneous
 *.class
 *.log

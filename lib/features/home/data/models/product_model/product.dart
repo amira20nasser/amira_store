@@ -54,11 +54,37 @@ class Product extends ProductEntity {
     this.thumbnail,
   }) : super(
          productId: id,
-         name: title ?? "The Title isn't available",
+         name: title ?? "",
          cost: price ?? -1,
          reductionPercentage: discountPercentage ?? -1,
          stars: rating ?? 1,
-         thumbnailUrl: thumbnail ?? "No image",
+         thumbnailUrl: thumbnail ?? "",
+         imageUrls: images ?? const [],
+         overview: description ?? "",
+         brandName: brand ?? "",
+         cat: category ?? "",
+         availableStatus: availabilityStatus ?? "",
+         dimensionsProduct:
+             dimensions?.width.toString() ??
+             " x ${dimensions?.height.toString() ?? ""} x ${dimensions?.depth.toString() ?? ""}",
+         minOrderQuantity: minimumOrderQuantity?.toString() ?? '',
+         policy: returnPolicy ?? "",
+         shippingInfo: shippingInformation ?? "",
+         skuProduct: sku ?? "",
+         weightProduct: weight?.toString() ?? "",
+         warrantyInfo: warrantyInformation ?? "",
+         customersReviews:
+             reviews
+                 ?.map(
+                   (e) => ReviewEntity(
+                     reviewerName: e.reviewerName ?? "",
+                     reviewDate: e.date ?? DateTime.now(),
+                     rating: e.rating ?? -1,
+                     comment: e.comment ?? "",
+                   ),
+                 )
+                 .toList() ??
+             const [],
        );
 
   factory Product.fromMap(Map<String, dynamic> data) => Product(

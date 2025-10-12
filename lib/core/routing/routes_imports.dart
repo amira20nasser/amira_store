@@ -16,3 +16,4 @@ export '../../features/wishlist/wishlist_view.dart';
 export '../../features/navigator/navigation_shell.dart';
 export '../../features/search/search_view.dart';
 export '../../features/products_by_category/presentation/views/products_by_category_view.dart';
+export '../../features/product_details/views/product_details_view.dart';
