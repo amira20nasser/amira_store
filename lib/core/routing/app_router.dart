@@ -17,13 +17,6 @@ abstract class AppRouter {
         path: ConstantRoutes.search,
         builder: (context, state) => SearchView(),
       ),
-      GoRoute(
-        path: ConstantRoutes.productsByCategory,
-        builder: (context, state) {
-          final categorySlug = state.extra as String;
-          return ProductsByCategoryView(categorySlug: categorySlug);
-        },
-      ),
 
       GoRoute(
         path: ConstantRoutes.login,
@@ -88,6 +81,9 @@ abstract class AppRouter {
               GoRoute(
                 path: ConstantRoutes.home,
                 builder: (context, state) => const HomeView(),
+                routes: [
+    
+                ]
               ),
             ],
           ),
@@ -96,6 +92,15 @@ abstract class AppRouter {
               GoRoute(
                 path: ConstantRoutes.categoryList,
                 builder: (context, state) => const CategoriesView(),
+                routes: [
+                  GoRoute(
+                    path: ConstantRoutes.productsByCategory,
+                    builder: (context, state) {
+                      final categorySlug = state.extra as String;
+                      return ProductsByCategoryView(categorySlug: categorySlug);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

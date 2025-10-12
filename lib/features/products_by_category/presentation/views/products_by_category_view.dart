@@ -16,16 +16,14 @@ class ProductsByCategoryView extends StatelessWidget {
       create: (context) =>
           ProductsByCategoryCubit(ServiceLocator.get<GetProductsByCategory>())
             ..fetchProducts(categorySlug),
-      child: Scaffold(
-        body: Column(
-          children: [
-            CustomAppBar(
-              appBarHeight: 180,
-              child: ProductsAppBarBody(categoryName: categorySlug),
-            ),
-            Expanded(child: ProductsBody()),
-          ],
-        ),
+      child: Column(
+        children: [
+          CustomAppBar(
+            appBarHeight: 180,
+            child: ProductsAppBarBody(categoryName: categorySlug),
+          ),
+          Expanded(child: ProductsBody()),
+        ],
       ),
     );
   }

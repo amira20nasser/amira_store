@@ -19,9 +19,10 @@ class CategoryGridView extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(childCount: 8, (context, index) {
         var category = categories[index];
         return InkWell(
-          onTap: () => GoRouter.of(
-            context,
-          ).push(ConstantRoutes.productsByCategory, extra: category.name),
+          onTap: () => GoRouter.of(context).push(
+            ConstantRoutes.categoryList + ConstantRoutes.productsByCategory,
+            extra: category.name,
+          ),
           child: CategoryItem(category: category),
         );
       }),
