@@ -92,7 +92,6 @@ class NavigationShell extends StatelessWidget {
         ),
       ),
       resizeToAvoidBottomInset: false,
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

@@ -14,13 +14,7 @@ class InfoInRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
-          Flexible(
-            child: Text(
-              value.toString(),
-              textAlign: TextAlign.end,
-              style: const TextStyle(color: Colors.black54),
-            ),
-          ),
+          Flexible(child: Text(value.toString(), textAlign: TextAlign.end)),
         ],
       ),
     );

@@ -1,4 +1,3 @@
-import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../home/domain/entities/product_entity.dart';
@@ -14,7 +13,6 @@ class ProductsByCategoryCubit extends Cubit<ProductsByCategoryState> {
   Future<void> fetchProducts(String categorySlug) async {
     emit(ProductsByCategoryLoading());
     var slug = _nameToSlug(categorySlug);
-    LoggerHelper.debug('Fetching products for category slug: $slug');
     final res = await getProductsByCategory(slug);
     res.fold(
       (error) => emit(ProductsByCategoryError(error.message)),

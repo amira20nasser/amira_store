@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
-  final IconData icon;
+  final IconData? icon;
   final bool isPassword;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
@@ -12,11 +12,13 @@ class CustomTextField extends StatefulWidget {
   final void Function(String)? onChanged;
   final Widget? suffixIcon;
   final Color? fillColor;
+  final int? maxLines;
+  final TextStyle? hintStyle;
   const CustomTextField({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.icon,
+    this.icon,
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
@@ -24,6 +26,8 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.suffixIcon,
     this.fillColor,
+    this.maxLines,
+    this.hintStyle,
   });
 
   @override
@@ -68,11 +72,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
             }
             return null;
           },
-
+      maxLines: widget.maxLines,
       decoration: InputDecoration(
         filled: true,
         fillColor: widget.fillColor,
         hintText: widget.hintText,
+        hintStyle: widget.hintStyle,
         prefixIcon: Icon(widget.icon),
         prefixIconColor: hasText ? Theme.of(context).primaryColor : null,
         suffixIcon: widget.isPassword

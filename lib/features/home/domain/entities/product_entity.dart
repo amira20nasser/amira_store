@@ -1,5 +1,6 @@
 class ReviewEntity {
   final String reviewerName;
+  final String? reviewerId;
   final DateTime reviewDate;
   final int rating;
   final String comment;
@@ -9,6 +10,7 @@ class ReviewEntity {
     required this.reviewDate,
     required this.rating,
     required this.comment,
+    this.reviewerId,
   });
 }
 

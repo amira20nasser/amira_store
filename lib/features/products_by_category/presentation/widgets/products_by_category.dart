@@ -1,4 +1,3 @@
-import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +26,6 @@ class ProductsByCategoryBlocBuilder extends StatelessWidget {
 
         List<ProductEntity> products = [];
         if (state is ProductsByCategoryLoaded) {
-          LoggerHelper.debug(state.products.length.toString());
           products = state.products;
         }
         if (products.isEmpty) {

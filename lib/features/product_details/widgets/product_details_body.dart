@@ -65,7 +65,10 @@ class ProductDetailsBody extends StatelessWidget {
 
         // --- Reviews Section ---
         SliverToBoxAdapter(
-          child: ReviewsSection(reviews: product.customersReviews),
+          child: ReviewsSection(
+            reviews: product.customersReviews,
+            productId: product.productId,
+          ),
         ),
       ],
     );
