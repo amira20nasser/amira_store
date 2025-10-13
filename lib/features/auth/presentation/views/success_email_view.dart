@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_routes.dart';
+import '../../../../core/constants/image_assets.dart';
 import '../../../../core/widgets/success_body.dart';
 
 class SuccessEmailView extends StatelessWidget {
@@ -15,8 +16,7 @@ class SuccessEmailView extends StatelessWidget {
             onPressed: () {
               context.pushReplacement(ConstantRoutes.profile);
             },
-            imageLottie:
-                "assets/images/emailVerification/72462-check-register.json",
+            imageLottie: Assets.assetsImagesEmailVerification72462CheckRegister,
             title: "Your account successfully created!",
             subTitle:
                 "Welcome to Your Application: Your Account is Created, Unleash the Joy of Seamless Online Experience!",

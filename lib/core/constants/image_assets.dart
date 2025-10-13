@@ -1,78 +1,93 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  static const String assetsImagesEmptyStateDarkTheme =
-      "assets/images/EmptyState_darkTheme.png";
-  static const String assetsImagesEmptyStateLightTheme =
-      "assets/images/EmptyState_lightTheme.png";
-  static const String assetsImagesFaceId = "assets/images/faceId.png";
-  static const String assetsImagesFaceIdDark = "assets/images/faceId_dark.png";
-  static const String assetsImagesFailedDarkTheme =
-      "assets/images/Failed_darkTheme.png";
-  static const String assetsImagesFailedLightTheme =
-      "assets/images/Failed_lightTheme.png";
-  static const String assetsImagesFingerprint = "assets/images/fingerprint.png";
-  static const String assetsImagesFingerprintDark =
-      "assets/images/fingerprint_dark.png";
-  static const String assetsImagesHelpDarkTheme =
-      "assets/images/Help_darkTheme.png";
-  static const String assetsImagesHelpLightTheme =
-      "assets/images/Help_lightTheme.png";
-  static const String assetsImagesIllustration0 =
-      "assets/images/Illustration-0.png";
-  static const String assetsImagesIllustration1 =
-      "assets/images/Illustration-1.png";
-  static const String assetsImagesIllustration2 =
-      "assets/images/Illustration-2.png";
-  static const String assetsImagesIllustration3 =
-      "assets/images/Illustration-3.png";
-  static const String assetsImagesIllustration4 =
-      "assets/images/Illustration-4.png";
-  static const String assetsImagesIllustrationDarkTheme0 =
-      "assets/images/Illustration_darkTheme_0.png";
-  static const String assetsImagesIllustrationDarkTheme1 =
-      "assets/images/Illustration_darkTheme_1.png";
-  static const String assetsImagesIllustrationDarkTheme2 =
-      "assets/images/Illustration_darkTheme_2.png";
-  static const String assetsImagesIllustrationDarkTheme3 =
-      "assets/images/Illustration_darkTheme_3.png";
-  static const String assetsImagesIllustrationDarkTheme4 =
-      "assets/images/Illustration_darkTheme_4.png";
-  static const String assetsImagesLoginDark = "assets/images/login_dark.png";
-  static const String assetsImagesLoginLight = "assets/images/login_light.png";
+  
+  /// Assets for assetsImagesAppLogo
+  /// assets/images/app_logo.png
+  static const String assetsImagesAppLogo = "assets/images/app_logo.png";
+
+  /// Assets for assetsImagesAppLogoBg
+  /// assets/images/app_logo_bg.png
+  static const String assetsImagesAppLogoBg = "assets/images/app_logo_bg.png";
+
+  /// Assets for assetsImagesBoardingIllustration0
+  /// assets/images/boarding/Illustration-0.png
+  static const String assetsImagesBoardingIllustration0 = "assets/images/boarding/Illustration-0.png";
+
+  /// Assets for assetsImagesBoardingIllustration1
+  /// assets/images/boarding/Illustration-1.png
+  static const String assetsImagesBoardingIllustration1 = "assets/images/boarding/Illustration-1.png";
+
+  /// Assets for assetsImagesBoardingIllustration2
+  /// assets/images/boarding/Illustration-2.png
+  static const String assetsImagesBoardingIllustration2 = "assets/images/boarding/Illustration-2.png";
+
+  /// Assets for assetsImagesBoardingIllustration3
+  /// assets/images/boarding/Illustration-3.png
+  static const String assetsImagesBoardingIllustration3 = "assets/images/boarding/Illustration-3.png";
+
+  /// Assets for assetsImagesBoardingIllustration4
+  /// assets/images/boarding/Illustration-4.png
+  static const String assetsImagesBoardingIllustration4 = "assets/images/boarding/Illustration-4.png";
+
+  /// Assets for assetsImagesBoardingIllustrationDarkTheme0
+  /// assets/images/boarding/Illustration_darkTheme_0.png
+  static const String assetsImagesBoardingIllustrationDarkTheme0 = "assets/images/boarding/Illustration_darkTheme_0.png";
+
+  /// Assets for assetsImagesBoardingIllustrationDarkTheme1
+  /// assets/images/boarding/Illustration_darkTheme_1.png
+  static const String assetsImagesBoardingIllustrationDarkTheme1 = "assets/images/boarding/Illustration_darkTheme_1.png";
+
+  /// Assets for assetsImagesBoardingIllustrationDarkTheme2
+  /// assets/images/boarding/Illustration_darkTheme_2.png
+  static const String assetsImagesBoardingIllustrationDarkTheme2 = "assets/images/boarding/Illustration_darkTheme_2.png";
+
+  /// Assets for assetsImagesBoardingIllustrationDarkTheme3
+  /// assets/images/boarding/Illustration_darkTheme_3.png
+  static const String assetsImagesBoardingIllustrationDarkTheme3 = "assets/images/boarding/Illustration_darkTheme_3.png";
+
+  /// Assets for assetsImagesBoardingIllustrationDarkTheme4
+  /// assets/images/boarding/Illustration_darkTheme_4.png
+  static const String assetsImagesBoardingIllustrationDarkTheme4 = "assets/images/boarding/Illustration_darkTheme_4.png";
+
+  /// Assets for assetsImagesEmailVerification72462CheckRegister
+  /// assets/images/emailVerification/72462-check-register.json
+  static const String assetsImagesEmailVerification72462CheckRegister = "assets/images/emailVerification/72462-check-register.json";
+
+  /// Assets for assetsImagesEmailVerificationEmailSent
+  /// assets/images/emailVerification/email_sent.svg
+  static const String assetsImagesEmailVerificationEmailSent = "assets/images/emailVerification/email_sent.svg";
+
+  /// Assets for assetsImagesEmailVerificationSammyLineManReceivesAMail
+  /// assets/images/emailVerification/sammy-line-man-receives-a-mail.png
+  static const String assetsImagesEmailVerificationSammyLineManReceivesAMail = "assets/images/emailVerification/sammy-line-man-receives-a-mail.png";
+
+  /// Assets for assetsImagesIconsSearch
+  /// assets/images/icons-search.svg
+  static const String assetsImagesIconsSearch = "assets/images/icons-search.svg";
+
+  /// Assets for assetsImagesLoading
+  /// assets/images/Loading.json
+  static const String assetsImagesLoading = "assets/images/Loading.json";
+
+  /// Assets for assetsImagesNoInternet
+  /// assets/images/no_internet.png
   static const String assetsImagesNoInternet = "assets/images/no_internet.png";
-  static const String assetsImagesNoInternetDark =
-      "assets/images/no_internet_dark.png";
+
+  /// Assets for assetsImagesNoInternetDark
+  /// assets/images/no_internet_dark.png
+  static const String assetsImagesNoInternetDark = "assets/images/no_internet_dark.png";
+
+  /// Assets for assetsImagesNoResult
+  /// assets/images/NoResult.png
   static const String assetsImagesNoResult = "assets/images/NoResult.png";
-  static const String assetsImagesNoResultDarkTheme =
-      "assets/images/NoResultDarkTheme.png";
-  static const String assetsImagesNotification =
-      "assets/images/notification.png";
-  static const String assetsImagesPassword = "assets/images/Password.png";
-  static const String assetsImagesPasswordDark =
-      "assets/images/Password_dark.png";
-  static const String assetsImagesPayWithCashDarkTheme =
-      "assets/images/PayWithCash_darkTheme.png";
-  static const String assetsImagesPayWithCashLightTheme =
-      "assets/images/PayWithCash_lightTheme.png";
-  static const String assetsImagesServerError =
-      "assets/images/server_error.png";
-  static const String assetsImagesServerErrorDark =
-      "assets/images/server_error_dark.png";
-  static const String assetsImagesSignUpDark = "assets/images/signUp_dark.png";
-  static const String assetsImagesSignUpLight =
-      "assets/images/signUp_light.png";
-  static const String assetsImagesSuccess = "assets/images/success.png";
-  static const String assetsImagesSuccessDark =
-      "assets/images/success_dark.png";
-  static const String assetsImagesSuccessDarkTheme =
-      "assets/images/Success_darkTheme.png";
-  static const String assetsImagesSuccessLightTheme =
-      "assets/images/Success_lightTheme.png";
-  static const String assetsImagesTurnOnNotificationDarkTheme =
-      "assets/images/TurnOnNotification_darkTheme.png";
-  static const String assetsImagesTurnOnNotificationLightTheme =
-      "assets/images/TurnOnNotification_lightTheme.png";
-  static const String assetsImagesVerificationCodeDark =
-      "assets/images/VerificationCode_dark.png";
+
+  /// Assets for assetsImagesNoResultDarkTheme
+  /// assets/images/NoResultDarkTheme.png
+  static const String assetsImagesNoResultDarkTheme = "assets/images/NoResultDarkTheme.png";
+
+  /// Assets for assetsImagesSad
+  /// assets/images/sad.png
+  static const String assetsImagesSad = "assets/images/sad.png";
 }
+

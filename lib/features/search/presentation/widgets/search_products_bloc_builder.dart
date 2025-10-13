@@ -1,12 +1,13 @@
 import 'package:amira_store/core/utils/logging/logger_helper.dart';
+import 'package:amira_store/core/widgets/loading_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../home/domain/entities/product_entity.dart';
-import '../../../home/presentation/widgets/empty_view.dart';
-import '../../../home/presentation/widgets/error_view.dart';
+import '../../../../core/widgets/empty_body.dart';
+import '../../../../core/widgets/error_view.dart';
 import '../../../products_by_category/presentation/widgets/products_grid_view.dart';
 import '../manager/search_products_cubit.dart';
+import 'start_searching_body.dart';
 
 class SearchProductsBlocBuilder extends StatelessWidget {
   const SearchProductsBlocBuilder({super.key});
@@ -19,18 +20,16 @@ class SearchProductsBlocBuilder extends StatelessWidget {
           return SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsetsGeometry.all(16),
-              child: Text('Start searching for products'),
+              child: StartSearchingBody(),
             ),
           );
         }
         if (state is SearchProductsLoading) {
-          return SliverToBoxAdapter(
-            child: const Center(child: CircularProgressIndicator()),
-          );
+          return SliverToBoxAdapter(child: LoadingBody(msg: ''));
         }
 
         if (state is SearchProductsError) {
-          return SliverToBoxAdapter(child: ErrorView(message: state.message));
+          return SliverToBoxAdapter(child: ErrorBody(message: state.message));
         }
 
         List<ProductEntity> products = [];
@@ -40,7 +39,9 @@ class SearchProductsBlocBuilder extends StatelessWidget {
         }
         if (products.isEmpty) {
           return SliverToBoxAdapter(
-            child: EmptyView(msg: 'No Products Available'),
+            child: EmptyView(
+              msg: 'No Products Available! try search another term',
+            ),
           );
         }
         return ProductsGridView(products: products);

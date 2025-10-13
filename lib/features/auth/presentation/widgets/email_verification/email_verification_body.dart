@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../core/constants/app_sizes.dart';
+import '../../../../../core/constants/image_assets.dart';
 import '../../manager/email_verification/email_verification_cubit.dart';
 
 class EmailVerificationBody extends StatelessWidget {
@@ -19,10 +20,11 @@ class EmailVerificationBody extends StatelessWidget {
             height: 250,
             child: Theme.of(context).brightness == Brightness.dark
                 ? Image.asset(
-                    "assets/images/emailVerification/sammy-line-man-receives-a-mail.png",
+                    Assets
+                        .assetsImagesEmailVerificationSammyLineManReceivesAMail,
                   )
                 : SvgPicture.asset(
-                    'assets/images/emailVerification/email_sent.svg',
+                    Assets.assetsImagesEmailVerificationEmailSent,
                   ),
           ),
 

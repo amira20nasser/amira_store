@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../home/presentation/widgets/empty_view.dart';
-import '../../../home/presentation/widgets/error_view.dart';
+import '../../../../core/widgets/empty_body.dart';
+import '../../../../core/widgets/error_view.dart';
 import '../../domain/entities/category_entity.dart';
 import '../manager/category_cubit.dart';
 import 'categories_body.dart';
@@ -19,7 +19,7 @@ class CategoriesBlocBuilder extends StatelessWidget {
         }
 
         if (state is CategoryFailure) {
-          return ErrorView(message: state.msg);
+          return ErrorBody(message: state.msg);
         }
 
         List<CategoryEntity> categories = [];

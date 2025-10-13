@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../categories/domain/entities/category_entity.dart';
 import '../../../categories/presentation/manager/category_cubit.dart';
 import 'category_grid_view.dart';
-import 'empty_view.dart';
-import 'error_view.dart';
+import '../../../../core/widgets/empty_body.dart';
+import '../../../../core/widgets/error_view.dart';
 
 class CategorySection extends StatelessWidget {
   const CategorySection({super.key});
@@ -21,7 +21,7 @@ class CategorySection extends StatelessWidget {
         }
 
         if (state is CategoryFailure) {
-          return SliverToBoxAdapter(child: ErrorView(message: state.msg));
+          return SliverToBoxAdapter(child: ErrorBody(message: state.msg));
         }
 
         List<CategoryEntity> categories = [];

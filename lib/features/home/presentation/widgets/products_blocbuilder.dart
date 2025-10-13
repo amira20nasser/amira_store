@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/product_entity.dart';
 import '../manager/home_cubit.dart';
 import 'all_products.dart';
-import 'empty_view.dart';
-import 'error_view.dart';
+import '../../../../core/widgets/empty_body.dart';
+import '../../../../core/widgets/error_view.dart';
 
 class ProductsBlocBuilder extends StatelessWidget {
   const ProductsBlocBuilder({super.key});
@@ -20,7 +20,7 @@ class ProductsBlocBuilder extends StatelessWidget {
         }
 
         if (state is HomeError) {
-          return SliverToBoxAdapter(child: ErrorView(message: state.message));
+          return SliverToBoxAdapter(child: ErrorBody(message: state.message));
         }
 
         Map<String, List<ProductEntity>> products = {};

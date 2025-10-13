@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/custom_app_bar.dart';
-import '../../../../core/widgets/fake_search_bar.dart';
 import '../../domain/entities/category_entity.dart';
 import 'categories_listview.dart';
 
