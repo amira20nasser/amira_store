@@ -1,10 +1,9 @@
-import 'dart:developer';
-import 'package:amira_store/features/search/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../core/widgets/custom_app_bar.dart';
+import 'presentation/widgets/search_result_widget.dart';
+import 'search_widget.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
@@ -22,7 +21,6 @@ class SearchView extends StatelessWidget {
                   children: [
                     IconButton(
                       onPressed: () {
-                        log("Press BACK");
                         GoRouter.of(context).pop();
                       },
                       icon: Icon(FontAwesomeIcons.angleLeft),
@@ -43,7 +41,13 @@ class SearchView extends StatelessWidget {
             ),
           ),
 
-          // RESULT SEARCH HERE
+          //DONE: RESULT SEARCH
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: SearchResultsWidget(),
+            ),
+          ),
         ],
       ),
     );
