@@ -10,6 +10,10 @@ class SearchProductsCubit extends Cubit<SearchProductsState> {
   SearchProductsCubit(this.searchProductsUsecase)
     : super(SearchProductsInitial());
   Future<void> searchProducts(String query) async {
+    if (query.isEmpty) {
+      emit(SearchProductsInitial());
+      return;
+    }
     emit(SearchProductsLoading());
     final result = await searchProductsUsecase(query);
     result.fold(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../core/constants/app_colors.dart';
+
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
@@ -26,7 +28,7 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.suffixIcon,
     this.fillColor,
-    this.maxLines,
+    this.maxLines = 1,
     this.hintStyle,
   });
 
@@ -79,7 +81,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintText: widget.hintText,
         hintStyle: widget.hintStyle,
         prefixIcon: Icon(widget.icon),
-        prefixIconColor: hasText ? Theme.of(context).primaryColor : null,
+        prefixIconColor: hasText
+            ? Theme.of(context).primaryColor
+            : AppColors.blackColor.withAlpha(130),
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(FontAwesomeIcons.solidEye),

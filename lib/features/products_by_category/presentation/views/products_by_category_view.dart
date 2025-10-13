@@ -19,7 +19,7 @@ class ProductsByCategoryView extends StatelessWidget {
       child: Column(
         children: [
           CustomAppBar(
-            appBarHeight: 180,
+            appBarHeight: 120,
             child: ProductsAppBarBody(categoryName: categorySlug),
           ),
           Expanded(child: ProductsBody()),

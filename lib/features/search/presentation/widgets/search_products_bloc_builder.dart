@@ -1,3 +1,4 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +15,14 @@ class SearchProductsBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchProductsCubit, SearchProductsState>(
       builder: (context, state) {
+        if (state is SearchProductsInitial) {
+          return SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsetsGeometry.all(16),
+              child: Text('Start searching for products'),
+            ),
+          );
+        }
         if (state is SearchProductsLoading) {
           return SliverToBoxAdapter(
             child: const Center(child: CircularProgressIndicator()),
@@ -27,6 +36,7 @@ class SearchProductsBlocBuilder extends StatelessWidget {
         List<ProductEntity> products = [];
         if (state is SearchProductsLoaded) {
           products = state.products;
+          LoggerHelper.debug('Loaded products count: ${products.length}');
         }
         if (products.isEmpty) {
           return SliverToBoxAdapter(

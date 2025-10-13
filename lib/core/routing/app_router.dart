@@ -14,10 +14,6 @@ abstract class AppRouter {
         redirect: (context, state) =>
             Redirection.handleOnboardingRedirect(state),
       ),
-      GoRoute(
-        path: ConstantRoutes.search,
-        builder: (context, state) => SearchView(),
-      ),
 
       GoRoute(
         path: ConstantRoutes.login,
@@ -89,6 +85,10 @@ abstract class AppRouter {
                       final product = state.extra as ProductEntity;
                       return ProductDetailsView(product: product);
                     },
+                  ),
+                  GoRoute(
+                    path: ConstantRoutes.search,
+                    builder: (context, state) => SearchView(),
                   ),
                 ],
               ),

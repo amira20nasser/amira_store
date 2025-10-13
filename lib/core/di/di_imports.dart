@@ -23,6 +23,10 @@ import '../../features/products_by_category/data/datasources/products_by_categor
 import '../../features/products_by_category/data/repos/products_by_category_repository_impl.dart';
 import '../../features/products_by_category/domain/repos/products_by_categort_repo.dart';
 import '../../features/products_by_category/domain/usecases/get_products_by_category.dart';
+import '../../features/search/data/datasources/search_products_datasource.dart';
+import '../../features/search/data/repos/search_products_repo.dart';
+import '../../features/search/domain/repos/search_products_repo.dart';
+import '../../features/search/domain/usecases/search_products_usecase.dart';
 import '../services/api_service.dart';
 import '../services/dio_service.dart';
 import '../services/firebase_service.dart';

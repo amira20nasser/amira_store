@@ -13,17 +13,13 @@ class CategoriesBody extends StatelessWidget {
     return Column(
       children: [
         CustomAppBar(
-          appBarHeight: 150,
-          child: Column(
+          appBarHeight: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Categories",
                 style: Theme.of(context).textTheme.titleMedium,
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: FakeSearchBar(),
               ),
             ],
           ),

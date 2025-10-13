@@ -12,7 +12,7 @@ class FakeSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        GoRouter.of(context).push(ConstantRoutes.search);
+        context.push(ConstantRoutes.home + ConstantRoutes.search);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
