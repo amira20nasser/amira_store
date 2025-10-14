@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../features/checkout/checkout_view.dart';
 import '../../features/home/domain/entities/product_entity.dart';
 import 'routes_imports.dart';
 
@@ -68,7 +69,10 @@ abstract class AppRouter {
           },
         ),
       ),
-
+      GoRoute(
+        path: ConstantRoutes.checkOut,
+        builder: (context, state) => CheckoutView(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             NavigationShell(navigationShell: navigationShell),

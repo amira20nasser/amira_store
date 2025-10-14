@@ -18,7 +18,7 @@ class CartBlocBuilder extends StatelessWidget {
         if (state is CartInitial) {
           return Center(
             child: EmptyView(
-              msg: 'Your Haven\'t Added\nAny Products To Cart Yet!',
+              msg: 'Add New Products..',
               imagePath: Assets.assetsImagesEmptyCart,
             ),
           );
@@ -35,7 +35,7 @@ class CartBlocBuilder extends StatelessWidget {
         }
         if (cartItems.isEmpty) {
           return EmptyView(
-            msg: 'Your Haven\'t Added\nAny Products To Cart Yet!',
+            msg: 'Add New Products..',
             imagePath: Assets.assetsImagesEmptyCart,
           );
         } else {

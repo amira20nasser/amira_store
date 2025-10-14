@@ -66,7 +66,7 @@ class CartListView extends StatelessWidget {
                       children: [
                         Text(
                           item.name,
-                          style: Theme.of(context).textTheme.titleSmall,
+                          style: Theme.of(context).textTheme.titleMedium,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),

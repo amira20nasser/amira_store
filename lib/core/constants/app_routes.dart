@@ -15,4 +15,5 @@ abstract class ConstantRoutes {
   static const String profile = '/profile';
   static const String search = '/search';
   static const String productsByCategory = '/products-by-category';
+  static const String checkOut = '/check-out';
 }
