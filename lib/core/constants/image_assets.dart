@@ -62,6 +62,10 @@ class Assets {
   /// assets/images/emailVerification/sammy-line-man-receives-a-mail.png
   static const String assetsImagesEmailVerificationSammyLineManReceivesAMail = "assets/images/emailVerification/sammy-line-man-receives-a-mail.png";
 
+  /// Assets for assetsImagesEmptyCart
+  /// assets/images/EmptyCart.png
+  static const String assetsImagesEmptyCart = "assets/images/EmptyCart.png";
+
   /// Assets for assetsImagesIconsSearch
   /// assets/images/icons-search.svg
   static const String assetsImagesIconsSearch = "assets/images/icons-search.svg";

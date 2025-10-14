@@ -11,7 +11,10 @@ class ProductDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomAppBar(appBarHeight: 120, child: ProductDetailsAppBarBody()),
+        CustomAppBar(
+          appBarHeight: 120,
+          child: ProductDetailsAppBarBody(product: product),
+        ),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),

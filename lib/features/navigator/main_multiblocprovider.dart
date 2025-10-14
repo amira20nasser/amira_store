@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../core/di/di_imports.dart';
+import '../cart/domain/repos/cart_repo.dart';
+import '../cart/presentation/manager/cart_cubit.dart';
 import '../categories/domain/usecases/fetch_category.dart';
 import '../categories/presentation/manager/category_cubit.dart';
 import '../home/domain/usecases/fetch_product_by_category_usecase.dart';
@@ -23,6 +24,10 @@ class MainViewMultiBloc extends StatelessWidget {
           create: (context) =>
               HomeCubit(ServiceLocator.get<FetchSelectedCategoriesUsecase>())
                 ..fetchSelectedCategories(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CartCubit(ServiceLocator.get<CartRepo>())..getCartItems(),
         ),
       ],
       child: child,

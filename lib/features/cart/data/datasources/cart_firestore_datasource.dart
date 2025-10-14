@@ -12,7 +12,7 @@ class CartFirestoreDatasource {
     if (currentUserId == null) throw Exception("User not logged in");
     await firestoreService.setDocument(
       collectionPath: "users/$currentUserId/cart",
-      docId: cart.id,
+      docId: cart.id.toString(),
       data: cart.toMap(),
       merge: true,
     );
@@ -58,7 +58,7 @@ class CartFirestoreDatasource {
     if (currentUserId == null) throw Exception("User not logged in");
     final cartItems = await getCartItems();
     for (var item in cartItems) {
-      await removeFromCart(item.id);
+      await removeFromCart(item.id.toString());
     }
   }
 }

@@ -1,7 +1,6 @@
-import 'package:amira_store/core/services/api_service.dart';
-import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:dio/dio.dart';
 import '../../../../core/constants/api_constants.dart';
+import '../../../../core/services/api_service.dart';
 import '../../domain/entities/category_entity.dart';
 import '../models/category_model.dart';
 
@@ -16,17 +15,12 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
 
   @override
   Future<List<CategoryEntity>> fetchCategories() async {
-    LoggerHelper.debug("in CategoryRemoteDataSource");
-
     final response = await api.get(
       ApiConstants.productEndPoint + ApiConstants.categoriesEndPoint,
     );
-    LoggerHelper.debug("the raw response \n $response");
     final categories = response.data as List;
 
     List<CategoryEntity> result = await _getCategoriesList(categories);
-    LoggerHelper.debug("returned List \n $result");
-
     return result;
   }
 

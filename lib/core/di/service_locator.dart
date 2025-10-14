@@ -29,6 +29,9 @@ class ServiceLocator {
     _sl.registerLazySingleton<SearchProductsDatasource>(
       () => SearchProductsDatasource(_sl.get<ApiService>()),
     );
+    _sl.registerLazySingleton<CartFirestoreDatasource>(
+      () => CartFirestoreDatasource(_sl.get<FirestoreService>()),
+    );
     //! Repositories
     _sl.registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(_sl<FirebaseAuthDataSource>()),
@@ -48,6 +51,9 @@ class ServiceLocator {
       () => SearchProductsRepoImpl(
         remoteDataSource: _sl<SearchProductsDatasource>(),
       ),
+    );
+    _sl.registerLazySingleton<CartRepo>(
+      () => CartRepoImpl(_sl<CartFirestoreDatasource>()),
     );
     //! Use Cases
     _sl.registerLazySingleton(() => SignInUsecase(_sl.get<AuthRepository>()));

@@ -14,7 +14,10 @@ class StackedProductItems extends StatelessWidget {
     return Stack(
       children: [
         // add Button
-        Align(alignment: Alignment.topRight, child: AddToCartButton()),
+        Align(
+          alignment: Alignment.topRight,
+          child: AddToCartButton(product: product),
+        ),
 
         // -
         Container(

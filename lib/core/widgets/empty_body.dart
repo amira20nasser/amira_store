@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../constants/image_assets.dart';
 
 class EmptyView extends StatelessWidget {
-  const EmptyView({super.key, required this.msg});
+  const EmptyView({super.key, required this.msg, this.imagePath});
   final String msg;
+  final String? imagePath;
   @override
   Widget build(BuildContext context) {
     var brightness = Theme.of(context).brightness;
@@ -13,9 +14,10 @@ class EmptyView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
-          brightness == Brightness.light
-              ? Assets.assetsImagesNoResult
-              : Assets.assetsImagesNoResultDarkTheme,
+          imagePath ??
+              (brightness == Brightness.light
+                  ? Assets.assetsImagesNoResult
+                  : Assets.assetsImagesNoResultDarkTheme),
           height: 250,
         ),
         Text(
