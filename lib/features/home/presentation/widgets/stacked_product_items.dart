@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/widgets/add_to_cart.dart';
+import '../../../../core/widgets/add_cart/add_to_cart.dart';
 import '../../domain/entities/product_entity.dart';
 
 class StackedProductItems extends StatelessWidget {

@@ -40,4 +40,15 @@ class CartItemEntity {
       minOrder: map['minOrder'],
     );
   }
+  CartItemEntity copyWith({int? quantity}) {
+    return CartItemEntity(
+      category: category,
+      name: name,
+      id: id,
+      quantity: quantity ?? this.quantity,
+      imageUrl: imageUrl,
+      minOrder: minOrder,
+      price: price,
+    );
+  }
 }

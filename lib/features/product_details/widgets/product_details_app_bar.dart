@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../core/constants/app_colors.dart';
-import '../../../core/widgets/add_to_cart.dart';
+import '../../../core/widgets/add_cart/add_to_cart.dart';
 
 class ProductDetailsAppBarBody extends StatelessWidget {
   const ProductDetailsAppBarBody({super.key, required this.product});
