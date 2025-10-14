@@ -10,7 +10,7 @@ export '../constants/app_routes.dart';
 export 'redirection.dart';
 export '../../features/auth/presentation/views/success_email_view.dart';
 export '../../features/profile/views/user_profile_view.dart';
-export '../../features/cart/cart_view.dart';
+export '../../features/cart/presentation/views/cart_view.dart';
 export '../../features/categories/presentation/views/categories_view.dart';
 export '../../features/wishlist/wishlist_view.dart';
 export '../../features/navigator/navigation_shell.dart';

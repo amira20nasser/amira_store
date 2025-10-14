@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/add_to_cart.dart';
 import '../../domain/entities/product_entity.dart';
-import 'add_to_cart_widget.dart';
 
 class StackedProductItems extends StatelessWidget {
   const StackedProductItems({super.key, required this.product});
@@ -14,7 +14,7 @@ class StackedProductItems extends StatelessWidget {
     return Stack(
       children: [
         // add Button
-        Align(alignment: Alignment.topRight, child: AddToCartWidget()),
+        Align(alignment: Alignment.topRight, child: AddToCartButton()),
 
         // -
         Container(
