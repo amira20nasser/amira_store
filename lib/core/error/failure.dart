@@ -293,3 +293,87 @@ class FirebaseAuthFailure extends Failure {
     }
   }
 }
+
+class FirestoreFailure extends Failure {
+  const FirestoreFailure(super.message);
+
+  factory FirestoreFailure.fromCode(String code) {
+    switch (code) {
+      // --- Permission & Authentication ---
+      case 'permission-denied':
+        return const FirestoreFailure(
+          'You do not have permission to perform this action.',
+        );
+      case 'unauthenticated':
+        return const FirestoreFailure(
+          'You must be signed in to access this resource.',
+        );
+
+      // --- Network & Connectivity ---
+      case 'unavailable':
+        return const FirestoreFailure(
+          'Firestore service is currently unavailable. Please try again later.',
+        );
+      case 'deadline-exceeded':
+        return const FirestoreFailure(
+          'The operation took too long to complete. Please try again.',
+        );
+      case 'cancelled':
+        return const FirestoreFailure(
+          'The request was cancelled. Please try again.',
+        );
+      case 'aborted':
+        return const FirestoreFailure(
+          'The operation was aborted due to a conflict. Try again.',
+        );
+      case 'resource-exhausted':
+        return const FirestoreFailure(
+          'Quota exceeded. Too many requests in a short period of time.',
+        );
+      case 'unavailable-network':
+        return const FirestoreFailure(
+          'No internet connection. Please check your network and try again.',
+        );
+
+      // --- Invalid Data / Arguments ---
+      case 'invalid-argument':
+        return const FirestoreFailure(
+          'An invalid argument was provided. Please check your input.',
+        );
+      case 'not-found':
+        return const FirestoreFailure('The requested document was not found.');
+      case 'already-exists':
+        return const FirestoreFailure(
+          'A document with this ID already exists.',
+        );
+      case 'failed-precondition':
+        return const FirestoreFailure(
+          'The operation could not be completed due to invalid state or missing indexes.',
+        );
+      case 'data-loss':
+        return const FirestoreFailure(
+          'Unrecoverable data loss or corruption occurred.',
+        );
+      case 'out-of-range':
+        return const FirestoreFailure(
+          'The provided value is out of allowed range.',
+        );
+
+      // --- Internal / Server Issues ---
+      case 'internal':
+        return const FirestoreFailure(
+          'An internal Firestore error occurred. Please try again later.',
+        );
+      case 'unknown':
+        return const FirestoreFailure(
+          'An unknown Firestore error occurred. Please try again.',
+        );
+
+      // --- Default / Catch-All ---
+      default:
+        return const FirestoreFailure(
+          'An unexpected Firestore error occurred. Please try again later.',
+        );
+    }
+  }
+}
