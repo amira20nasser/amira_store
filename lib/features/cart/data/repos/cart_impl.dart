@@ -1,20 +1,30 @@
-import 'package:amira_store/core/error/failure.dart';
-import 'package:amira_store/features/cart/data/datasources/cart_firestore_datasource.dart';
-
-import 'package:amira_store/features/cart/domain/entities/cart_item_entity.dart';
-
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../core/di/di_imports.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/network/network_manager.dart';
+import '../../../../core/services/firebase_service.dart';
+import '../../domain/entities/cart_item_entity.dart';
 import '../../domain/repos/cart_repo.dart';
+import '../datasources/cart_firestore_datasource.dart';
+import '../datasources/cart_local_datasource.dart';
 
 class CartRepoImpl extends CartRepo {
-  CartRepoImpl(this.cartFirestoreDatasource);
+  CartRepoImpl(this.cartFirestoreDatasource, this.localSource);
   CartFirestoreDatasource cartFirestoreDatasource;
+  CartLocalDatasource localSource;
   @override
   Future<Either<Failure, void>> addToCart(CartItemEntity item) async {
     try {
-      var res = await cartFirestoreDatasource.addToCart(item);
+      var isConnected = await NetworkManager.isConnected();
+      var res = await localSource.saveCartItem(item);
+      var isLoggedIn =
+          ServiceLocator.get<FirebaseAuthService>().currentUser != null;
+      if (isLoggedIn && isConnected) {
+        // Save to firebase in the background
+        res = cartFirestoreDatasource.addToCart(item);
+      }
       return Right(res);
     } on FirebaseException catch (e) {
       return Left(FirestoreFailure.fromCode(e.code));
@@ -26,7 +36,14 @@ class CartRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, void>> clearCart() async {
     try {
-      var res = await cartFirestoreDatasource.clearCart();
+      var isConnected = await NetworkManager.isConnected();
+      var res = await localSource.removeAllItem();
+      var isLoggedIn =
+          ServiceLocator.get<FirebaseAuthService>().currentUser != null;
+      if (isLoggedIn && isConnected) {
+        // clear all from firebase in the background
+        res = cartFirestoreDatasource.clearCart();
+      }
       return Right(res);
     } on FirebaseException catch (e) {
       return Left(FirestoreFailure.fromCode(e.code));
@@ -38,7 +55,14 @@ class CartRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, List<CartItemEntity>>> getCartItems() async {
     try {
-      var res = await cartFirestoreDatasource.getCartItems();
+      var isConnected = await NetworkManager.isConnected();
+      var res = localSource.fetchCartItems();
+      var isLoggedIn =
+          ServiceLocator.get<FirebaseAuthService>().currentUser != null;
+      if (isLoggedIn && isConnected && res.isEmpty) {
+        // get all from firebase
+        res = await cartFirestoreDatasource.getCartItems();
+      }
       return Right(res);
     } on FirebaseException catch (e) {
       return Left(FirestoreFailure.fromCode(e.code));
@@ -50,7 +74,14 @@ class CartRepoImpl extends CartRepo {
   @override
   Future<Either<Failure, void>> removeFromCart(String itemId) async {
     try {
-      var res = await cartFirestoreDatasource.removeFromCart(itemId);
+      var isConnected = await NetworkManager.isConnected();
+      var res = localSource.removeItem(int.parse(itemId));
+      var isLoggedIn =
+          ServiceLocator.get<FirebaseAuthService>().currentUser != null;
+      if (isLoggedIn && isConnected) {
+        // remove from firebase in background
+        res = cartFirestoreDatasource.removeFromCart(itemId);
+      }
       return Right(res);
     } on FirebaseException catch (e) {
       return Left(FirestoreFailure.fromCode(e.code));
@@ -65,15 +96,36 @@ class CartRepoImpl extends CartRepo {
     int quantity,
   ) async {
     try {
-      var res = await cartFirestoreDatasource.updateCartItemQuantity(
-        itemId,
+      var isConnected = await NetworkManager.isConnected();
+      var res = await localSource.updateCartItemQuantity(
+        int.parse(itemId),
         quantity,
       );
+      var isLoggedIn =
+          ServiceLocator.get<FirebaseAuthService>().currentUser != null;
+      if (isLoggedIn && isConnected) {
+        res = cartFirestoreDatasource.updateCartItemQuantity(itemId, quantity);
+      }
       return Right(res);
     } on FirebaseException catch (e) {
       return Left(FirestoreFailure.fromCode(e.code));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  Future<void> syncLocalCartToFirebase() async {
+    final isConnected = await NetworkManager.isConnected();
+    final firebaseAuth = ServiceLocator.get<FirebaseAuthService>();
+    final isLoggedIn = firebaseAuth.currentUser != null;
+
+    if (!isConnected || !isLoggedIn) return;
+
+    final localItems = localSource.fetchCartItems();
+    if (localItems.isEmpty) return;
+
+    for (final item in localItems) {
+      await cartFirestoreDatasource.addToCart(item);
     }
   }
 }

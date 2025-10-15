@@ -1,8 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/di/di_imports.dart';
-import '../../core/network/network_manager.dart';
+import '../../core/network/network_cubit.dart';
+import '../../core/widgets/snack_bar.dart';
 import '../cart/domain/repos/cart_repo.dart';
 import '../cart/presentation/manager/cart_cubit.dart';
 import '../categories/domain/usecases/fetch_category.dart';
@@ -31,10 +32,23 @@ class MainViewMultiBloc extends StatelessWidget {
           create: (context) =>
               CartCubit(ServiceLocator.get<CartRepo>())..getCartItems(),
         ),
-
-        BlocProvider(create: (_) => NetworkCubit(Connectivity())),
       ],
-      child: child,
+      child: BlocListener<NetworkCubit, NetworkState>(
+        listener: (context, state) {
+          if (state is NetworkDisconnected) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarTypes.warningSnackBar(message: 'You are offline'),
+            );
+          } else if (state is NetworkConnected) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBarTypes.successSnackBar(
+                message: 'Back online — syncing cart...',
+              ),
+            );
+          }
+        },
+        child: child,
+      ),
     );
   }
 }

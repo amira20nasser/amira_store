@@ -84,6 +84,9 @@ class CartListView extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
+                        color: item.quantity == 1
+                            ? AppColors.blackColor60
+                            : null,
                         icon: const Icon(Icons.remove_circle_outline),
                         onPressed: item.quantity > 1
                             ? () {
@@ -98,7 +101,7 @@ class CartListView extends StatelessWidget {
                             : () => ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBarTypes.warningSnackBar(
                                   message:
-                                      '${item.name} max order Quantity is 20',
+                                      '${item.name} min order Quantity is 1',
                                 ),
                               ),
                       ),
@@ -110,6 +113,9 @@ class CartListView extends StatelessWidget {
                         ),
                       ),
                       IconButton(
+                        color: item.quantity == item.minOrder
+                            ? AppColors.blackColor60
+                            : null,
                         icon: const Icon(Icons.add_circle_outline),
                         onPressed: item.quantity < item.minOrder
                             ? () {
@@ -121,7 +127,12 @@ class CartListView extends StatelessWidget {
                                       q + 1,
                                     );
                               }
-                            : null,
+                            : () => ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBarTypes.warningSnackBar(
+                                  message:
+                                      '${item.name} max order Quantity is ${item.minOrder}',
+                                ),
+                              ),
                       ),
                     ],
                   ),

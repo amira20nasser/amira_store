@@ -1,3 +1,4 @@
+import 'package:amira_store/features/cart/data/datasources/cart_local_datasource.dart';
 import 'package:get_it/get_it.dart';
 import '../../features/auth/data/data_sources/firebase_auth_datasource.dart';
 import '../../features/auth/data/data_sources/firestore_datasource.dart';

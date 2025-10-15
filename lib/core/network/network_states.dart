@@ -1,4 +1,4 @@
-part of 'network_manager.dart';
+part of 'network_cubit.dart';
 
 abstract class NetworkState {}
 
