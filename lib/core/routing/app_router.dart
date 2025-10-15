@@ -123,14 +123,14 @@ abstract class AppRouter {
               ),
             ],
           ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: ConstantRoutes.wishlist,
-                builder: (context, state) => const WishlistView(),
-              ),
-            ],
-          ),
+          // StatefulShellBranch(
+          //   routes: [
+          //     GoRoute(
+          //       path: ConstantRoutes.wishlist,
+          //       builder: (context, state) => const WishlistView(),
+          //     ),
+          //   ],
+          // ),
           StatefulShellBranch(
             routes: [
               GoRoute(

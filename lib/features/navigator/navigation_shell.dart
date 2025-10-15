@@ -32,9 +32,10 @@ class NavigationShell extends StatelessWidget {
       bottomNavigationBar: SizedBox(
         height: 80,
         child: BottomNavigationBar(
+          // landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           currentIndex: navigationShell.currentIndex,
           onTap: _onItemTapped,
-          type: BottomNavigationBarType.shifting,
+          type: BottomNavigationBarType.fixed,
           selectedItemColor: activeColor,
           unselectedItemColor: inactiveColor,
           showSelectedLabels: true,
@@ -52,11 +53,11 @@ class NavigationShell extends StatelessWidget {
               activeIcon: Icon(Icons.grid_view_rounded),
               label: 'Categories',
             ),
-            BottomNavigationBarItem(icon: SizedBox(height: 20), label: 'Cart'),
+            // BottomNavigationBarItem(icon: SizedBox(height: 20), label: 'Cart'),
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.heart),
-              activeIcon: Icon(FontAwesomeIcons.solidHeart),
-              label: 'Wishlist',
+              icon: Icon(Icons.shopping_cart_outlined),
+              activeIcon: Icon(Icons.shopping_cart),
+              label: 'Cart',
             ),
             BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.user),
@@ -76,21 +77,21 @@ class NavigationShell extends StatelessWidget {
       //         : Icons.shopping_cart_outlined,
       //   ),
       // ),
-      floatingActionButton: GestureDetector(
-        onTap: () => _onItemTapped(2),
-        child: Container(
-          height: 65,
-          width: 65,
-          decoration: BoxDecoration(shape: BoxShape.circle, color: activeColor),
-          child: Icon(
-            navigationShell.currentIndex == 2
-                ? Icons.shopping_cart
-                : Icons.shopping_cart_outlined,
-            color: Colors.white,
-            size: 30,
-          ),
-        ),
-      ),
+      // floatingActionButton: GestureDetector(
+      //   onTap: () => _onItemTapped(2),
+      //   child: Container(
+      //     height: 65,
+      //     width: 65,
+      //     decoration: BoxDecoration(shape: BoxShape.circle, color: activeColor),
+      //     child: Icon(
+      //       navigationShell.currentIndex == 2
+      //           ? Icons.shopping_cart
+      //           : Icons.shopping_cart_outlined,
+      //       color: Colors.white,
+      //       size: 30,
+      //     ),
+      //   ),
+      // ),
       resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

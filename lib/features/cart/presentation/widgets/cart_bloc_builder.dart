@@ -33,7 +33,7 @@ class CartBlocBuilder extends StatelessWidget {
         if (state is CartLoaded) {
           cartItems = state.cartItems;
         }
-        if (cartItems.isEmpty && state is! CartActionInProgress) {
+        if (cartItems.isEmpty) {
           return EmptyView(
             msg: 'Add New Products..',
             imagePath: Assets.assetsImagesEmptyCart,

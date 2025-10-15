@@ -38,6 +38,7 @@ class CartLocalDatasource {
     final index = cartItems.indexWhere((item) => item.id == id);
 
     if (index != -1) {
+      await box.deleteAt(index);
       final existingItem = cartItems[index];
       final updatedItem = CartItemEntity(
         category: existingItem.category,
