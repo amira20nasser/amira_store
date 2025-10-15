@@ -12,4 +12,5 @@ abstract class CartRepo {
   );
   Future<Either<Failure, void>> removeFromCart(String itemId);
   Future<Either<Failure, void>> clearCart();
+  Future<void> syncLocalCartToFirebase();
 }

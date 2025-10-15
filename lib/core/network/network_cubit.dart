@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 
 import '../../features/cart/data/repos/cart_impl.dart';
+import '../../features/cart/domain/repos/cart_repo.dart';
 import '../di/di_imports.dart';
 part 'network_states.dart';
 
@@ -21,10 +22,10 @@ class NetworkCubit extends Cubit<NetworkState> {
   void _updateConnectionStatus(List<ConnectivityResult> result) async {
     if (result.contains(ConnectivityResult.none)) {
       emit(NetworkDisconnected());
-      final cartRepo = ServiceLocator.get<CartRepoImpl>();
+    } else {
+      final cartRepo = ServiceLocator.get<CartRepo>();
       LoggerHelper.debug("Sync Cart.......");
       await cartRepo.syncLocalCartToFirebase();
-    } else {
       emit(NetworkConnected(result));
     }
   }

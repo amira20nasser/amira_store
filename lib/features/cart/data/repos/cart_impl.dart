@@ -1,3 +1,4 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -124,6 +125,7 @@ class CartRepoImpl extends CartRepo {
     final localItems = localSource.fetchCartItems();
     if (localItems.isEmpty) return;
 
+    LoggerHelper.debug(localItems.length.toString());
     for (final item in localItems) {
       await cartFirestoreDatasource.addToCart(item);
     }
