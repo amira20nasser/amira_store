@@ -1,6 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/di/di_imports.dart';
+import '../../core/network/network_manager.dart';
 import '../cart/domain/repos/cart_repo.dart';
 import '../cart/presentation/manager/cart_cubit.dart';
 import '../categories/domain/usecases/fetch_category.dart';
@@ -29,6 +31,8 @@ class MainViewMultiBloc extends StatelessWidget {
           create: (context) =>
               CartCubit(ServiceLocator.get<CartRepo>())..getCartItems(),
         ),
+
+        BlocProvider(create: (_) => NetworkCubit(Connectivity())),
       ],
       child: child,
     );

@@ -1,0 +1,12 @@
+part of 'network_manager.dart';
+
+abstract class NetworkState {}
+
+class NetworkInitial extends NetworkState {}
+
+class NetworkConnected extends NetworkState {
+  final List<ConnectivityResult> connectionStatus;
+  NetworkConnected(this.connectionStatus);
+}
+
+class NetworkDisconnected extends NetworkState {}

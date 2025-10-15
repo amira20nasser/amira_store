@@ -53,6 +53,7 @@ dependencies:
   lottie: ^3.3.2
   dio: ^5.9.0
   intl: ^0.20.2
+  connectivity_plus: ^7.0.0
 
 dev_dependencies:
   flutter_test:
