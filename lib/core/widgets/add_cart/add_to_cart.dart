@@ -1,7 +1,7 @@
-import 'package:amira_store/core/widgets/add_cart/bloc_selector.dart';
 import 'package:flutter/material.dart';
 
 import '../../../features/home/domain/entities/product_entity.dart';
+import 'add_to_cart_bloc_builder.dart';
 
 class AddToCartButton extends StatelessWidget {
   const AddToCartButton({super.key, required this.product});
