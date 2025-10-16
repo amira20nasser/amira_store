@@ -53,6 +53,34 @@ class CartRepoImpl extends CartRepo {
     }
   }
 
+  Future<List<CartItemEntity>> _mergeCartsFast(
+    List<CartItemEntity> localList,
+    List<CartItemEntity> remoteList,
+  ) async {
+    final Map<int, CartItemEntity> map = {
+      for (var item in remoteList) item.id: item,
+    };
+
+    for (final item in localList) {
+      if (map.containsKey(item.id)) {
+        // The Remote is the reference if the data is difference
+        final existing = map[item.id]!;
+        map[item.id] = CartItemEntity(
+          id: existing.id,
+          name: existing.name,
+          price: existing.price,
+          imageUrl: existing.imageUrl,
+          quantity: existing.quantity,
+          category: existing.category,
+          minOrder: existing.minOrder,
+        );
+      } else {
+        await item.delete();
+      }
+    }
+    return map.values.toList();
+  }
+
   @override
   Future<Either<Failure, List<CartItemEntity>>> getCartItems() async {
     try {
@@ -60,9 +88,10 @@ class CartRepoImpl extends CartRepo {
       var res = localSource.fetchCartItems();
       var isLoggedIn =
           ServiceLocator.get<FirebaseAuthService>().currentUser != null;
-      if (isLoggedIn && isConnected && res.isEmpty) {
+      if (isLoggedIn && isConnected) {
         // get all from firebase
-        res = await cartFirestoreDatasource.getCartItems();
+        var res2 = await cartFirestoreDatasource.getCartItems();
+        res = await _mergeCartsFast(res, res2);
       }
       return Right(res);
     } on FirebaseException catch (e) {
