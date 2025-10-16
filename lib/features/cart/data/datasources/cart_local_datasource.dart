@@ -1,4 +1,3 @@
-import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../domain/entities/cart_item_entity.dart';
@@ -24,17 +23,11 @@ class CartLocalDatasource {
       await itemOrId.delete();
       return;
     }
-    LoggerHelper.debug('Remove the id $itemOrId ${itemOrId.runtimeType}');
     var box = Hive.box<CartItemEntity>('cartBox');
-    LoggerHelper.debug('Get the Box');
-
     final cartItems = box.values.toList();
-    LoggerHelper.debug('Get cart items $cartItems');
     final index = cartItems.indexWhere((item) => item.id == itemOrId);
-    LoggerHelper.debug('Get The Index $index');
     if (index != -1) {
       await box.deleteAt(index);
-      LoggerHelper.debug('the is deleted $index');
     }
   }
 

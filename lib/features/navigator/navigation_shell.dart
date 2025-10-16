@@ -35,7 +35,7 @@ class NavigationShell extends StatelessWidget {
           // landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           backgroundColor: Theme.of(context).brightness == Brightness.dark
               ? AppColors.darkGreyColor.withValues(alpha: 0.4)
-              : AppColors.whiteColor80.withValues(alpha: 0.4),
+              : AppColors.primaryMaterialColor.shade300.withValues(alpha: 0.2),
           elevation: 0,
           currentIndex: navigationShell.currentIndex,
           onTap: _onItemTapped,

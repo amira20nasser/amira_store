@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'category_section.dart';
 import 'products_blocbuilder.dart';
 import 'text_and_textbutton_inrow.dart';
 
@@ -19,7 +18,7 @@ class HomeBody extends StatelessWidget {
         ),
 
         // Category Section
-        CategorySection(),
+        // CategorySection(),
         // Products Section
         ProductsBlocBuilder(),
         SliverPadding(padding: EdgeInsetsGeometry.only(bottom: 28)),

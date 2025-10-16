@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/formatter.dart';
@@ -17,69 +16,70 @@ class InfoProductItem extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Product Image
         Text(
           product.name,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        const SizedBox(height: 6),
         Row(
           children: [
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Icon(
-                FontAwesomeIcons.solidStar,
-                color: AppColors.warningColor,
-                size: 18,
+            Text(
+              "\$${formatMoney(discountedPrice)}",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w700,
               ),
             ),
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                "  ${product.stars.toStringAsFixed(1)}",
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.warningColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ),
-        // const SizedBox(height: 4),
-        FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Row(
-            children: [
-              Text(
-                "\$${formatMoney(discountedPrice)}",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: AppColors.primaryColor,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              if (product.reductionPercentage > 0) ...[
-                const SizedBox(width: 6),
-                Text(
-                  "\$${formatMoney(product.cost)}",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppColors.blackColor80,
-                    decoration: TextDecoration.lineThrough,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            if (product.reductionPercentage > 0) ...[
+              const SizedBox(width: 6),
+              // SizedBox(
+              //   width: 55,
+              //   child: FittedBox(
+              //     fit: BoxFit.scaleDown,
+              //     child: Text(
+              //       "\$${formatMoney(product.cost)}",
+              //       maxLines: 1,
+              //       overflow: TextOverflow.ellipsis,
+              //       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              //         color: AppColors.blackColor80,
+              //         decoration: TextDecoration.lineThrough,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
-          ),
+          ],
         ),
       ],
     );
   }
 }
+
+// Star I have removed it for the UX reseson
+// Row(
+            //   children: [
+            //     FittedBox(
+            //       fit: BoxFit.scaleDown,
+            //       child: Icon(
+            //         FontAwesomeIcons.solidStar,
+            //         color: AppColors.warningColor,
+            //         size: 18,
+            //       ),
+            //     ),
+            //     FittedBox(
+            //       fit: BoxFit.scaleDown,
+            //       child: Text(
+            //         "  ${product.stars.toStringAsFixed(1)}",
+            //         style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            //           color: AppColors.warningColor,
+            //           fontWeight: FontWeight.w600,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),

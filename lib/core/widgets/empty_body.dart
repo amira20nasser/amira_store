@@ -18,11 +18,11 @@ class EmptyView extends StatelessWidget {
               (brightness == Brightness.light
                   ? Assets.assetsImagesNoResult
                   : Assets.assetsImagesNoResultDarkTheme),
-          height: 250,
+          height: 200,
         ),
         Text(
           msg,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),
       ],

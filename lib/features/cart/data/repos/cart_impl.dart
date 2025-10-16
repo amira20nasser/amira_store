@@ -1,4 +1,3 @@
-import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -58,24 +57,17 @@ class CartRepoImpl extends CartRepo {
     List<CartItemEntity> remoteList,
   ) async {
     final Map<int, CartItemEntity> map = {
-      for (var item in remoteList) item.id: item,
+      for (var item in localList) item.id: item,
     };
-
-    for (final item in localList) {
+    for (final item in remoteList) {
       if (map.containsKey(item.id)) {
         // The Remote is the reference if the data is difference
         final existing = map[item.id]!;
-        map[item.id] = CartItemEntity(
-          id: existing.id,
-          name: existing.name,
-          price: existing.price,
-          imageUrl: existing.imageUrl,
-          quantity: existing.quantity,
-          category: existing.category,
-          minOrder: existing.minOrder,
-        );
+        if (existing.quantity != item.quantity) {
+          await localSource.updateCartItemQuantity(existing, item.quantity);
+        }
       } else {
-        await item.delete();
+        await localSource.saveCartItem(item);
       }
     }
     return map.values.toList();
@@ -157,7 +149,6 @@ class CartRepoImpl extends CartRepo {
     final localItems = localSource.fetchCartItems();
     if (localItems.isEmpty) return;
 
-    LoggerHelper.debug(localItems.length.toString());
     for (final item in localItems) {
       await cartFirestoreDatasource.addToCart(item);
     }

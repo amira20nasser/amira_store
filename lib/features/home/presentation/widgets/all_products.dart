@@ -30,7 +30,6 @@ class AllProducts extends StatelessWidget {
                 textButton: "Show All",
               ),
 
-              // const SizedBox(height: 8),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: ListViewProductHorizontal(products: categoryProducts),

@@ -26,13 +26,15 @@ class ProductItem extends StatelessWidget {
           color: Colors.transparent,
           elevation: 0,
           margin: EdgeInsets.only(right: 8),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(color: AppColors.blackColor40),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              StackedProductItems(product: product),
+              Expanded(child: StackedProductItems(product: product)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: InfoProductItem(product: product),

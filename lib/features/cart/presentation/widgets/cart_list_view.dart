@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/cart_item_entity.dart';
-import '../manager/cart_cubit.dart';
+import '../manager/cart_action_button_cubit.dart/cart_action_button_cubit.dart';
 import 'cart_item.dart';
 
 class CartListView extends StatelessWidget {
@@ -27,7 +26,7 @@ class CartListView extends StatelessWidget {
           ),
           direction: DismissDirection.endToStart,
           onDismissed: (_) {
-            context.read<CartCubit>().removeItemFromCart(item);
+            context.read<CartActionButtonCubit>().removeItemFromCart(item);
           },
           child: CartItem(item: item),
         );

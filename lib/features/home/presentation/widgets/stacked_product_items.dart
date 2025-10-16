@@ -14,9 +14,12 @@ class StackedProductItems extends StatelessWidget {
     return Stack(
       children: [
         // add Button
-        Align(
-          alignment: Alignment.topRight,
-          child: AddToCartButton(product: product),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: AddToCartButton(product: product),
+          ),
         ),
 
         // -
@@ -37,13 +40,17 @@ class StackedProductItems extends StatelessWidget {
           ),
         ),
         // image
-        Center(
-          child: Image.network(
-            product.thumbnailUrl,
-            height: 110,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) =>
-                const Icon(Icons.image_not_supported),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Image.network(
+              product.thumbnailUrl,
+              height: 110,
+              fit: BoxFit.fitHeight,
+              errorBuilder: (context, error, stackTrace) =>
+                  const Icon(Icons.image_not_supported),
+            ),
           ),
         ),
       ],

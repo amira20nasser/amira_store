@@ -10,6 +10,6 @@ class AddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AddToCartBlocSelector(product: product);
+    return AddToCartBlocBuilder(product: product);
   }
 }

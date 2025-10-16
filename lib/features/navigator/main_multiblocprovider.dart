@@ -4,7 +4,8 @@ import '../../core/di/di_imports.dart';
 import '../../core/network/network_cubit.dart';
 import '../../core/widgets/snack_bar.dart';
 import '../cart/domain/repos/cart_repo.dart';
-import '../cart/presentation/manager/cart_cubit.dart';
+import '../cart/presentation/manager/cart_action_button_cubit.dart/cart_action_button_cubit.dart';
+import '../cart/presentation/manager/cart_items_cubit/cart_items_cubit.dart';
 import '../categories/domain/usecases/fetch_category.dart';
 import '../categories/presentation/manager/category_cubit.dart';
 import '../home/domain/usecases/fetch_product_by_category_usecase.dart';
@@ -19,6 +20,14 @@ class MainViewMultiBloc extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
+              CartItemsCubit(ServiceLocator.get<CartRepo>())..getCartItems(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CartActionButtonCubit(ServiceLocator.get<CartRepo>()),
+        ),
+        BlocProvider(
+          create: (context) =>
               CategoryCubit(ServiceLocator.get<FetchCategoriesUseCase>())
                 ..loadCategories(),
         ),
@@ -27,10 +36,11 @@ class MainViewMultiBloc extends StatelessWidget {
               HomeCubit(ServiceLocator.get<FetchSelectedCategoriesUsecase>())
                 ..fetchSelectedCategories(),
         ),
-        BlocProvider(
-          create: (context) =>
-              CartCubit(ServiceLocator.get<CartRepo>())..getCartItems(),
-        ),
+
+        // BlocProvider(
+        //   create: (context) =>
+        //       CartCubit(ServiceLocator.get<CartRepo>())..getCartItems(),
+        // ),
       ],
       child: BlocListener<NetworkCubit, NetworkState>(
         listener: (context, state) {
@@ -41,12 +51,23 @@ class MainViewMultiBloc extends StatelessWidget {
           } else if (state is NetworkConnected) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBarTypes.successSnackBar(
-                message: 'Back online — syncing cart...',
+                message: 'You\'re online — syncing cart...',
               ),
             );
           }
         },
-        child: child,
+        child: BlocListener<CartActionButtonCubit, CartActionButtonState>(
+          listener: (context, state) {
+            if (state is SuccessfulCartActionButton) {
+              BlocProvider.of<CartItemsCubit>(context).getCartItems();
+            } else if (state is FailedCartActionButton) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBarTypes.warningSnackBar(message: state.msg));
+            }
+          },
+          child: child,
+        ),
       ),
     );
   }

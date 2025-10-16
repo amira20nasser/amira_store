@@ -5,7 +5,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/formatter.dart';
 import '../../../../core/widgets/snack_bar.dart';
 import '../../domain/entities/cart_item_entity.dart';
-import '../manager/cart_cubit.dart';
+import '../manager/cart_action_button_cubit.dart/cart_action_button_cubit.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem({super.key, required this.item});
@@ -66,9 +66,8 @@ class CartItem extends StatelessWidget {
                       ? () async {
                           int q = item.quantity;
                           await context
-                              .read<CartCubit>()
+                              .read<CartActionButtonCubit>()
                               .updateCartItemQuantity(item, q - 1);
-                          context.read<CartCubit>().getCartItems();
                         }
                       : () => ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarTypes.warningSnackBar(
@@ -92,9 +91,8 @@ class CartItem extends StatelessWidget {
                       ? () async {
                           int q = item.quantity;
                           await context
-                              .read<CartCubit>()
+                              .read<CartActionButtonCubit>()
                               .updateCartItemQuantity(item, q + 1);
-                          context.read<CartCubit>().getCartItems();
                         }
                       : () => ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarTypes.warningSnackBar(
