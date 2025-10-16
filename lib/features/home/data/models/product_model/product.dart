@@ -67,7 +67,7 @@ class Product extends ProductEntity {
          dimensionsProduct:
              dimensions?.width.toString() ??
              " x ${dimensions?.height.toString() ?? ""} x ${dimensions?.depth.toString() ?? ""}",
-         minOrderQuantity: minimumOrderQuantity?.toString() ?? '',
+         maxOrderQuantity: minimumOrderQuantity ?? 1,
          policy: returnPolicy ?? "",
          shippingInfo: shippingInformation ?? "",
          skuProduct: sku ?? "",

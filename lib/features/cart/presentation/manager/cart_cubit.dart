@@ -1,3 +1,4 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/cart_item_entity.dart';
@@ -11,16 +12,22 @@ class CartCubit extends Cubit<CartState> {
   List<CartItemEntity> _cartItems = [];
   List<CartItemEntity> get cartItems => _cartItems;
   double totalPrice = 0.0;
-  Future<void> updateCartItemQuantity(String itemId, int quantity) async {
+  Future<void> updateCartItemQuantity(
+    CartItemEntity cartItem,
+    int quantity,
+  ) async {
     if (!isClosed) {
-      var res = await cart.updateCartItemQuantity(itemId, quantity);
+      var oldTotalPrice =
+          double.parse((cartItem.price).toStringAsFixed(1)) * cartItem.quantity;
+      var res = await cart.updateCartItemQuantity(cartItem, quantity);
       res.fold((error) => emit(CartFailure(error.message)), (_) {
-        final index = _cartItems.indexWhere((i) => i.id.toString() == itemId);
-        if (index != -1) {
-          totalPrice -= _cartItems[index].price * _cartItems[index].quantity;
-          _cartItems[index] = _cartItems[index].copyWith(quantity: quantity);
-          totalPrice += _cartItems[index].price * _cartItems[index].quantity;
-        }
+        totalPrice = totalPrice - oldTotalPrice;
+        var newTotalPrice =
+            double.parse((cartItem.price).toStringAsFixed(1)) * quantity;
+
+        totalPrice += double.parse((newTotalPrice).toStringAsFixed(1));
+        int index = _cartItems.indexWhere((item) => item.id == cartItem.id);
+        _cartItems[index] = _cartItems[index].copyWith(quantity: quantity);
         emit(CartLoaded(_cartItems));
       });
     }
@@ -32,8 +39,10 @@ class CartCubit extends Cubit<CartState> {
       var res = await cart.getCartItems();
       res.fold((error) => emit(CartFailure(error.message)), (items) {
         _cartItems = items;
+        totalPrice = 0.0;
         for (var item in items) {
-          totalPrice += item.price * item.quantity;
+          totalPrice +=
+              double.parse((item.price).toStringAsFixed(1)) * item.quantity;
         }
         emit(CartLoaded(items));
       });
@@ -59,22 +68,37 @@ class CartCubit extends Cubit<CartState> {
       res.fold((error) => emit(CartFailure(error.message)), (_) async {
         _cartItems.add(item);
         totalPrice += item.price;
+        LoggerHelper.debug('Total Price in Cart $totalPrice');
         emit(CartLoaded(_cartItems));
       });
     }
   }
 
-  Future<void> removeItemFromCart(String itemId) async {
+  Future<void> removeItemFromCart(CartItemEntity cartItem) async {
     if (!isClosed) {
-      emit(CartActionInProgress(itemId));
-      var res = await cart.removeFromCart(itemId);
+      emit(CartActionInProgress(cartItem.id.toString()));
+
+      var res = await cart.removeFromCart(cartItem);
       res.fold((error) => emit(CartFailure(error.message)), (_) async {
-        var removedItem = _cartItems.firstWhere(
-          (e) => e.id.toString() == itemId,
+        totalPrice -=
+            double.parse((cartItem.price).toStringAsFixed(1)) *
+            cartItem.quantity;
+        LoggerHelper.debug(
+          'Total Price in Cart $totalPrice ${cartItem.price} ${cartItem.quantity}',
         );
-        totalPrice -= removedItem.price * removedItem.quantity;
-        // _cartItems.removeWhere((e) => e.id.toString() == itemId);
-        _cartItems.remove(removedItem);
+        _cartItems.remove(cartItem);
+        emit(CartLoaded(_cartItems));
+      });
+    }
+  }
+
+  Future<void> removeIdFromCart(int id) async {
+    if (!isClosed) {
+      emit(CartActionInProgress(id.toString()));
+
+      var res = await cart.removeFromCart(id);
+      res.fold((error) => emit(CartFailure(error.message)), (_) async {
+        _cartItems.remove(_cartItems.firstWhere((item) => item.id == id));
         emit(CartLoaded(_cartItems));
       });
     }

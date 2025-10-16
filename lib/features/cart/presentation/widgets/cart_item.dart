@@ -63,12 +63,12 @@ class CartItem extends StatelessWidget {
                   color: item.quantity == 1 ? AppColors.blackColor60 : null,
                   icon: const Icon(Icons.remove_circle_outline),
                   onPressed: item.quantity > 1
-                      ? () {
+                      ? () async {
                           int q = item.quantity;
-                          context.read<CartCubit>().updateCartItemQuantity(
-                            item.id.toString(),
-                            q - 1,
-                          );
+                          await context
+                              .read<CartCubit>()
+                              .updateCartItemQuantity(item, q - 1);
+                          context.read<CartCubit>().getCartItems();
                         }
                       : () => ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarTypes.warningSnackBar(
@@ -89,12 +89,12 @@ class CartItem extends StatelessWidget {
                       : null,
                   icon: const Icon(Icons.add_circle_outline),
                   onPressed: item.quantity < item.minOrder
-                      ? () {
+                      ? () async {
                           int q = item.quantity;
-                          context.read<CartCubit>().updateCartItemQuantity(
-                            item.id.toString(),
-                            q + 1,
-                          );
+                          await context
+                              .read<CartCubit>()
+                              .updateCartItemQuantity(item, q + 1);
+                          context.read<CartCubit>().getCartItems();
                         }
                       : () => ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarTypes.warningSnackBar(

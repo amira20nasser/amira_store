@@ -7,10 +7,10 @@ abstract class CartRepo {
   Future<Either<Failure, void>> addToCart(CartItemEntity item);
   Future<Either<Failure, List<CartItemEntity>>> getCartItems();
   Future<Either<Failure, void>> updateCartItemQuantity(
-    String itemId,
+    CartItemEntity cartItem,
     int quantity,
   );
-  Future<Either<Failure, void>> removeFromCart(String itemId);
+  Future<Either<Failure, void>> removeFromCart(dynamic cartItem);
   Future<Either<Failure, void>> clearCart();
   Future<void> syncLocalCartToFirebase();
 }

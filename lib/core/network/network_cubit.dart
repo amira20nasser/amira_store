@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
-
-import '../../features/cart/data/repos/cart_impl.dart';
 import '../../features/cart/domain/repos/cart_repo.dart';
 import '../di/di_imports.dart';
+import '../utils/logging/logger_helper.dart';
 part 'network_states.dart';
 
 class NetworkCubit extends Cubit<NetworkState> {

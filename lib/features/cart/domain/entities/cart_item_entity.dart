@@ -1,9 +1,8 @@
 import 'package:hive/hive.dart';
-
 part 'cart_item_entity.g.dart';
 
 @HiveType(typeId: 0)
-class CartItemEntity {
+class CartItemEntity extends HiveObject {
   @HiveField(0)
   final int id;
   @HiveField(1)
@@ -15,11 +14,11 @@ class CartItemEntity {
   @HiveField(4)
   final String category;
   @HiveField(5)
-  final int quantity;
+  int quantity;
   @HiveField(6)
   final int minOrder;
 
-  const CartItemEntity({
+  CartItemEntity({
     required this.id,
     required this.name,
     required this.price,

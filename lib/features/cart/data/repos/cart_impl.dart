@@ -73,15 +73,17 @@ class CartRepoImpl extends CartRepo {
   }
 
   @override
-  Future<Either<Failure, void>> removeFromCart(String itemId) async {
+  Future<Either<Failure, void>> removeFromCart(dynamic itemOrId) async {
     try {
       var isConnected = await NetworkManager.isConnected();
-      var res = localSource.removeItem(int.parse(itemId));
+      var res = await localSource.removeItem(itemOrId);
       var isLoggedIn =
           ServiceLocator.get<FirebaseAuthService>().currentUser != null;
       if (isLoggedIn && isConnected) {
         // remove from firebase in background
-        res = cartFirestoreDatasource.removeFromCart(itemId);
+        res = cartFirestoreDatasource.removeFromCart(
+          itemOrId is CartItemEntity ? itemOrId.id : itemOrId,
+        );
       }
       return Right(res);
     } on FirebaseException catch (e) {
@@ -93,19 +95,19 @@ class CartRepoImpl extends CartRepo {
 
   @override
   Future<Either<Failure, void>> updateCartItemQuantity(
-    String itemId,
+    CartItemEntity cartItem,
     int quantity,
   ) async {
     try {
       var isConnected = await NetworkManager.isConnected();
-      var res = await localSource.updateCartItemQuantity(
-        int.parse(itemId),
-        quantity,
-      );
+      var res = await localSource.updateCartItemQuantity(cartItem, quantity);
       var isLoggedIn =
           ServiceLocator.get<FirebaseAuthService>().currentUser != null;
       if (isLoggedIn && isConnected) {
-        res = cartFirestoreDatasource.updateCartItemQuantity(itemId, quantity);
+        res = cartFirestoreDatasource.updateCartItemQuantity(
+          cartItem.id.toString(),
+          quantity,
+        );
       }
       return Right(res);
     } on FirebaseException catch (e) {
@@ -115,6 +117,7 @@ class CartRepoImpl extends CartRepo {
     }
   }
 
+  @override
   Future<void> syncLocalCartToFirebase() async {
     final isConnected = await NetworkManager.isConnected();
     final firebaseAuth = ServiceLocator.get<FirebaseAuthService>();

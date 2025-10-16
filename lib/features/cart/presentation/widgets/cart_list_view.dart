@@ -27,7 +27,7 @@ class CartListView extends StatelessWidget {
           ),
           direction: DismissDirection.endToStart,
           onDismissed: (_) {
-            context.read<CartCubit>().removeItemFromCart(item.id.toString());
+            context.read<CartCubit>().removeItemFromCart(item);
           },
           child: CartItem(item: item),
         );

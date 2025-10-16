@@ -1,3 +1,4 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../domain/entities/cart_item_entity.dart';
@@ -18,12 +19,22 @@ class CartLocalDatasource {
     await box.add(item);
   }
 
-  void removeItem(int id) async {
+  Future<void> removeItem(dynamic itemOrId) async {
+    if (itemOrId is CartItemEntity) {
+      await itemOrId.delete();
+      return;
+    }
+    LoggerHelper.debug('Remove the id $itemOrId ${itemOrId.runtimeType}');
     var box = Hive.box<CartItemEntity>('cartBox');
+    LoggerHelper.debug('Get the Box');
+
     final cartItems = box.values.toList();
-    final index = cartItems.indexWhere((item) => item.id == id);
+    LoggerHelper.debug('Get cart items $cartItems');
+    final index = cartItems.indexWhere((item) => item.id == itemOrId);
+    LoggerHelper.debug('Get The Index $index');
     if (index != -1) {
       await box.deleteAt(index);
+      LoggerHelper.debug('the is deleted $index');
     }
   }
 
@@ -32,25 +43,30 @@ class CartLocalDatasource {
     await box.clear();
   }
 
-  Future<void> updateCartItemQuantity(int id, int newQuantity) async {
-    var box = Hive.box<CartItemEntity>('cartBox');
-    final cartItems = box.values.toList();
-    final index = cartItems.indexWhere((item) => item.id == id);
+  Future<void> updateCartItemQuantity(
+    CartItemEntity cartItem,
+    int newQuantity,
+  ) async {
+    // var box = Hive.box<CartItemEntity>('cartBox');
+    // final cartItems = box.values.toList();
+    // final index = cartItems.indexWhere((item) => item.id == id);
 
-    if (index != -1) {
-      await box.deleteAt(index);
-      final existingItem = cartItems[index];
-      final updatedItem = CartItemEntity(
-        category: existingItem.category,
-        minOrder: existingItem.minOrder,
-        id: existingItem.id,
-        name: existingItem.name,
-        price: existingItem.price,
-        imageUrl: existingItem.imageUrl,
-        quantity: newQuantity,
-      );
+    // if (index != -1) {
+    //   await box.deleteAt(index);
+    //   final existingItem = cartItems[index];
+    //   final updatedItem = CartItemEntity(
+    //     category: existingItem.category,
+    //     minOrder: existingItem.minOrder,
+    //     id: existingItem.id,
+    //     name: existingItem.name,
+    //     price: existingItem.price,
+    //     imageUrl: existingItem.imageUrl,
+    //     quantity: newQuantity,
+    //   );
 
-      await box.add(updatedItem);
-    }
+    //   await box.add(updatedItem);
+    // }
+    cartItem.quantity = newQuantity;
+    await cartItem.save();
   }
 }

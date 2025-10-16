@@ -42,13 +42,13 @@ class CartFirestoreDatasource {
     );
   }
 
-  Future<void> removeFromCart(String itemId) async {
+  Future<void> removeFromCart(int itemId) async {
     var currentUserId =
         ServiceLocator.get<FirebaseAuthService>().currentUser?.uid;
     if (currentUserId == null) throw Exception("User not logged in");
     await firestoreService.deleteDocument(
       collectionPath: "users/$currentUserId/cart",
-      docId: itemId,
+      docId: itemId.toString(),
     );
   }
 
@@ -58,7 +58,7 @@ class CartFirestoreDatasource {
     if (currentUserId == null) throw Exception("User not logged in");
     final cartItems = await getCartItems();
     for (var item in cartItems) {
-      await removeFromCart(item.id.toString());
+      await removeFromCart(item.id);
     }
   }
 }

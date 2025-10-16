@@ -1,3 +1,4 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,14 +49,16 @@ class AddToCartBlocSelector extends StatelessWidget {
           onPressed: () {
             final cubit = context.read<CartCubit>();
             if (viewModel.isInCart) {
-              cubit.removeItemFromCart(product.productId.toString());
+              LoggerHelper.debug('in Cart trying to remove it');
+              cubit.removeIdFromCart(product.productId);
+              cubit.getCartItems();
             } else {
               final item = CartItemEntity(
                 id: product.productId,
                 name: product.name,
                 price: product.cost * (1 - product.reductionPercentage / 100),
                 category: product.cat,
-                minOrder: int.parse(product.minOrderQuantity),
+                minOrder: product.maxOrderQuantity,
                 quantity: 1,
                 imageUrl: product.thumbnailUrl,
               );
