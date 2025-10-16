@@ -29,44 +29,47 @@ class NavigationShell extends StatelessWidget {
       body: MainViewMultiBloc(
         child: MainView(navigationShell: navigationShell),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        // landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-        backgroundColor: AppColors.primaryMaterialColor.shade100.withValues(
-          alpha: 0.3,
+      bottomNavigationBar: SizedBox(
+        height: 60,
+        child: BottomNavigationBar(
+          // landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+          backgroundColor: Theme.of(context).brightness == Brightness.dark
+              ? AppColors.darkGreyColor.withValues(alpha: 0.4)
+              : AppColors.whiteColor80.withValues(alpha: 0.4),
+          elevation: 0,
+          currentIndex: navigationShell.currentIndex,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: activeColor,
+          unselectedItemColor: inactiveColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.house),
+              activeIcon: Icon(FontAwesomeIcons.solidHouse),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.grid_view_outlined),
+              activeIcon: Icon(Icons.grid_view_rounded),
+              label: 'Categories',
+            ),
+            // BottomNavigationBarItem(icon: SizedBox(height: 20), label: 'Cart'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart_outlined),
+              activeIcon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.user),
+              activeIcon: Icon(FontAwesomeIcons.solidUser),
+              label: 'Profile',
+            ),
+          ],
         ),
-        elevation: 0,
-        currentIndex: navigationShell.currentIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: activeColor,
-        unselectedItemColor: inactiveColor,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.house),
-            activeIcon: Icon(FontAwesomeIcons.solidHouse),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_view_outlined),
-            activeIcon: Icon(Icons.grid_view_rounded),
-            label: 'Categories',
-          ),
-          // BottomNavigationBarItem(icon: SizedBox(height: 20), label: 'Cart'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            activeIcon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.user),
-            activeIcon: Icon(FontAwesomeIcons.solidUser),
-            label: 'Profile',
-          ),
-        ],
       ),
 
       // floatingActionButton: FloatingActionButton(

@@ -5,10 +5,10 @@ String formatMoney(double amount) {
   final formatter = NumberFormat('#,##0.###', 'en_US');
 
   // For numbers less than 100, show normally (no forced commas)
-  if (amount < 100) {
-    // keep up to 2 decimal places, but remove trailing zero
-    return amount.toStringAsFixed(amount.truncateToDouble() == amount ? 0 : 1);
-  }
+  // if (amount < 100) {
+  //   // keep up to 2 decimal places, but remove trailing zero
+  //   return amount.toStringAsFixed(amount.truncateToDouble() == amount ? 0 : 1);
+  // }
 
   // For 100 and above, add commas and keep one decimal if needed
   String formatted = formatter.format(amount);
