@@ -11,6 +11,7 @@ abstract class ConstantRoutes {
   static const String productDetails = '/product-details';
   static const String categoryList = '/categories';
   static const String cart = '/cart';
+  static const String allProducts = '/all-products';
   static const String wishlist = '/wishlist';
   static const String profile = '/profile';
   static const String search = '/search';

@@ -1,11 +1,14 @@
+import 'package:amira_store/core/utils/logging/logger_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../core/constants/app_routes.dart';
 import '../../domain/entities/product_entity.dart';
 import 'list_view_product_horizontal.dart';
 import 'text_and_textbutton_inrow.dart';
 
-class AllProducts extends StatelessWidget {
-  const AllProducts({super.key, required this.products});
+class ProductsCategories extends StatelessWidget {
+  const ProductsCategories({super.key, required this.products});
   final Map<String, List<ProductEntity>> products;
 
   @override
@@ -26,8 +29,15 @@ class AllProducts extends StatelessWidget {
             children: [
               TextAndTextButtonInRow(
                 text: categoryName,
-                onPressed: () {},
-                textButton: "Show All",
+                onPressed: () {
+                  LoggerHelper.debug('Pressed on $categoryName');
+                  context.push(
+                    ConstantRoutes.categoryList +
+                        ConstantRoutes.productsByCategory,
+                    extra: categoryName,
+                  );
+                },
+                textButton: "VIEW ALL",
               ),
 
               Padding(

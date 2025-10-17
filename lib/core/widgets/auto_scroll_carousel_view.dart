@@ -3,25 +3,31 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/app_colors.dart';
-import 'image_card.dart';
 
-class AutoScrollCarousel extends StatefulWidget {
-  const AutoScrollCarousel({super.key, required this.imageUrls});
-  final List<String> imageUrls;
+class AutoScrollCarouselView extends StatefulWidget {
+  const AutoScrollCarouselView({
+    super.key,
+    required this.items,
+    this.onTapChild,
+    this.maxHeight,
+  });
+  final List<Widget> items;
+  final Function(int)? onTapChild;
+  final double? maxHeight;
   @override
-  State<AutoScrollCarousel> createState() => _AutoScrollCarouselState();
+  State<AutoScrollCarouselView> createState() => _AutoScrollCarouselViewState();
 }
 
-class _AutoScrollCarouselState extends State<AutoScrollCarousel> {
+class _AutoScrollCarouselViewState extends State<AutoScrollCarouselView> {
   final CarouselController _scrollController = CarouselController();
   int _currentIndex = 0;
-  late int _itemCount; // number of images
+  late int _itemCount;
   late Timer _timer;
 
   @override
   void initState() {
     super.initState();
-    _itemCount = widget.imageUrls.length;
+    _itemCount = widget.items.length;
     _startAutoScroll();
   }
 
@@ -49,9 +55,10 @@ class _AutoScrollCarouselState extends State<AutoScrollCarousel> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.4,
+        maxHeight: widget.maxHeight ?? MediaQuery.of(context).size.height * 0.4,
       ),
       child: CarouselView(
+        onTap: widget.onTapChild,
         backgroundColor: AppColors.primaryMaterialColor.shade100.withValues(
           alpha: 0.3,
         ),
@@ -61,10 +68,7 @@ class _AutoScrollCarouselState extends State<AutoScrollCarousel> {
             : MediaQuery.of(context).size.width,
         shrinkExtent: 250,
         scrollDirection: Axis.horizontal,
-        children: List.generate(
-          _itemCount,
-          (index) => ImageCard(imageUrl: widget.imageUrls[index]),
-        ),
+        children: widget.items,
       ),
     );
   }

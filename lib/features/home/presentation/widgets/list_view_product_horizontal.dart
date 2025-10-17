@@ -15,7 +15,7 @@ class ListViewProductHorizontal extends StatelessWidget {
         itemBuilder: (context, index) {
           return SizedBox(
             width: 190,
-            child: ProductItem(product: products[index]),
+            child: ProductItemWidget(product: products[index]),
           );
         },
       ),

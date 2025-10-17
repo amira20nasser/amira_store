@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/constants/app_colors.dart';
+import 'bottom_nav_bar.dart';
 import 'main_multiblocprovider.dart';
 import 'main_view.dart';
 
@@ -19,59 +18,15 @@ class NavigationShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color activeColor = AppColors.primaryColor;
-    final Color inactiveColor = Theme.of(context).brightness == Brightness.dark
-        ? AppColors.whiteColor60
-        : AppColors.primaryMaterialColor.shade500;
-
     return Scaffold(
       // body: navigationShell,
       body: MainViewMultiBloc(
         child: MainView(navigationShell: navigationShell),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 60,
-        child: BottomNavigationBar(
-          // landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-          backgroundColor: Theme.of(context).brightness == Brightness.dark
-              ? AppColors.darkGreyColor.withValues(alpha: 0.4)
-              : AppColors.primaryMaterialColor.shade300.withValues(alpha: 0.2),
-          elevation: 0,
-          currentIndex: navigationShell.currentIndex,
-          onTap: _onItemTapped,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: activeColor,
-          unselectedItemColor: inactiveColor,
-          showSelectedLabels: true,
-          showUnselectedLabels: false,
-          selectedFontSize: 12,
-          unselectedFontSize: 12,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.house),
-              activeIcon: Icon(FontAwesomeIcons.solidHouse),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_outlined),
-              activeIcon: Icon(Icons.grid_view_rounded),
-              label: 'Categories',
-            ),
-            // BottomNavigationBarItem(icon: SizedBox(height: 20), label: 'Cart'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined),
-              activeIcon: Icon(Icons.shopping_cart),
-              label: 'Cart',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.user),
-              activeIcon: Icon(FontAwesomeIcons.solidUser),
-              label: 'Profile',
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: navigationShell.currentIndex,
+        onTap: _onItemTapped,
       ),
-
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: activeColor,
       //   onPressed: () => _onItemTapped(2),

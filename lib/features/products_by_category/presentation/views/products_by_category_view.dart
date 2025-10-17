@@ -12,18 +12,20 @@ class ProductsByCategoryView extends StatelessWidget {
   final String categorySlug;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          ProductsByCategoryCubit(ServiceLocator.get<GetProductsByCategory>())
-            ..fetchProducts(categorySlug),
-      child: Column(
-        children: [
-          CustomAppBar(
-            appBarHeight: 120,
-            child: ProductsAppBarBody(categoryName: categorySlug),
-          ),
-          Expanded(child: ProductsBody()),
-        ],
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) =>
+            ProductsByCategoryCubit(ServiceLocator.get<GetProductsByCategory>())
+              ..fetchProducts(categorySlug),
+        child: Column(
+          children: [
+            CustomAppBar(
+              appBarHeight: 120,
+              child: ProductsAppBarBody(categoryName: categorySlug),
+            ),
+            Expanded(child: ProductsBody()),
+          ],
+        ),
       ),
     );
   }

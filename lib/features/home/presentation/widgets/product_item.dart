@@ -6,8 +6,8 @@ import '../../domain/entities/product_entity.dart';
 import 'info_product_item.dart';
 import 'stacked_product_items.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({super.key, required this.product});
+class ProductItemWidget extends StatelessWidget {
+  const ProductItemWidget({super.key, required this.product});
 
   final ProductEntity product;
 

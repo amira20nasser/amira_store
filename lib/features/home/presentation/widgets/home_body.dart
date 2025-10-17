@@ -1,6 +1,9 @@
+import 'package:amira_store/features/home/presentation/widgets/text_and_textbutton_inrow.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_routes.dart';
+import 'auto_scroll_category_section.dart';
 import 'products_blocbuilder.dart';
-import 'text_and_textbutton_inrow.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -11,14 +14,17 @@ class HomeBody extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: TextAndTextButtonInRow(
-            text: "Amira's Top Categories",
-            onPressed: () {},
-            textButton: "View All",
+            text: 'Everything in One Place',
+            textButton: 'VIEW ALL',
+            onPressed: () {
+              context.push(ConstantRoutes.categoryList);
+            },
           ),
         ),
 
         // Category Section
         // CategorySection(),
+        AutoScrollCategorySection(),
         // Products Section
         ProductsBlocBuilder(),
         SliverPadding(padding: EdgeInsetsGeometry.only(bottom: 28)),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../domain/entities/category_entity.dart';
@@ -14,12 +15,19 @@ class CategoriesBody extends StatelessWidget {
         CustomAppBar(
           appBarHeight: 100,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              IconButton(
+                onPressed: () {
+                  context.pop();
+                },
+                icon: Icon(Icons.arrow_back_ios_new_rounded),
+              ),
               Text(
                 "Categories",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
+              SizedBox(width: 10),
             ],
           ),
         ),

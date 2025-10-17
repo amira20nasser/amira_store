@@ -1,8 +1,9 @@
+import 'package:amira_store/core/widgets/auto_scroll_carousel_view.dart';
 import 'package:flutter/material.dart';
-import 'auto_scroll_carousel.dart';
 import '../../../features/home/domain/entities/product_entity.dart';
 import 'description_section.dart';
 import 'expandable_section.dart';
+import 'image_card.dart';
 import 'info_in_row.dart';
 import 'reviews_section.dart';
 import 'titile_price_section.dart';
@@ -18,7 +19,12 @@ class ProductDetailsBody extends StatelessWidget {
         SliverToBoxAdapter(
           child: Hero(
             tag: 'product-${product.productId}',
-            child: AutoScrollCarousel(imageUrls: product.imageUrls),
+            child: AutoScrollCarouselView(
+              items: List.generate(
+                product.imageUrls.length,
+                (index) => ImageCard(imageUrl: product.imageUrls[index]),
+              ),
+            ),
           ),
         ),
         SliverToBoxAdapter(

@@ -13,7 +13,7 @@ class ProductsGridView extends StatelessWidget {
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         childCount: products.length,
-        (context, index) => ProductItem(product: products[index]),
+        (context, index) => ProductItemWidget(product: products[index]),
       ),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         // You can adjust the maxCrossAxisExtent to control the number of columns

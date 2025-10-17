@@ -36,22 +36,22 @@ class InfoProductItem extends StatelessWidget {
             ),
             if (product.reductionPercentage > 0) ...[
               const SizedBox(width: 6),
-              // SizedBox(
-              //   width: 55,
-              //   child: FittedBox(
-              //     fit: BoxFit.scaleDown,
-              //     child: Text(
-              //       "\$${formatMoney(product.cost)}",
-              //       maxLines: 1,
-              //       overflow: TextOverflow.ellipsis,
-              //       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              //         color: AppColors.blackColor80,
-              //         decoration: TextDecoration.lineThrough,
-              //         fontWeight: FontWeight.bold,
-              //       ),
-              //     ),
-              //   ),
-              // ),
+              SizedBox(
+                width: 50,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "\$${formatMoney(product.cost)}",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: AppColors.blackColor80,
+                      decoration: TextDecoration.lineThrough,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ],
         ),

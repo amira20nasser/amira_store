@@ -23,7 +23,7 @@ class CategoryGridView extends StatelessWidget {
             ConstantRoutes.categoryList + ConstantRoutes.productsByCategory,
             extra: category.name,
           ),
-          child: CategoryItem(category: category),
+          child: CategoryItemWidget(category: category),
         );
       }),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

@@ -36,11 +36,6 @@ class MainViewMultiBloc extends StatelessWidget {
               HomeCubit(ServiceLocator.get<FetchSelectedCategoriesUsecase>())
                 ..fetchSelectedCategories(),
         ),
-
-        // BlocProvider(
-        //   create: (context) =>
-        //       CartCubit(ServiceLocator.get<CartRepo>())..getCartItems(),
-        // ),
       ],
       child: BlocListener<NetworkCubit, NetworkState>(
         listener: (context, state) {

@@ -17,7 +17,7 @@ class TextAndTextButtonInRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(text, style: Theme.of(context).textTheme.bodyLarge),
-          TextButton(onPressed: () {}, child: Text(textButton)),
+          TextButton(onPressed: onPressed, child: Text(textButton)),
         ],
       ),
     );
