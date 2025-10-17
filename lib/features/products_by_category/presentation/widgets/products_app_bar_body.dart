@@ -17,7 +17,8 @@ class ProductsByCategoryAppBarBody extends StatelessWidget {
           icon: Icon(FontAwesomeIcons.angleLeft),
         ),
         Text(categoryName, style: Theme.of(context).textTheme.titleMedium),
-        IconButton(onPressed: () {}, icon: Icon(FontAwesomeIcons.filter)),
+        // IconButton(onPressed: () {}, icon: Icon(FontAwesomeIcons.filter)),
+        SizedBox(width: 10),
       ],
     );
   }
