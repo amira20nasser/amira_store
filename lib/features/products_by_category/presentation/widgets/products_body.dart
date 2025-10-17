@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'products_by_category.dart';
 
-class ProductsBody extends StatelessWidget {
-  const ProductsBody({super.key});
+class ProductsByCategoryBody extends StatelessWidget {
+  const ProductsByCategoryBody({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,9 @@
+import 'package:amira_store/features/all_products/data/datasource/all_products_datasource.dart';
 import 'package:amira_store/features/cart/data/datasources/cart_local_datasource.dart';
 import 'package:get_it/get_it.dart';
+import '../../features/all_products/data/repos/all_products_repo_impl.dart';
+import '../../features/all_products/domain/repos/all_products_repo.dart';
+import '../../features/all_products/domain/usecases/get_products_usecase.dart';
 import '../../features/auth/data/data_sources/firebase_auth_datasource.dart';
 import '../../features/auth/data/data_sources/firestore_datasource.dart';
 import '../../features/auth/data/repos/auth_repository_impl.dart';

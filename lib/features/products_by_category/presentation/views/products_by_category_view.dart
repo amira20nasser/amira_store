@@ -21,9 +21,9 @@ class ProductsByCategoryView extends StatelessWidget {
           children: [
             CustomAppBar(
               appBarHeight: 120,
-              child: ProductsAppBarBody(categoryName: categorySlug),
+              child: ProductsByCategoryAppBarBody(categoryName: categorySlug),
             ),
-            Expanded(child: ProductsBody()),
+            Expanded(child: ProductsByCategoryBody()),
           ],
         ),
       ),

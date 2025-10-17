@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
-class ProductsAppBarBody extends StatelessWidget {
-  const ProductsAppBarBody({super.key, required this.categoryName});
+class ProductsByCategoryAppBarBody extends StatelessWidget {
+  const ProductsByCategoryAppBarBody({super.key, required this.categoryName});
   final String categoryName;
   @override
   Widget build(BuildContext context) {

@@ -16,9 +16,7 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     final Color activeColor = AppColors.primaryColor;
-    final Color inactiveColor = isDark
-        ? AppColors.whiteColor60
-        : AppColors.primaryMaterialColor.shade500;
+    final Color inactiveColor = AppColors.whiteColor60;
 
     return SizedBox(
       height: 60,
@@ -44,7 +42,7 @@ class BottomNavBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.storefront_outlined),
-            activeIcon: Icon(Icons.storefront),
+            activeIcon: Icon(Icons.storefront_rounded),
             label: 'Products',
           ),
           BottomNavigationBarItem(

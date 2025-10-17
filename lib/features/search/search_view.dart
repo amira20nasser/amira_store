@@ -36,10 +36,7 @@ class SearchView extends StatelessWidget {
                         "Search results",
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(FontAwesomeIcons.filter),
-                      ),
+                      SizedBox(width: 1),
                     ],
                   ),
                   SizedBox(height: 10),

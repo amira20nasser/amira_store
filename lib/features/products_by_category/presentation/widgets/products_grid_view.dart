@@ -6,14 +6,29 @@ import '../../../home/presentation/widgets/product_item.dart';
 class ProductsGridView extends StatelessWidget {
   final List<ProductEntity> products;
 
-  const ProductsGridView({super.key, required this.products});
-
+  const ProductsGridView({
+    super.key,
+    required this.products,
+    this.isPaginating = false,
+  });
+  final bool isPaginating;
   @override
   Widget build(BuildContext context) {
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
-        childCount: products.length,
-        (context, index) => ProductItemWidget(product: products[index]),
+        childCount: isPaginating ? products.length + 1 : products.length,
+        (context, index) => index < products.length
+            ? ProductItemWidget(product: products[index])
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
       ),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         // You can adjust the maxCrossAxisExtent to control the number of columns

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/all_products/all_products_view.dart';
+import '../../features/all_products/presentation/views/all_products_view.dart';
 import '../../features/checkout/checkout_view.dart';
 import '../../features/home/domain/entities/product_entity.dart';
 import 'routes_imports.dart';

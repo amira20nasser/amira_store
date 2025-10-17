@@ -59,6 +59,9 @@ class ServiceLocator {
         _sl<CartLocalDatasource>(),
       ),
     );
+    _sl.registerLazySingleton<AllProductsRepo>(
+      () => AllProductsRepoImpl(AllProductsDatasource(_sl.get<ApiService>())),
+    );
     //! Use Cases
     _sl.registerLazySingleton(() => SignInUsecase(_sl.get<AuthRepository>()));
     _sl.registerLazySingleton(() => SignUpUsecase(_sl.get<AuthRepository>()));
@@ -87,6 +90,9 @@ class ServiceLocator {
     );
     _sl.registerLazySingleton(
       () => SearchProductsUsecase(_sl.get<SearchProductsRepo>()),
+    );
+    _sl.registerLazySingleton<GetProductsUsecase>(
+      () => GetProductsUsecase(_sl.get<AllProductsRepo>()),
     );
   }
 
