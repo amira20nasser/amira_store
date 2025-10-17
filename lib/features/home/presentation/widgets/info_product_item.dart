@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/formatter.dart';
@@ -55,31 +56,31 @@ class InfoProductItem extends StatelessWidget {
             ],
           ],
         ),
+        Row(
+          children: [
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Icon(
+                FontAwesomeIcons.solidStar,
+                color: AppColors.warningColor,
+                size: 18,
+              ),
+            ),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                "  ${product.stars.toStringAsFixed(1)}",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: AppColors.warningColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
 }
 
 // Star I have removed it for the UX reseson
-// Row(
-            //   children: [
-            //     FittedBox(
-            //       fit: BoxFit.scaleDown,
-            //       child: Icon(
-            //         FontAwesomeIcons.solidStar,
-            //         color: AppColors.warningColor,
-            //         size: 18,
-            //       ),
-            //     ),
-            //     FittedBox(
-            //       fit: BoxFit.scaleDown,
-            //       child: Text(
-            //         "  ${product.stars.toStringAsFixed(1)}",
-            //         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            //           color: AppColors.warningColor,
-            //           fontWeight: FontWeight.w600,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),

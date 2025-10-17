@@ -9,7 +9,13 @@ class GetProductsUsecase {
   GetProductsUsecase(this.repo);
   Future<Either<Failure, List<ProductEntity>>> call({
     int pageNumber = 0,
+    String sortBy = '',
+    String order = '',
   }) async {
-    return await repo.getAllProducts(pageNumber: pageNumber);
+    return await repo.getAllProducts(
+      pageNumber: pageNumber,
+      order: order,
+      sortBy: sortBy,
+    );
   }
 }

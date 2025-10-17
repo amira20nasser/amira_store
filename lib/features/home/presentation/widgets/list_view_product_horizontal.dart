@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/product_entity.dart';
-import 'product_item.dart';
+import 'product_item_widget.dart';
 
 class ListViewProductHorizontal extends StatelessWidget {
   const ListViewProductHorizontal({super.key, required this.products});

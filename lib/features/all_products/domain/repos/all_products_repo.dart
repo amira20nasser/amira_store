@@ -6,5 +6,7 @@ import '../../../../core/error/failure.dart';
 abstract class AllProductsRepo {
   Future<Either<Failure, List<ProductEntity>>> getAllProducts({
     int pageNumber = 0,
+    String sortBy = '',
+    String order = '',
   });
 }

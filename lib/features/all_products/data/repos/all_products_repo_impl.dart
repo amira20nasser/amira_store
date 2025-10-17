@@ -11,9 +11,15 @@ class AllProductsRepoImpl extends AllProductsRepo {
   @override
   Future<Either<Failure, List<ProductEntity>>> getAllProducts({
     int pageNumber = 0,
+    String sortBy = '',
+    String order = '',
   }) async {
     try {
-      var res = await datasource.getAllProducts(pageNumber: pageNumber);
+      var res = await datasource.getAllProducts(
+        pageNumber: pageNumber,
+        order: order,
+        sortBy: sortBy,
+      );
       return right(res);
     } on DioException catch (e) {
       return left(DioFailure.fromDioException(e));

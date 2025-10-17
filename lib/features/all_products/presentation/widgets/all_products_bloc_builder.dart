@@ -41,6 +41,15 @@ class _AllProductsBlocBuilderState extends State<AllProductsBlocBuilder> {
         if (state is AllProductsSuccess) {
           products.addAll(state.products);
         }
+        if (state is AllProductsInitial) {
+          products = [];
+          return SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 150.0),
+              child: LoadingBody(msg: ''),
+            ),
+          );
+        }
         if (products.isEmpty) {
           return SliverToBoxAdapter(
             child: Padding(

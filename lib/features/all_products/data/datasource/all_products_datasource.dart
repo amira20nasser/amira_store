@@ -7,10 +7,14 @@ import '../../../home/domain/entities/product_entity.dart';
 class AllProductsDatasource {
   ApiService api;
   AllProductsDatasource(this.api);
-  Future<List<ProductEntity>> getAllProducts({int pageNumber = 0}) async {
+  Future<List<ProductEntity>> getAllProducts({
+    int pageNumber = 0,
+    String sortBy = '',
+    String order = '',
+  }) async {
     var response = await api.get(
       ApiConstants.productEndPoint,
-      queryParams: {'skip': 30 * pageNumber},
+      queryParams: {'skip': 30 * pageNumber, 'sortBy': sortBy, 'order': order},
     );
     return ProductModel.fromMap(response.data).products ?? [];
   }

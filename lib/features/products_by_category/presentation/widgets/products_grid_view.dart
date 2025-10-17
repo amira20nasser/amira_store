@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../home/domain/entities/product_entity.dart';
-import '../../../home/presentation/widgets/product_item.dart';
+import '../../../home/presentation/widgets/product_item_widget.dart';
 
 class ProductsGridView extends StatelessWidget {
   final List<ProductEntity> products;

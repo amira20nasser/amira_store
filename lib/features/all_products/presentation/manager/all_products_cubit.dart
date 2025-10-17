@@ -8,13 +8,24 @@ class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit(this.getProductsUsecase) : super(AllProductsInitial());
   GetProductsUsecase getProductsUsecase;
 
-  Future<void> getProducts({int pageNumber = 0}) async {
-    if (pageNumber == 0) {
+  Future<void> getProducts({
+    int pageNumber = 0,
+    String sortBy = '',
+    String order = '',
+  }) async {
+    if (sortBy.isNotEmpty || order.isNotEmpty) {
+      emit(AllProductsInitial());
+    } else if (pageNumber == 0) {
       emit(AllProductsLoading());
     } else {
       emit(AllProductsPaginationLoading());
     }
-    var res = await getProductsUsecase(pageNumber: pageNumber);
+
+    var res = await getProductsUsecase(
+      pageNumber: pageNumber,
+      order: order,
+      sortBy: sortBy,
+    );
     res.fold((error) {
       if (pageNumber == 0) {
         emit(AllProductsError(error.message));
