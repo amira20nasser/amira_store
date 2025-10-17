@@ -15,7 +15,7 @@ class ReviewEntity {
 }
 
 class ProductEntity {
-  final int productId, maxOrderQuantity;
+  final int productId, minOrderQuantity;
   final String thumbnailUrl;
   final String name;
   final double cost;
@@ -45,7 +45,7 @@ class ProductEntity {
     required this.skuProduct,
     required this.dimensionsProduct,
     required this.weightProduct,
-    required this.maxOrderQuantity,
+    required this.minOrderQuantity,
     required this.warrantyInfo,
     required this.shippingInfo,
     required this.policy,

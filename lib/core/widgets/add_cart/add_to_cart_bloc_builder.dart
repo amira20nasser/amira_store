@@ -67,8 +67,8 @@ class AddToCartBlocBuilder extends StatelessWidget {
                                   product.cost *
                                   (1 - product.reductionPercentage / 100),
                               category: product.cat,
-                              minOrder: product.maxOrderQuantity,
-                              quantity: 1,
+                              minOrder: product.minOrderQuantity,
+                              quantity: product.minOrderQuantity,
                               imageUrl: product.thumbnailUrl,
                             );
                             cubit.addItemToCart(item);

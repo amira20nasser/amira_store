@@ -60,9 +60,11 @@ class CartItem extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  color: item.quantity == 1 ? AppColors.blackColor60 : null,
+                  color: item.quantity == item.minOrder
+                      ? AppColors.blackColor60
+                      : null,
                   icon: const Icon(Icons.remove_circle_outline),
-                  onPressed: item.quantity > 1
+                  onPressed: item.quantity == item.minOrder
                       ? () async {
                           int q = item.quantity;
                           await context
@@ -71,7 +73,8 @@ class CartItem extends StatelessWidget {
                         }
                       : () => ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarTypes.warningSnackBar(
-                            message: '${item.name} min order Quantity is 1',
+                            message:
+                                '${item.name} min order Quantity is ${item.minOrder}',
                           ),
                         ),
                 ),
@@ -83,11 +86,9 @@ class CartItem extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  color: item.quantity == item.minOrder
-                      ? AppColors.blackColor60
-                      : null,
+                  color: item.quantity > 100 ? AppColors.blackColor60 : null,
                   icon: const Icon(Icons.add_circle_outline),
-                  onPressed: item.quantity < item.minOrder
+                  onPressed: item.quantity >= item.minOrder
                       ? () async {
                           int q = item.quantity;
                           await context
@@ -97,7 +98,7 @@ class CartItem extends StatelessWidget {
                       : () => ScaffoldMessenger.of(context).showSnackBar(
                           SnackBarTypes.warningSnackBar(
                             message:
-                                '${item.name} max order Quantity is ${item.minOrder}',
+                                '${item.name} min order Quantity is ${item.minOrder}',
                           ),
                         ),
                 ),

@@ -54,8 +54,8 @@ class ProductDetailsBody extends StatelessWidget {
               // InfoInRow('Weight', '${product.weightProduct} kg'),
               // InfoInRow('Dimensions', product.dimensionsProduct),
               InfoInRow(
-                'Maximum Order Quantity',
-                product.maxOrderQuantity.toString(),
+                'Minimum Order Quantity',
+                product.minOrderQuantity.toString(),
               ),
               InfoInRow('Warranty', product.warrantyInfo),
             ],
