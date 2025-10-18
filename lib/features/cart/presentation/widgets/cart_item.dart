@@ -64,7 +64,7 @@ class CartItem extends StatelessWidget {
                       ? AppColors.blackColor60
                       : null,
                   icon: const Icon(Icons.remove_circle_outline),
-                  onPressed: item.quantity == item.minOrder
+                  onPressed: item.quantity > item.minOrder
                       ? () async {
                           int q = item.quantity;
                           await context
