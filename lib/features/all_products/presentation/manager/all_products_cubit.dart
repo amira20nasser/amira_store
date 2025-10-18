@@ -13,6 +13,7 @@ class AllProductsCubit extends Cubit<AllProductsState> {
     String sortBy = '',
     String order = '',
   }) async {
+    if (isClosed) return;
     if (sortBy.isNotEmpty || order.isNotEmpty) {
       emit(AllProductsInitial());
     } else if (pageNumber == 0) {

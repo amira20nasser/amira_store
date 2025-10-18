@@ -11,6 +11,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.fetchUsecase) : super(HomeInitial());
 
   Future<void> fetchSelectedCategories() async {
+    if (isClosed) return;
     emit(HomeLoading());
     final res = await fetchUsecase.call();
     res.fold(

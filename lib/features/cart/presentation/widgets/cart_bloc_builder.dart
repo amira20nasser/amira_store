@@ -23,9 +23,9 @@ class CartBlocBuilder extends StatelessWidget {
             ),
           );
         }
-        if (state is CartItemsLoading) {
-          return Center(child: CircularProgressIndicator());
-        }
+        // if (state is CartItemsLoading) {
+        //   return Center(child: CircularProgressIndicator());
+        // }
         if (state is CartItemsFailure) {
           return ErrorBody(message: state.msg);
         }

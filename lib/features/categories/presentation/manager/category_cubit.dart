@@ -9,6 +9,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit(this.fetchCategoriesUseCase) : super(CategoryInit());
 
   Future<void> loadCategories() async {
+    if (isClosed) return;
     emit(CategoryLoading());
     final res = await fetchCategoriesUseCase();
     res.fold(

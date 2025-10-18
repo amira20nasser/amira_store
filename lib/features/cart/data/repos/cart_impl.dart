@@ -67,9 +67,11 @@ class CartRepoImpl extends CartRepo {
           await localSource.updateCartItemQuantity(existing, item.quantity);
         }
       } else {
+        map.addAll({item.id: item});
         await localSource.saveCartItem(item);
       }
     }
+
     return map.values.toList();
   }
 

@@ -2,11 +2,13 @@ import 'package:amira_store/features/auth/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/di/di_imports.dart';
 import '../../auth/domain/repos/auth_repo.dart';
+import '../../cart/domain/entities/cart_item_entity.dart';
 
 class UserProfileBody extends StatelessWidget {
   const UserProfileBody({super.key, required this.user});
@@ -103,6 +105,8 @@ class UserProfileBody extends StatelessWidget {
             onPressed: () async {
               final router = GoRouter.of(context);
               await authRepository.signOut();
+              var box = Hive.box<CartItemEntity>('cartBox');
+              await box.clear();
               router.pushReplacement(ConstantRoutes.login);
             },
             icon: const Icon(FontAwesomeIcons.arrowRightFromBracket),
