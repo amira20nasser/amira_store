@@ -37,7 +37,7 @@ class _SearchWidgetState extends State<SearchWidget> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: CustomTextField(
-        fillColor: AppColors.whiteColor.withValues(alpha: 0.5),
+        fillColor: AppColors.whiteColor.withValues(alpha: 0.2),
         textInputAction: TextInputAction.search,
         controller: _searchController,
         hintText: "Search product..",

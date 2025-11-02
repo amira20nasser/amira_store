@@ -21,7 +21,7 @@ class FakeSearchBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColors.blackColor.withAlpha(130)),
           color: Theme.of(context).brightness == Brightness.dark
-              ? AppColors.greyColor
+              ? AppColors.whiteColor.withValues(alpha: 0.2)
               : AppColors.primaryMaterialColor.shade100,
         ),
         child: Row(

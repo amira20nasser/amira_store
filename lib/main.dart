@@ -11,6 +11,7 @@ import 'core/network/network_cubit.dart';
 import 'core/services/shared_preferences_service.dart';
 import 'core/routing/app_router.dart';
 import 'core/utils/theme/app_theme.dart';
+import 'features/profile/theme_value_notifier.dart';
 
 Future<void> main() async {
   //DONE: add Widgets Binding
@@ -19,12 +20,16 @@ Future<void> main() async {
   ServiceLocator.init();
   //
   Bloc.observer = SimpleBlocObserver();
-  //Done: Init local Storage
-  await SharedPreferencesService.init();
-  //DONE: Initialize firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // Hive
-  await Hive.initFlutter();
+  await Future.wait([
+    ThemeNotifier.loadTheme(),
+    //Done: Init local Storage
+    SharedPreferencesService.init(),
+    //DONE: Initialize firebase
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+    // Hive
+    Hive.initFlutter(),
+  ]);
+
   // register adapters
   Hive.registerAdapter(CartItemEntityAdapter());
 
@@ -46,10 +51,17 @@ class AmiraStore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme(context),
-      routerConfig: AppRouter.router,
+    return ValueListenableBuilder<bool>(
+      valueListenable: ThemeNotifier.isDarkNotifier,
+      builder: (context, isDark, child) {
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: isDark
+              ? AppTheme.darkTheme(context)
+              : AppTheme.lightTheme(context),
+          routerConfig: AppRouter.router,
+        );
+      },
     );
   }
 }

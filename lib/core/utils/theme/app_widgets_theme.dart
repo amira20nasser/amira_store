@@ -152,7 +152,7 @@ abstract class AppWidgetTheme {
     ),
   );
 
-  DataTableThemeData dataTableDarkThemeData = DataTableThemeData(
+  static DataTableThemeData dataTableDarkThemeData = DataTableThemeData(
     columnSpacing: 24,
     headingRowColor: WidgetStateProperty.all(Colors.white10),
     decoration: BoxDecoration(

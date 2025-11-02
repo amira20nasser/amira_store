@@ -1,4 +1,3 @@
-import 'package:amira_store/features/auth/domain/entities/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -7,8 +6,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_routes.dart';
 import '../../../core/di/di_imports.dart';
+import '../../auth/domain/entities/user_entity.dart';
 import '../../auth/domain/repos/auth_repo.dart';
 import '../../cart/domain/entities/cart_item_entity.dart';
+import '../theme_value_notifier.dart';
 
 class UserProfileBody extends StatelessWidget {
   const UserProfileBody({super.key, required this.user});
@@ -18,7 +19,7 @@ class UserProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authRepository = ServiceLocator.get<AuthRepository>();
-
+    final isDark = Brightness.dark == Theme.of(context).brightness;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView(
@@ -99,6 +100,18 @@ class UserProfileBody extends StatelessWidget {
             leading: const Icon(Icons.badge, color: AppColors.primaryColor),
             title: const Text("User ID"),
             subtitle: Text(user.uid),
+          ),
+          const Divider(),
+
+          SwitchListTile(
+            value: isDark,
+            onChanged: (value) {
+              ThemeNotifier.toggleTheme();
+            },
+            title: isDark ? const Text("Dark Mode") : const Text("Light Mode"),
+            secondary: isDark
+                ? const Icon(Icons.dark_mode)
+                : Icon(Icons.light_mode),
           ),
           SizedBox(height: 30),
           ElevatedButton.icon(
