@@ -88,9 +88,7 @@ class UserProfileBody extends StatelessWidget {
                 ? Text(user.phone!)
                 : TextButton(
                     onPressed: () {
-                      GoRouter.of(
-                        context,
-                      ).pushReplacement(ConstantRoutes.verifyAccount);
+                      GoRouter.of(context).push(ConstantRoutes.verifyAccount);
                     },
                     child: const Text("Add your phone number"),
                   ),
