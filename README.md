@@ -50,7 +50,7 @@ It provides a smooth and user-friendly shopping experience, enabling users to br
     - Reflects updates across all logged-in devices  
 
 - 🔍 **Search Functionality** – Quickly find products by name 
-
+- **Dark & Light Theme**
 <!-- 🌐 **Real-Time Updates** – Firebase-powered dynamic content *(Planned)* -->
 <!-- 💾 **Offline Support** – Cached data for a smoother offline experience *(Planned)* -->
 
@@ -85,7 +85,6 @@ This project follows **Clean Architecture** principles and uses **Cubit** for st
 
 ## 🌱 Future Enhancements
 Here are some planned improvements for upcoming versions of Amira’s Store:
-- 🕶️ Dark Mode – User-selectable theme options
 - 💳 Payment Integration – Add support for Stripe and PayPal
 - 🌐 Multi-language Support – English and Arabic interface options
 - 📈 Admin Dashboard – Manage products, categories, and user analytics

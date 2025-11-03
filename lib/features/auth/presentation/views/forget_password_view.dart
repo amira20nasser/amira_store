@@ -28,8 +28,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
 
     setState(() => _isLoading = true);
     try {
+      var router = GoRouter.of(context);
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       _showSnack("Password reset email sent!");
+      router.pop();
     } on FirebaseAuthException catch (e) {
       _showSnack(e.message ?? "Something went wrong");
     } finally {
